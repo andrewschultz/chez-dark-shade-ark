@@ -18,6 +18,9 @@ game_information {
 strings {
    csda : string "<Chez Dark Shade Arc<#f80>>" ;
 
+   wc_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
+   wc_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
+
    my_score : string "{score}/{max_score}" ;
 
    d_wall_crowned : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
@@ -25,7 +28,7 @@ strings {
    custom_unknown_verb_error : dynamic_string {( "That isn't a verb you need to win." )} ;
    exits_err : dynamic_string {(
       is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
-      is_at "wall_crowned" ? ((point_walk_round ? "There are exits north, south, east and down." : "You need to find a way around the wall, crowned.") + " You don't want to go back in to the wee clink.") :
+      is_at "wall_crowned" ? "{wc_nogo}" :
       "You can't go that way. I should give more information."
    )} ;
 }
@@ -141,7 +144,26 @@ barriers {
       block_when = point_weak_link
       message = You have no desire to go back.
    }
-
+   block_wall_1 : block {
+      location = r1
+      block_when_not = point_walk_round
+      message = {wc_nogo}
+   }
+   block_wall_2 : block {
+      location = r2
+      block_when_not = point_walk_round
+      message = {wc_nogo}
+   }
+   block_wall_3 : block {
+      location = r3
+      block_when_not = point_walk_round
+      message = {wc_nogo}
+   }
+   block_wall_4 : block {
+      location = r4
+      block_when_not = point_walk_round
+      message = {wc_nogo}
+   }
 } 
 
 subroutines {
