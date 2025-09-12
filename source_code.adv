@@ -28,6 +28,7 @@ integers {
 booleans {
    point_weak_link : boolean "false" ;
    point_walk_round : boolean "false" ;
+   showing_map : boolean "true" ;
 }
 
 locations {
@@ -141,9 +142,19 @@ on_describe {
 on_command {
 }
 
+on_render {
+   : if (showing_map) {
+      : if (is_at "wall_crowned" && point_walk_round) {
+         : overlay "o_wall_crowned" x="0" y="16" ;
+      }
+   }
+}
+
 assets {
    graphics {
    # overlays
+      o_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAABlBMVEX///+AgIBizNOVAAAAAXRSTlMAQObYZgAAACtJREFUKFNjYBgigP0BfppB/gd+msH+D36asIL6f/hpKij4/x8/PaqAPgoAytGDTRmnj0oAAAAASUVORK5CYII=" ;
+
    # rooms
       r_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAD/AAD//wAAAP8SxTJ0AAAAr0lEQVR4XsyTsQ3AMAgEs8IJFkFMgJT9Z0qRBkP9Slz+PdLJNtd9HhiBmk+B8hFI+Rbw8joTKd8CeHEmAv61wJ+foPyG8U+EfAsAFkDPdHwLFJAJdEUd3wLYW4iuKORbIAMLLHtBy/cNWAxDBf+tQEVmWKZ5C7V8ryGMNVHzazTWvJo/7dSxCQBADMSw8KN4/yF/jGt0kF6k8M3Xq+UB3Hy1/QGADgDoAIAOAOgAwAc4WsdzbGzXvgAAAABJRU5ErkJggg==" ;
 
