@@ -28,14 +28,15 @@ booleans {
 }
 
 locations {
-   wee_clink      : location "It sure is claustrophobic in here. You're not sure how to get out." {
+   wee_clink      : location "It sure is claustrophobic in here. You're not sure how to get out." header="<Wee Clink<#ff0>>" graphic="r_wee_clink" {
       on_command {
          : match "weak link" {
             : print "There you go." ;
             : set_true "point_weak_link" ;
             : gosub "add_point" ;
+            : press_any_key ;
             : goto "wall_crowned" ;
-            : done ;
+            : redescribe ;
          }
          : match "weak _;_ link" {
             : print "Halfway right." ;
@@ -128,3 +129,10 @@ on_describe {
 on_command {
 }
 
+assets {
+   graphics {
+   # overlays
+
+      r_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAgIDAwMAAXXgPAAAAyElEQVR4Xu3WMQoDIRAF0MFqSZ9+mdKjpAzJfSQQGDxF1krmlCk0/MYt/Cm2SKZywX18/IXKfTTR3R/+mf5Rh1v3gRoB1DgNIEJbMgAi1EgBnqRP8Eng1oJn71Pa4nwQUEW+BMyOSPBPcB0neJKACA/0YQGzrGpWVGngpMFSWWkg5VVtKYEGlhw02Uv1qDPgW7iME2yTAFogAbRAAmiBBvgzGLew/VILcdxCnQPQAg2gBRLA9U4CeGAQAH5rFAMUAJkCMoCyD7wBMsQsMHU9JoUAAAAASUVORK5CYII=" ;
+   }
+}
