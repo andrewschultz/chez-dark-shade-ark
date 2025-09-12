@@ -73,6 +73,38 @@ locations {
          }
       }
    }
+   r1 : location "r1 desc" header = "<R1<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
+   r2 : location "r2 desc" header = "<R2<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
+   r3 : location "r3 desc" header = "<R3<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
+   r4 : location "r4 desc" header = "<R4<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
+   r5 : location "r5 desc" header = "<R5<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
+   r6 : location "r6 desc" header = "<R6<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
+   r7 : location "r7 desc" header = "<R7<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
+   r8 : location "r8 desc" header = "<R8<#ff0>>" graphic="r_blank" {
+      on_command {
+      }
+   }
 }
 
 # Defines things in the world (scenery cannot be carried)
@@ -85,7 +117,15 @@ connections {
    ## Connects locations together (bidirectional)
 
    from, direction, to = [
-      wee_clink, up, wall_crowned
+      wall_crowned, enter, wee_clink
+      wall_crowned, north, r1
+      wall_crowned, south, r2
+      wall_crowned, down, r3
+      wall_crowned, east, r4
+      r1, east, r5
+      r2, east, r6
+      r3, south, r7
+      r4, down, r8
    ]
 
 }
@@ -177,5 +217,7 @@ assets {
       r_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAD/AAD//wAAAP8SxTJ0AAAAr0lEQVR4XsyTsQ3AMAgEs8IJFkFMgJT9Z0qRBkP9Slz+PdLJNtd9HhiBmk+B8hFI+Rbw8joTKd8CeHEmAv61wJ+foPyG8U+EfAsAFkDPdHwLFJAJdEUd3wLYW4iuKORbIAMLLHtBy/cNWAxDBf+tQEVmWKZ5C7V8ryGMNVHzazTWvJo/7dSxCQBADMSw8KN4/yF/jGt0kF6k8M3Xq+UB3Hy1/QGADgDoAIAOAOgAwAc4WsdzbGzXvgAAAABJRU5ErkJggg==" ;
 
       r_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAgIDAwMAAXXgPAAAAyElEQVR4Xu3WMQoDIRAF0MFqSZ9+mdKjpAzJfSQQGDxF1krmlCk0/MYt/Cm2SKZywX18/IXKfTTR3R/+mf5Rh1v3gRoB1DgNIEJbMgAi1EgBnqRP8Eng1oJn71Pa4nwQUEW+BMyOSPBPcB0neJKACA/0YQGzrGpWVGngpMFSWWkg5VVtKYEGlhw02Uv1qDPgW7iME2yTAFogAbRAAmiBBvgzGLew/VILcdxCnQPQAg2gBRLA9U4CeGAQAH5rFAMUAJkCMoCyD7wBMsQsMHU9JoUAAAAASUVORK5CYII=" ;
+
+      r_blank : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAAA1BMVEX//wCKxvRFAAAAD0lEQVR4XmPAAKNgFIwCAAMYAAFrMpCEAAAAAElFTkSuQmCC" ;
    }
 }
