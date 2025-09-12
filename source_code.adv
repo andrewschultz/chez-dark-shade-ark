@@ -17,12 +17,22 @@ game_information {
 
 strings {
    csda : string "<Chez Dark Shade Arc<#f80>>" ;
+
+   my_score : string "{score}/{max_score}" ;
+
    d_wall_crowned : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
 
+   custom_unknown_verb_error : dynamic_string {( "That isn't a verb you need to win." )} ;
+   exits_err : dynamic_string {(
+      is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
+      is_at "wall_crowned" ? ((point_walk_round ? "There are exits north, south, east and down." : "You need to find a way around the wall, crowned.") + " You don't want to go back in to the wee clink.") :
+      "You can't go that way. I should give more information."
+   )} ;
 }
 
 integers {
    score : integer "0" ;
+   max_score : integer "17" ;
 }
 
 booleans {
@@ -102,6 +112,7 @@ themes {
    my_theme : theme {
       status_bar {
          : header_text ;
+         : dynamic_text "my_score" ;
       }
       theme_settings {
          parser_delay  = 0
@@ -119,7 +130,7 @@ themes {
    invalid_choice                                 = {yn_or_12_or_14}
    post_quit = I hope you enjoyed the experience. Pressing {key_enter} will restart {csda}.
    unknown_verb                                   = {custom_unknown_verb_error}
-   you_cant_go_that_direction                     = {exitserr}
+   you_cant_go_that_direction                     = {exits_err}
       }
    }
 }
