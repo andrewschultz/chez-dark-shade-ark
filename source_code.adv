@@ -17,6 +17,8 @@ game_information {
 
 strings {
    csda : string "<Chez Dark Shade Arc<#f80>>" ;
+   d_wall_crowned : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
+
 }
 
 integers {
@@ -25,6 +27,7 @@ integers {
 
 booleans {
    point_weak_link : boolean "false" ;
+   point_walk_round : boolean "false" ;
 }
 
 locations {
@@ -44,7 +47,16 @@ locations {
          }
       }
    }
-   wall_crowned : location "A wall, crowned." {
+   wall_crowned : location "{d_wall_crowned}" header = "<Wall, Crowned<#ff0>>" graphic="r_wall_crowned" {
+         on_command {
+         : match "walk round" {
+            : print "Narrative text." ;
+            : set_true "point_walk_round" ;
+            : gosub "add_point" ;
+            : press_any_key ;
+            : done ;
+         }
+      }
    }
 }
 
@@ -132,6 +144,8 @@ on_command {
 assets {
    graphics {
    # overlays
+   # rooms
+      r_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAD/AAD//wAAAP8SxTJ0AAAAr0lEQVR4XsyTsQ3AMAgEs8IJFkFMgJT9Z0qRBkP9Slz+PdLJNtd9HhiBmk+B8hFI+Rbw8joTKd8CeHEmAv61wJ+foPyG8U+EfAsAFkDPdHwLFJAJdEUd3wLYW4iuKORbIAMLLHtBy/cNWAxDBf+tQEVmWKZ5C7V8ryGMNVHzazTWvJo/7dSxCQBADMSw8KN4/yF/jGt0kF6k8M3Xq+UB3Hy1/QGADgDoAIAOAOgAwAc4WsdzbGzXvgAAAABJRU5ErkJggg==" ;
 
       r_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAgIDAwMAAXXgPAAAAyElEQVR4Xu3WMQoDIRAF0MFqSZ9+mdKjpAzJfSQQGDxF1krmlCk0/MYt/Cm2SKZywX18/IXKfTTR3R/+mf5Rh1v3gRoB1DgNIEJbMgAi1EgBnqRP8Eng1oJn71Pa4nwQUEW+BMyOSPBPcB0neJKACA/0YQGzrGpWVGngpMFSWWkg5VVtKYEGlhw02Uv1qDPgW7iME2yTAFogAbRAAmiBBvgzGLew/VILcdxCnQPQAg2gBRLA9U4CeGAQAH5rFAMUAJkCMoCyD7wBMsQsMHU9JoUAAAAASUVORK5CYII=" ;
    }
