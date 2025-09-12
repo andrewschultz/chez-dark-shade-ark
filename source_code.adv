@@ -1,0 +1,130 @@
+start_at = "wee_clink"
+start_theme = my_theme
+
+game_information {
+   game_name                    = Chez Dark Shade Ark
+   game_version                 = 1.0.0
+   game_shortname               = CSDA
+   written_by                   = Andrew Schultz
+   uuid                         = 9a53454f-9f3c-4af9-b93a-4a04c86c6c96
+   year_of_release              = 2025
+   copyright_message            = Free to distribute, voluntary payments welcome
+   short_synopsis               = EctoComp 2025 Petite Mort entry, in the vein of Why Pout and Us Too
+}
+
+
+## Defines locations in the world
+
+strings {
+   csda : string "<Chez Dark Shade Arc<#f80>>" ;
+}
+
+integers {
+   score : integer "0" ;
+}
+
+booleans {
+   point_weak_link : boolean "false" ;
+}
+
+locations {
+   wee_clink      : location "It sure is claustrophobic in here. You're not sure how to get out." {
+      on_command {
+         : match "weak link" {
+            : print "There you go." ;
+            : set_true "point_weak_link" ;
+            : gosub "add_point" ;
+            : goto "wall_crowned" ;
+            : done ;
+         }
+         : match "weak _;_ link" {
+            : print "Halfway right." ;
+            : done ;
+         }
+      }
+   }
+   wall_crowned : location "A wall, crowned." {
+   }
+}
+
+# Defines things in the world (scenery cannot be carried)
+
+objects {
+}
+   
+connections {
+
+   ## Connects locations together (bidirectional)
+
+   from, direction, to = [
+      wee_clink, up, wall_crowned
+   ]
+
+}
+
+barriers {
+   block_from_clink : block {
+      location = wall_crowned
+      block_when_not = point_weak_link
+      message = You haven't found a way out yet.
+   }
+   block_to_clink : block {
+      location = wee_clink
+      block_when = point_weak_link
+      message = You have no desire to go back.
+   }
+
+} 
+
+subroutines {
+   add_point : subroutine {
+      : print "<Your score has just gone up by a point!<#ff0>>" ;
+	  : increment "score" ;
+	  : update_graphic ;
+   }
+}
+
+themes {
+   my_theme : theme {
+      status_bar {
+         : header_text ;
+      }
+      theme_settings {
+         parser_delay  = 0
+      }
+      colors {
+         status_bar_pen   = 15
+         status_bar_paper = #222
+      }
+      system_messages {
+
+   i_cant_do_that = That's a valid command, but not right here and now.
+   not_present = You can't see ${entity} here.
+   ask_new_game                                   = Would you like to restart {csda}?
+   ask_quit                                       = Do you wish to quit {csda}?
+   invalid_choice                                 = {yn_or_12_or_14}
+   post_quit = I hope you enjoyed the experience. Pressing {key_enter} will restart {csda}.
+   unknown_verb                                   = {custom_unknown_verb_error}
+   you_cant_go_that_direction                     = {exitserr}
+      }
+   }
+}
+
+## Print the objective when the game starts
+
+on_startup {
+   : print "{csda}: EctoComp 2025 Petite Mort game" ;
+   : press_any_key ;
+   : clear_screen;
+}
+
+## Execute this every time a player moves or redescribes a location
+
+on_describe {
+}
+
+## Test VERB NOUN that the player types and executes conditional actions
+
+on_command {
+}
+
