@@ -63,6 +63,7 @@ booleans {
 
    # map rendering flag
    showing_map : boolean "true" ;
+   point_pawn_dicey : boolean "false" ;
 
    # flags for one time notes, etc.
    warn_generic_credit : boolean "false" ;
@@ -146,6 +147,21 @@ locations {
    }
    r11 : location "r11 desc" header = "<r11<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "pawn dicey" {
+            : if (point_pawn_dicey) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_pawn_dicey" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_pawn_dicey) {
+            : match "pawn _;_ dicey" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
    r12 : location "r12 desc" header = "<r12<#ff0>>" graphic="r_blank" {
