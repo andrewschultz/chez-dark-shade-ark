@@ -57,6 +57,8 @@ booleans {
    # flags for one time notes, etc.
    warn_generic_credit : boolean "false" ;
    warn_hints : boolean "false" ;
+
+   intro_shown_yet : boolean "false" ;
 }
 
 locations {
@@ -230,6 +232,10 @@ on_startup {
 ## Execute this every time a player moves or redescribes a location
 
 on_describe {
+   : if (!intro_shown_yet) {
+      : print "{note_once}{cdsa} uses a reduced parser. {v_verbs} details them, though standard starting commands like {v_about} and {xme} may help you get started." ;
+      : set_true "intro_shown_yet" ;
+   }
 }
 
 ## Test VERB NOUN that the player types and executes conditional actions
