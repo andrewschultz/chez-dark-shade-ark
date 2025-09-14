@@ -66,6 +66,8 @@ booleans {
 
    intro_shown_yet : boolean "false" ;
    ever_x_me : boolean "false" ;
+   ever_x_number : boolean "false" ;
+}
 }
 
 locations {
@@ -310,6 +312,15 @@ on_command {
          : done ;
       }
       : print "There's {a_num} on your arm, which may or may not help you." ;
+   }
+   : match "x number;x umber" {
+      : set_true "ever_x_me" ;
+      : if (!ever_x_number) {
+         : print "You don't remember getting a tattoo. But it's weird ... it swirls around a bit." ;
+         : set_true "ever_x_number" ;
+      } : else {
+         : print "You watch the number swirl around a bit more." ;
+      }
    }
 }
 
