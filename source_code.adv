@@ -43,7 +43,7 @@ strings {
    custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
       is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
-      is_at "wall_crowned" ? "{wc_nogo}" :
+      is_at "r01" ? "{wc_nogo}" :
       "You can't go that way. I should give more information."
    )} ;
 }
@@ -68,6 +68,7 @@ booleans {
    ever_x_me : boolean "false" ;
    ever_x_number : boolean "false" ;
 }
+
 }
 
 locations {
@@ -78,7 +79,7 @@ locations {
             : set_true "point_weak_link" ;
             : gosub "add_point" ;
             : press_any_key ;
-            : goto "wall_crowned" ;
+            : goto "r01" ;
             : redescribe ;
          }
          : match "weak _;_ link" {
@@ -87,7 +88,7 @@ locations {
          }
       }
    }
-   wall_crowned : location "{d_wall_crowned}" header = "<Wall, Crowned<#ff0>>" graphic="r_wall_crowned" {
+   r01 : location "{d_wall_crowned}" header = "<Wall, Crowned<#ff0>>" graphic="r_wall_crowned" {
          on_command {
          : match "walk round" {
             : print "Narrative text." ;
@@ -102,35 +103,35 @@ locations {
          }
       }
    }
-   r1 : location "r1 desc" header = "<R1<#ff0>>" graphic="r_blank" {
+   r02 : location "r02 desc" header = "<r02<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
-   r2 : location "r2 desc" header = "<R2<#ff0>>" graphic="r_blank" {
+   r00 : location "r00 desc" header = "<r00<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
-   r3 : location "r3 desc" header = "<R3<#ff0>>" graphic="r_blank" {
+   r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
-   r4 : location "r4 desc" header = "<R4<#ff0>>" graphic="r_blank" {
+   r11 : location "r11 desc" header = "<r11<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
-   r5 : location "r5 desc" header = "<R5<#ff0>>" graphic="r_blank" {
+   r12 : location "r12 desc" header = "<r12<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
-   r6 : location "r6 desc" header = "<R6<#ff0>>" graphic="r_blank" {
+   r10 : location "r10 desc" header = "<r10<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
-   r7 : location "r7 desc" header = "<R7<#ff0>>" graphic="r_blank" {
+   r21 : location "r21 desc" header = "<r21<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
-   r8 : location "r8 desc" header = "<R8<#ff0>>" graphic="r_blank" {
+   r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_blank" {
       on_command {
       }
    }
@@ -146,22 +147,22 @@ connections {
    ## Connects locations together (bidirectional)
 
    from, direction, to = [
-      wall_crowned, enter, wee_clink
-      wall_crowned, north, r1
-      wall_crowned, south, r2
-      wall_crowned, down, r3
-      wall_crowned, east, r4
-      r1, east, r5
-      r2, east, r6
-      r3, south, r7
-      r4, down, r8
+      r01, enter, wee_clink
+      r01, north, r02
+      r01, south, r00
+      r01, down, r22
+      r01, east, r11
+      r02, east, r12
+      r00, east, r10
+      r22, south, r21
+      r11, down, r20
    ]
 
 }
 
 barriers {
    block_from_clink : block {
-      location = wall_crowned
+      location = r01
       block_when_not = point_weak_link
       message = You haven't found a way out yet.
    }
@@ -171,22 +172,22 @@ barriers {
       message = You have no desire to go back.
    }
    block_wall_1 : block {
-      location = r1
+      location = r02
       block_when_not = point_walk_round
       message = {wc_nogo}
    }
    block_wall_2 : block {
-      location = r2
+      location = r00
       block_when_not = point_walk_round
       message = {wc_nogo}
    }
    block_wall_3 : block {
-      location = r3
+      location = r22
       block_when_not = point_walk_round
       message = {wc_nogo}
    }
    block_wall_4 : block {
-      location = r4
+      location = r11
       block_when_not = point_walk_round
       message = {wc_nogo}
    }
@@ -326,7 +327,7 @@ on_command {
 
 on_render {
    : if (showing_map) {
-      : if (is_at "wall_crowned" && point_walk_round) {
+      : if (is_at "r01" && point_walk_round) {
          : overlay "o_wall_crowned" x="0" y="16" ;
       }
    }
