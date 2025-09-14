@@ -262,6 +262,15 @@ on_command {
       : print "If the number is not blurry, X NUMBER will not spoil any letters. However ..." ;
       : print "X NUMBER will give, in order, the number of letters in each word (tens digit = first, ones = second.)" ;
    }
+   : match "history _" {
+      : print "{cdsa} came about after {gsgr}, when I just said, what would happen if I had an EctoComp entry with the leftovers from brainstorming {ut} and {wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
+      : print "" ;
+      : print "So {gsgr} formed, and I focused on features. During the stretch run for {ut} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. One of the transcripts was to blame, so to speak: two testers noticed an unintentional red herring in the Cell, Urban ... which might have been a better puzzle than the cell itself, though the cell had a better \"after\" room name. So that was my starting puzzle. Then soon after I saw something indicating the final puzzle. I had to go through with it!" ;
+      : print "" ;
+      : print "{cdsa} has more rooms than {gsgr} so it doesn't have bells and whistles, but I may add them post-comp. No way was I fitting everything in under four hours." ;
+      : print "" ;
+      : print "So, late August 2025, then the second half of September 2025." ;
+   }
 }
 
 on_render {
