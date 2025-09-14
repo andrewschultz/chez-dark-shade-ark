@@ -16,16 +16,22 @@ game_information {
 ## Defines locations in the world
 
 strings {
+   # general strings
    cdsa : string "<Chez Dark Shade Arc<#f80>>" ;
    gsgr : string "<Go-Strange-Ghost Range<#f80>>" ;
    ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
    wp : string "<Why Pout<#f80>>[http://andrewschultz.itch.io/us-too]" ;
    note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
 
+   my_score : string "{score}/{max_score}" ;
+
+   # commanbds
+   xme : string "<X ME<#0f0>>" ;
+   xnum : string "<X NUMBER<#0f0>>" ;
+
+   # location stuff
    wc_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
    wc_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
-
-   my_score : string "{score}/{max_score}" ;
 
    d_wall_crowned : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
 
@@ -255,12 +261,12 @@ on_command {
          : done ;
       }
       : print "" ;
-      : print "You can X ME for a hint device which is meant to be relatively intuitive." ;
-      : print "X NUMBER should give you a number. You may be able to guess what it means, but if not, I will give progressive hints." ;
-      : print "If X NUMBER's number is 0 or -1, you are done here." ;
-      : print "Most of the time, X NUMBER gives a two-digit number. If it's blurry, that means nothing to do here yet. But you can still try to guess for future reference. If it's particularly" ;
-      : print "If the number is not blurry, X NUMBER will not spoil any letters. However ..." ;
-      : print "X NUMBER will give, in order, the number of letters in each word (tens digit = first, ones = second.)" ;
+      : print "You can {xme} for a hint device which is meant to be relatively intuitive." ;
+      : print "{xnum} should give you a number. You may be able to guess what it means, but if not, I will give progressive hints." ;
+      : print "If {xnum}'s number is 0 or -1, you are done here." ;
+      : print "Most of the time, {xnum} gives a two-digit number. If it's blurry, that means nothing to do here yet. But you can still try to guess for future reference. If it's particularly" ;
+      : print "If the number is not blurry, {xnum} will not spoil any letters. However ..." ;
+      : print "{xnum} will give, in order, the number of letters in each word (tens digit = first, ones = second.)" ;
    }
    : match "history _" {
       : print "{cdsa} came about after {gsgr}, when I just said, what would happen if I had an EctoComp entry with the leftovers from brainstorming {ut} and {wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
