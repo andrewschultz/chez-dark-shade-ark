@@ -60,6 +60,7 @@ booleans {
    point_off_lame : boolean "false" ;
    return_off_lame : boolean "false" ;
    point_sly_maps : boolean "false" ;
+   point_a_dart : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
@@ -143,6 +144,21 @@ locations {
    }
    r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "a dart" {
+            : if (point_a_dart) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_a_dart" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_a_dart) {
+            : match "a _;_ dart" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
    r11 : location "r11 desc" header = "<r11<#ff0>>" graphic="r_blank" {
