@@ -54,9 +54,14 @@ integers {
 }
 
 booleans {
-   # points
+   # points and quasi-points
    point_weak_link : boolean "false" ;
    point_walk_round : boolean "false" ;
+   point_off_lame : boolean "false" ;
+   return_off_lame : boolean "false" ;
+   point_sly_maps : boolean "false" ;
+
+   # map rendering flag
    showing_map : boolean "true" ;
 
    # flags for one time notes, etc.
@@ -105,10 +110,34 @@ locations {
    }
    r02 : location "r02 desc" header = "<r02<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "off lame" {
+            : print "Narrative text." ;
+            : set_true "point_off_lame" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_off_lame) {
+            : match "off _;_ lame" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
    r00 : location "r00 desc" header = "<r00<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "sly maps" {
+            : print "Narrative text." ;
+            : set_true "point_sly_maps" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_sly_maps) {
+            : match "sly _;_ maps" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
    r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_blank" {
@@ -141,7 +170,7 @@ locations {
 
 objects {
 }
-   
+
 connections {
 
    ## Connects locations together (bidirectional)
@@ -191,7 +220,7 @@ barriers {
       block_when_not = point_walk_round
       message = {wc_nogo}
    }
-} 
+}
 
 subroutines {
    add_point : subroutine {
