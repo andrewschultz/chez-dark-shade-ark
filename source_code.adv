@@ -238,6 +238,16 @@ on_command {
       : print "For a more detailed history, HISTORY." ;
       : print "For verbs to use, VERBS." ;
    }
+   : match "credits _;credit _" {
+      : print "Thanks to the organizers of EctoComp past and present." ;
+      : print "Thanks to Chris Ainsley for creating Adventuron." ;
+      : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
+      : print "Blanket thanks to Python and its developers for scripts that helped me generate similar code (point scoring, etc.) quickly." ;
+      : if (!warn_generic_credit) {
+         : print "{note_once}you can see generic Adventuron credits with <*CREDITS<#f80>>." ;
+         : set_true "warn_generic_credit" ;
+      }
+   }
 }
 
 on_render {
