@@ -26,7 +26,10 @@ strings {
    my_score : string "{score}/{max_score}" ;
 
    # commanbds
+   v_about : string "<ABOUT<#0f0>>" ;
+   v_i : string "<I<#0f0>>" ;
    v_score : string "<SCORE<#0f0>>" ;
+   v_verbs : string "<VERBS<#0f0>>" ;
    xme : string "<X ME<#0f0>>" ;
    xnum : string "<X NUMBER<#0f0>>" ;
 
@@ -36,7 +39,7 @@ strings {
 
    d_wall_crowned : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
 
-   custom_unknown_verb_error : dynamic_string {( "That isn't a verb you need to win." )} ;
+   custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
       is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
       is_at "wall_crowned" ? "{wc_nogo}" :
@@ -291,6 +294,12 @@ on_command {
          : print "{note_once}This is tracked in the upper left." ;
          : set_true "warn_score_header" ;
       }
+   }
+   : match "verbs _;verb _" {
+      : print "{cdsa} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. There is no need for TAKE or DROP, but {v_i} and {v_score} chart your inventory and progress." ;
+      : print "Meta-verbs include {v_about}, {v_credits}, and {v_verbs}." ;
+      : print "All point-scoring commands have two words which you need to figure." ;
+      : print "TSTART/TSTOP start and stop a transcript." ;
    }
 }
 
