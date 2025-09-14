@@ -229,6 +229,15 @@ on_describe {
 ## Test VERB NOUN that the player types and executes conditional actions
 
 on_command {
+   : match "about _" {
+      : print "{cdsa} is a simplified-parser game that requires two-word commands to solve puzzles. Some puzzles rely on others. A few have alternate spellings. It should always say if you are half-right." ;
+      : print "" ;
+      : print "{cdsa} is a ten-room game. The main area is 3x3. Originally I wanted to make it symmetrical, but unfortunately the clearest way to do so would draw a hate symbol. You know which one. So if you want to map {cdsa} on your own, the left 2x3 are ground level, and the first room is center west." ;
+      : print "" ;
+      : print "For thanks, CREDITS." ;
+      : print "For a more detailed history, HISTORY." ;
+      : print "For verbs to use, VERBS." ;
+   }
 }
 
 on_render {
