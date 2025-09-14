@@ -17,6 +17,7 @@ game_information {
 
 strings {
    # general strings
+   a_num : string "<an umber, uhh, number<#f80>>" ;
    cdsa : string "<Chez Dark Shade Arc<#f80>>" ;
    gsgr : string "<Go-Strange-Ghost Range<#f80>>" ;
    ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
@@ -64,6 +65,7 @@ booleans {
    warn_score_header : boolean "false" ;
 
    intro_shown_yet : boolean "false" ;
+   ever_x_me : boolean "false" ;
 }
 
 locations {
@@ -300,6 +302,14 @@ on_command {
       : print "Meta-verbs include {v_about}, {v_credits}, and {v_verbs}." ;
       : print "All point-scoring commands have two words which you need to figure." ;
       : print "TSTART/TSTOP start and stop a transcript." ;
+   }
+   : match "x me;x myself" {
+      : if (!ever_x_me) {
+         : print "Weird! You see {a_num} on your arm." ;
+         : set_true "ever_x_me" ;
+         : done ;
+      }
+      : print "There's {a_num} on your arm, which may or may not help you." ;
    }
 }
 
