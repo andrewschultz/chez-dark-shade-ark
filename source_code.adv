@@ -4,19 +4,23 @@ start_theme = my_theme
 game_information {
    game_name                    = Chez Dark Shade Ark
    game_version                 = 1.0.0
-   game_shortname               = CSDA
+   game_shortname               = cdsa
    written_by                   = Andrew Schultz
    uuid                         = 9a53454f-9f3c-4af9-b93a-4a04c86c6c96
    year_of_release              = 2025
    copyright_message            = Free to distribute, voluntary payments welcome
-   short_synopsis               = EctoComp 2025 Petite Mort entry, in the vein of Why Pout and Us Too
+   short_synopsis               = EctoComp 2025 Petite Mort entry, in the vein of {wp} and {ut}
 }
 
 
 ## Defines locations in the world
 
 strings {
-   csda : string "<Chez Dark Shade Arc<#f80>>" ;
+   cdsa : string "<Chez Dark Shade Arc<#f80>>" ;
+   gsgr : string "<Go-Strange-Ghost Range<#f80>>" ;
+   ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
+   wp : string "<Why Pout<#f80>>[http://andrewschultz.itch.io/us-too]" ;
+   note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
 
    wc_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
    wc_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
@@ -39,9 +43,14 @@ integers {
 }
 
 booleans {
+   # points
    point_weak_link : boolean "false" ;
    point_walk_round : boolean "false" ;
    showing_map : boolean "true" ;
+
+   # flags for one time notes, etc.
+   warn_generic_credit : boolean "false" ;
+   warn_hints : boolean "false" ;
 }
 
 locations {
@@ -194,10 +203,10 @@ themes {
 
    i_cant_do_that = That's a valid command, but not right here and now.
    not_present = You can't see ${entity} here.
-   ask_new_game                                   = Would you like to restart {csda}?
-   ask_quit                                       = Do you wish to quit {csda}?
+   ask_new_game                                   = Would you like to restart {cdsa}?
+   ask_quit                                       = Do you wish to quit {cdsa}?
    invalid_choice                                 = {yn_or_12_or_14}
-   post_quit = I hope you enjoyed the experience. Pressing {key_enter} will restart {csda}.
+   post_quit = I hope you enjoyed the experience. Pressing {key_enter} will restart {cdsa}.
    unknown_verb                                   = {custom_unknown_verb_error}
    you_cant_go_that_direction                     = {exits_err}
       }
@@ -207,7 +216,7 @@ themes {
 ## Print the objective when the game starts
 
 on_startup {
-   : print "{csda}: EctoComp 2025 Petite Mort game" ;
+   : print "{cdsa}: EctoComp 2025 Petite Mort game" ;
    : press_any_key ;
    : clear_screen;
 }
