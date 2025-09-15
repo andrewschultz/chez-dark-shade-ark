@@ -68,6 +68,7 @@ booleans {
    point_great_ankhs : boolean "false" ;
    point_deem_unfit : boolean "false" ;
    point_the_floored : boolean "false" ;
+   point_hi_strawberry : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
@@ -411,6 +412,29 @@ on_describe {
 ## Test VERB NOUN that the player types and executes conditional actions
 
 on_command {
+   : if (point_the_floored) {
+      : match "hi strawberry;high strawberry" {
+         : if (point_hi_strawberry) {
+            : print "Already done!" ;
+         }
+         : if (!is_at "r01") {
+            : print "You look around to find someone or something to notify of the heist robbery, but they're not here." ;
+            : done ;
+         }
+         : print "Narrative text." ;
+         : set_true "point_hi_strawberry" ;
+         : gosub "add_point" ;
+         : win_game ;
+         : done ;
+      }
+      : if (!point_hi_strawberry) {
+         : match "hi _;high _;_ strawberry" {
+            : gosub "say_half" ;
+            : done ;
+         }
+      }
+   }
+
    : match "about _" {
       : print "{cdsa} is a simplified-parser game that requires two-word commands to solve puzzles. Some puzzles rely on others. A few have alternate spellings. It should always say if you are half-right." ;
       : print "" ;
