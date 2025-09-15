@@ -66,6 +66,7 @@ booleans {
    point_arbor_dens : boolean "false" ;
    point_first_attic : boolean "false" ;
    point_great_ankhs : boolean "false" ;
+   point_deem_unfit : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
@@ -257,6 +258,21 @@ locations {
    }
    r21 : location "r21 desc" header = "<r21<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "deem unfit" {
+            : if (point_deem_unfit) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_deem_unfit" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_deem_unfit) {
+            : match "deem _;_ unfit" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
    r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_blank" {
