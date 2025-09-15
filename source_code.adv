@@ -65,6 +65,7 @@ booleans {
    point_gull_flying : boolean "false" ;
    point_arbor_dens : boolean "false" ;
    point_first_attic : boolean "false" ;
+   point_great_ankhs : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
@@ -237,6 +238,21 @@ locations {
    }
    r10 : location "r10 desc" header = "<r10<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "great ankhs" {
+            : if (point_great_ankhs) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_great_ankhs" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_great_ankhs) {
+            : match "great _;_ ankhs" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
    r21 : location "r21 desc" header = "<r21<#ff0>>" graphic="r_blank" {
