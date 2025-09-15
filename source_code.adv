@@ -64,6 +64,7 @@ booleans {
    point_pawn_dicey : boolean "false" ;
    point_gull_flying : boolean "false" ;
    point_arbor_dens : boolean "false" ;
+   point_first_attic : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
@@ -213,6 +214,21 @@ locations {
          }
          : if (!point_arbor_dens) {
             : match "arbor _;_ dens" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
+         : match "first attic" {
+            : if (point_first_attic) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_first_attic" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_first_attic) {
+            : match "first _;_ attic" {
                : gosub "say_half" ;
                : done ;
             }
