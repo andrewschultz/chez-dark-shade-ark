@@ -67,6 +67,7 @@ booleans {
    point_first_attic : boolean "false" ;
    point_great_ankhs : boolean "false" ;
    point_deem_unfit : boolean "false" ;
+   point_the_floored : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
@@ -277,6 +278,21 @@ locations {
    }
    r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "the floored;thee floored" {
+            : if (point_the_floored) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_the_floored" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_the_floored) {
+            : match "the _;thee _;_ floored" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
 }
