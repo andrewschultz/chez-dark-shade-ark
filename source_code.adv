@@ -63,6 +63,7 @@ booleans {
    point_a_dart : boolean "false" ;
    point_pawn_dicey : boolean "false" ;
    point_gull_flying : boolean "false" ;
+   point_arbor_dens : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
@@ -201,6 +202,21 @@ locations {
    }
    r12 : location "r12 desc" header = "<r12<#ff0>>" graphic="r_blank" {
       on_command {
+         : match "arbor dens" {
+            : if (point_arbor_dens) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_arbor_dens" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_arbor_dens) {
+            : match "arbor _;_ dens" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
       }
    }
    r10 : location "r10 desc" header = "<r10<#ff0>>" graphic="r_blank" {
