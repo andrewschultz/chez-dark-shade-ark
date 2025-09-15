@@ -40,8 +40,8 @@ strings {
    r00_no_go : string {( "You can only go north or east." )} ;
 
    r01_loc_desc : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
-   r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
    r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
+   r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
 
    r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : "<Awe Flame<#f80>>" )} ;
    r02_loc_desc : dynamic_string {( return_off_lame ? "You're in a gulf, lying. Like you can't really go anywhere." : "An awe-flame distracts you from everything." )} ;
@@ -74,8 +74,16 @@ strings {
    custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
       is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
-      is_at "r01" ? "{wc_nogo}" :
-      "You can't go that way. I should give more information."
+      is_at "r00" ? "{r01_nogo}" :
+      is_at "r01" ? "{r01_nogo}" :
+      is_at "r02" ? "{r02_nogo}" :
+      is_at "r10" ? "{r11_nogo}" :
+      is_at "r11" ? "{r11_nogo}" :
+      is_at "r12" ? "{r12_nogo}" :
+      is_at "r20" ? "{r21_nogo}" :
+      is_at "r21" ? "{r21_nogo}" :
+      is_at "r22" ? "{r22_nogo}" :
+      "You can't go that way. I should have a non-default message." ;
    )} ;
 }
 
@@ -377,22 +385,22 @@ barriers {
    block_wall_1 : block {
       location = r02
       block_when_not = point_walk_round
-      message = {wc_nogo}
+      message = {r01_nogo}
    }
    block_wall_2 : block {
       location = r00
       block_when_not = point_walk_round
-      message = {wc_nogo}
+      message = {r01_nogo}
    }
    block_wall_3 : block {
       location = r22
       block_when_not = point_walk_round
-      message = {wc_nogo}
+      message = {r01_nogo}
    }
    block_wall_4 : block {
       location = r11
       block_when_not = point_walk_round
-      message = {wc_nogo}
+      message = {r01_nogo}
    }
    block_our_burden : block {
       location = r12
