@@ -61,10 +61,11 @@ booleans {
    return_off_lame : boolean "false" ;
    point_sly_maps : boolean "false" ;
    point_a_dart : boolean "false" ;
+   point_pawn_dicey : boolean "false" ;
+   point_gull_flying : boolean "false" ;
 
    # map rendering flag
    showing_map : boolean "true" ;
-   point_pawn_dicey : boolean "false" ;
 
    # flags for one time notes, etc.
    warn_generic_credit : boolean "false" ;
@@ -123,6 +124,21 @@ locations {
          }
          : if (!point_off_lame) {
             : match "off _;_ lame" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
+         : match "gull flying" {
+            : if (point_gull_flying) {
+               : print "Already done!" ;
+            }
+            : print "Narrative text." ;
+            : set_true "point_gull_flying" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_gull_flying) {
+            : match "gull _;_ flying" {
                : gosub "say_half" ;
                : done ;
             }
