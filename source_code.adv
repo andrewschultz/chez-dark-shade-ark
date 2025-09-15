@@ -35,13 +35,16 @@ strings {
    xnum : string "<X NUMBER<#0f0>>" ;
 
    # location stuff
-   wc_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
-   wc_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
+   r01_loc_desc : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
+   r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
+   r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
 
    r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : "<Awe Flame<#f80>>" )} ;
    r02_loc_desc : dynamic_string {( return_off_lame ? "You're in a gulf, lying. Like you can't really go anywhere." : "An awe-flame distracts you from everything." )} ;
    r02_nogo : dynamic_string {( return_off_lame ? "You see no passage." : point_off_lame ? "You should come back and look for new exits once the land's healed from the flame." : "The awe-flame distracts you too much from finding new exits." )} ;
-   d_wall_crowned : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
+
+   r10_header : dynamic_string {( point_great_ankhs ? "<Great Ankhs<#f80>>" : "<Gray Tanks<#888>>" )} ;
+   r10_loc_desc : dynamic_string {( "This place is covered with " + ( point_great_ankhs ? "great ankhs" : "grey tanks" ) + ". It's too desolate everywhere except back west." )} ;
 
    custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
@@ -74,7 +77,7 @@ booleans {
    point_the_floored : boolean "false" ;
    point_hi_strawberry : boolean "false" ;
 
-   # map rendering flag
+   # map rendering booleans
    showing_map : boolean "true" ;
 
    # flags for one time notes, etc.
@@ -109,7 +112,23 @@ locations {
          }
       }
    }
-   r01 : location "{d_wall_crowned}" header = "<Wall, Crowned<#ff0>>" graphic="r_wall_crowned" {
+   r00 : location "r00 desc" header = "<r00<#ff0>>" graphic="r_blank" {
+      on_command {
+         : match "sly maps" {
+            : print "Narrative text." ;
+            : set_true "point_sly_maps" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_sly_maps) {
+            : match "sly _;_ maps" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
+      }
+   }
+   r01 : location "{r01_loc_desc}" header = "<Wall, Crowned<#ff0>>" graphic="r_wall_crowned" {
          on_command {
          : match "walk round" {
             : print "Narrative text." ;
@@ -165,42 +184,26 @@ locations {
          }
       }
    }
-   r00 : location "r00 desc" header = "<r00<#ff0>>" graphic="r_blank" {
+   r10 : location "{r10_loc_desc}" header = "{r10_header}" graphic="r_blank" {
       on_command {
-         : match "sly maps" {
-            : print "Narrative text." ;
-            : set_true "point_sly_maps" ;
-            : gosub "add_point" ;
-            : done ;
-         }
-         : if (!point_sly_maps) {
-            : match "sly _;_ maps" {
-               : gosub "say_half" ;
-               : done ;
-            }
-         }
-      }
-   }
-   r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_blank" {
-      on_command {
-         : match "a dart" {
-            : if (point_a_dart) {
+         : match "great ankhs" {
+            : if (point_great_ankhs) {
                : print "Already done!" ;
             }
             : print "Narrative text." ;
-            : set_true "point_a_dart" ;
+            : set_true "point_great_ankhs" ;
             : gosub "add_point" ;
             : done ;
          }
-         : if (!point_a_dart) {
-            : match "a _;_ dart" {
+         : if (!point_great_ankhs) {
+            : match "great _;_ ankhs" {
                : gosub "say_half" ;
                : done ;
             }
          }
       }
    }
-   r11 : location "r11 desc" header = "<r11<#ff0>>" graphic="r_blank" {
+   r11 : location "You can go back west here, or a forbidding passage leads down." header = "<Pond, Icy<#f80>>" graphic="r_blank" {
       on_command {
          : match "pawn dicey" {
             : if (point_pawn_dicey) {
@@ -219,7 +222,7 @@ locations {
          }
       }
    }
-   r12 : location "r12 desc" header = "<r12<#ff0>>" graphic="r_blank" {
+   r12 : location "It's bare and desolate here/There are a bit more trees now, but one particularly stands out/You've made things real verdant here. Can't be much left." header = "<r12<#ff0>>" graphic="r_blank" {
       on_command {
          : match "arbor dens" {
             : if (point_arbor_dens) {
@@ -253,19 +256,19 @@ locations {
          }
       }
    }
-   r10 : location "r10 desc" header = "<r10<#ff0>>" graphic="r_blank" {
+   r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_blank" {
       on_command {
-         : match "great ankhs" {
-            : if (point_great_ankhs) {
+         : match "the floored;thee floored" {
+            : if (point_the_floored) {
                : print "Already done!" ;
             }
             : print "Narrative text." ;
-            : set_true "point_great_ankhs" ;
+            : set_true "point_the_floored" ;
             : gosub "add_point" ;
             : done ;
          }
-         : if (!point_great_ankhs) {
-            : match "great _;_ ankhs" {
+         : if (!point_the_floored) {
+            : match "the _;thee _;_ floored" {
                : gosub "say_half" ;
                : done ;
             }
@@ -291,19 +294,19 @@ locations {
          }
       }
    }
-   r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_blank" {
+   r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_blank" {
       on_command {
-         : match "the floored;thee floored" {
-            : if (point_the_floored) {
+         : match "a dart" {
+            : if (point_a_dart) {
                : print "Already done!" ;
             }
             : print "Narrative text." ;
-            : set_true "point_the_floored" ;
+            : set_true "point_a_dart" ;
             : gosub "add_point" ;
             : done ;
          }
-         : if (!point_the_floored) {
-            : match "the _;thee _;_ floored" {
+         : if (!point_a_dart) {
+            : match "a _;_ dart" {
                : gosub "say_half" ;
                : done ;
             }
