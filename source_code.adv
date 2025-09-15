@@ -26,7 +26,7 @@ strings {
 
    my_score : string "{score}/{max_score}" ;
 
-   # commanbds
+   # commands
    v_about : string "<ABOUT<#0f0>>" ;
    v_i : string "<I<#0f0>>" ;
    v_score : string "<SCORE<#0f0>>" ;
@@ -76,6 +76,9 @@ booleans {
    ever_x_number : boolean "false" ;
 }
 
+vocabulary {
+   : verb / aliases = [in, enter]
+   : verb / aliases = [out, exit]
 }
 
 locations {
