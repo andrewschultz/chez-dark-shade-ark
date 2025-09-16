@@ -214,6 +214,7 @@ locations {
             : match "gull flying" {
                : if (point_gull_flying) {
                   : print "Already done!" ;
+                  : done ;
                }
                : print "Narrative text." ;
                : set_true "point_gull_flying" ;
@@ -234,6 +235,7 @@ locations {
          : match "great ankhs" {
             : if (point_great_ankhs) {
                : print "Already done!" ;
+               : done ;
             }
             : print "Narrative text." ;
             : set_true "point_great_ankhs" ;
@@ -253,6 +255,7 @@ locations {
          : match "pawn dicey" {
             : if (point_pawn_dicey) {
                : print "Already done!" ;
+               : done ;
             }
             : print "Narrative text." ;
             : set_true "point_pawn_dicey" ;
@@ -272,6 +275,7 @@ locations {
          : match "arbor dens" {
             : if (point_arbor_dens) {
                : print "Already done!" ;
+               : done ;
             }
             : print "Narrative text." ;
             : set_true "point_arbor_dens" ;
@@ -307,8 +311,13 @@ locations {
    r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_blank" {
       on_command {
          : match "the floored;thee floored" {
+            : if (!point_deem_unfit) {
+               : print "The thief lord isn't distracted by you." ;
+               : done ;
+            }
             : if (point_the_floored) {
                : print "Already done!" ;
+               : done ;
             }
             : print "Narrative text." ;
             : set_true "point_the_floored" ;
@@ -327,7 +336,11 @@ locations {
       on_command {
          : match "deem unfit" {
             : if (point_deem_unfit) {
-               : print "Already done!" ;
+               : print "You already got rid of the demon!" ;
+            }
+            : if (!point_first_attic) {
+               : print "You thought you had some good points, but the demon (fit) roars back at you with a variety of rhetorical debating techniques, before suggesting you're lucky they didn't use violence. If only you had some way to trip them up." ;
+               : done ;
             }
             : print "Narrative text." ;
             : set_true "point_deem_unfit" ;
@@ -520,6 +533,7 @@ on_command {
       : match "hi strawberry;high strawberry" {
          : if (point_hi_strawberry) {
             : print "Already done!" ;
+            : done ;
          }
          : if (!is_at "r01") {
             : print "You look around to find someone or something to notify of the heist robbery, but they're not here." ;
@@ -611,6 +625,9 @@ on_command {
          : print "You watch the number swirl around a bit more." ;
       }
    }
+}
+
+on_tick {
 }
 
 on_render {
