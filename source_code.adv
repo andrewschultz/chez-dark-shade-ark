@@ -342,7 +342,10 @@ locations {
                : print "You thought you had some good points, but the demon (fit) roars back at you with a variety of rhetorical debating techniques, before suggesting you're lucky they didn't use violence. If only you had some way to trip them up." ;
                : done ;
             }
-            : print "Narrative text." ;
+            : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
+            : print "That does it! They stomp off. They wonder why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up." ;
+            : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a po' charm-poach arm, which doesn't seem to have gotten a lot of use. You take it." ;
+            : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
             : gosub "add_point" ;
             : done ;
@@ -389,6 +392,8 @@ objects {
    sly_maps : object "sly maps" msg="One-half of a maze." ;
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
+   freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
+   poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
 }
 
 connections {
