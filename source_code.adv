@@ -114,6 +114,11 @@ booleans {
    point_the_floored : boolean "false" ;
    point_hi_strawberry : boolean "false" ;
 
+   progress_x_sly : boolean "false" ;
+   progress_x_key : boolean "true" ;
+   progress_full_map : boolean "false" ;
+   progress_got_dart : boolean "true" ;
+
    # map rendering booleans
    showing_map : boolean "true" ;
 
@@ -155,6 +160,7 @@ locations {
             : print "Narrative text." ;
             : set_true "point_sly_maps" ;
             : gosub "add_point" ;
+            : pocket "sly_maps" ;
             : done ;
          }
          : if (!point_sly_maps) {
@@ -194,6 +200,7 @@ locations {
             : print "Narrative text." ;
             : set_true "point_off_lame" ;
             : gosub "add_point" ;
+            : pocket "key_nigh" ;
             : done ;
          }
          : if (!point_off_lame) {
@@ -355,6 +362,8 @@ locations {
 # Defines things in the world (scenery cannot be carried)
 
 objects {
+   key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
+   sly_maps : object "sly maps" msg="One-half of a maze." ;
 }
 
 connections {
@@ -471,6 +480,33 @@ on_describe {
 ## Test VERB NOUN that the player types and executes conditional actions
 
 on_command {
+   : if (is_carried "key_nigh" && is_carried "sly_maps") {
+      : match "x key; x map;x maps;x sly;x nigh" {
+         : print "You notice the key and the map come together to form a full maze. This could be useful later!" ;
+         : set_false "showing_map" ;
+         : update_graphic "s_maze_full" ;
+         : set_true "showing_map" ;
+         : done ;
+      }
+   }
+   : if (is_carried "key_nigh") {
+      : match "x key;x nigh" {
+         : print "You see the bottom half of a maze." ;
+         : set_false "showing_map" ;
+         : update_graphic "s_maze_s" ;
+         : set_true "showing_map" ;
+         : done ;
+      }
+   }
+   : if (is_carried "sly_maps") {
+      : match "x map;x maps;x sly" {
+         : print "You see the top half of a maze." ;
+         : set_false "showing_map" ;
+         : update_graphic "s_maze_n" ;
+         : set_true "showing_map" ;
+         : done ;
+      }
+   }
    : if (point_the_floored) {
       : match "hi strawberry;high strawberry" {
          : if (point_hi_strawberry) {
@@ -587,5 +623,10 @@ assets {
       r_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAgIDAwMAAXXgPAAAAyElEQVR4Xu3WMQoDIRAF0MFqSZ9+mdKjpAzJfSQQGDxF1krmlCk0/MYt/Cm2SKZywX18/IXKfTTR3R/+mf5Rh1v3gRoB1DgNIEJbMgAi1EgBnqRP8Eng1oJn71Pa4nwQUEW+BMyOSPBPcB0neJKACA/0YQGzrGpWVGngpMFSWWkg5VVtKYEGlhw02Uv1qDPgW7iME2yTAFogAbRAAmiBBvgzGLew/VILcdxCnQPQAg2gBRLA9U4CeGAQAH5rFAMUAJkCMoCyD7wBMsQsMHU9JoUAAAAASUVORK5CYII=" ;
 
       r_blank : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAAA1BMVEX//wCKxvRFAAAAD0lEQVR4XmPAAKNgFIwCAAMYAAFrMpCEAAAAAElFTkSuQmCC" ;
+
+   # scenery/individual items
+      s_maze_full : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAABRAQMAAAAHGerDAAAABlBMVEUAAAD///+l2Z/dAAABD0lEQVR4XsXWMY7EIAwF0L9KkZIb5CQz90KiyOReg5iTQG7gdC5G5K/IFrNaCbqVXaSIXvGNIxzwUwDg0Gr9vPwNVjIJi1LsgF80ypSPrx4Ip0YJJ2kIptf8dB7ohlyLxqtXQ+CX475fSbttMpGFSeyAX+YHpjw4SWoiM8n/BHEIAI07cMD1M9SfIHbAL4DzGI67tkcSO+Bx3PeQdetmoFZ5Z6UhmPJ8XUG37rgzo4SilXYgZNxcyLjvXcAkIWulJdCtgYfrg8i1KMUQvPQJAN1xh6KR71MrDUH7JttxDse9FlaxBMfNARjsbrY2WWkH2hWJazcOF+upVezA9NJNsMzbYC1S3mSiHUAr/+d/8hvvtjQLfUIXKgAAAABJRU5ErkJggg==" ;
+      s_maze_n : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAApAQMAAADgaGVvAAAABlBMVEUAAAD///+l2Z/dAAAAqElEQVR4XsXUMQ7DIAwF0F8xZOQGnKS9l6UMae9V1J4EcgPYPFSJa9EhWWCr7NF6MjZGQI6AhocGliN5Bpp+FcksxQ5Q4FhcqpcemHcF8y5iCNx7enoCuk0umWOb1RBQqLe1ddodU14iWSvYAQrTHS4NblJYKySl/wRxCACOK1Dh+xW23zl2gALgCcN1b20hxQ4Q9E3OiR/dCsJb+SQWQ+DS1L6gqz+BL3qUpiQWbdjqAAAAAElFTkSuQmCC" ;
+      s_maze_s : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAApAQMAAADgaGVvAAAABlBMVEUAAAD///+l2Z/dAAAApElEQVR4XsXTsQ2EMAwFUJ8oKNmASbi9kFLk2IsIJkluA9O5QM4/XEGTa+3CRfRkKfkx4a4u94m7fExDvA+fIGYkDkUUfiBkmoarvb9NgI1DFoUnkMXAZ2iDhFgE7Ah2WemqZtyhSMJZReEI7E/ac/6NOxYoOwLbGSJ6NUGFXRMKPzBTv9I8Hs3FiZZFrKLsB7pdFqaxX5oTIOAT2OAHyGq29gA/7gin8wjDu+EAAAAASUVORK5CYII=" ;
    }
 }
