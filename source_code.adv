@@ -133,6 +133,7 @@ booleans {
 }
 
 vocabulary {
+   : verb / aliases = [gt, goto]
    : verb / aliases = [in, enter]
    : verb / aliases = [out, exit]
 }
@@ -154,7 +155,7 @@ locations {
          }
       }
    }
-   r00 : location "r00 desc" header = "<r00<#ff0>>" graphic="r_blank" {
+   r00 : location "{r00_loc_desc}" header = "{r00_header}" graphic="r_blank" {
       on_command {
          : match "sly maps" {
             : print "Narrative text." ;
@@ -396,32 +397,37 @@ barriers {
    block_to_clink : block {
       location = wee_clink
       block_when = point_weak_link
-      message = You have no desire to go back.
+      message = You have no desire or need to go back to the wee clink.
    }
-   block_wall_1 : block {
+   block_r01_n : block {
       location = r02
       block_when_not = point_walk_round
       message = {r01_nogo}
    }
-   block_wall_2 : block {
+   block_r01_s : block {
       location = r00
       block_when_not = point_walk_round
       message = {r01_nogo}
    }
-   block_wall_3 : block {
+   block_r01_d : block {
       location = r22
       block_when_not = point_walk_round
       message = {r01_nogo}
    }
-   block_wall_4 : block {
+   block_r01_e : block {
       location = r11
       block_when_not = point_walk_round
       message = {r01_nogo}
    }
-   block_our_burden : block {
+   block_r02_e : block {
       location = r12
       block_when_not = point_gull_flying
       message = {r02_nogo}
+   }
+   block_r00_e : block {
+      location = r12
+      block_when_not = return_sly_maps
+      message = {r00_nogo}
    }
 }
 
