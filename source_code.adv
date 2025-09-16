@@ -283,19 +283,22 @@ locations {
                : done ;
             }
          }
-         : match "first attic" {
-            : if (point_first_attic) {
-               : print "Already done!" ;
-            }
-            : print "Narrative text." ;
-            : set_true "point_first_attic" ;
-            : gosub "add_point" ;
-            : done ;
-         }
-         : if (!point_first_attic) {
-            : match "first _;_ attic" {
-               : gosub "say_half" ;
+         : if (point_arbor_dens) {
+            : match "first attic" {
+               : if (point_first_attic) {
+                  : print "You already discovered the first attic!" ;
+               }
+               : print "You wonder what a fir (static) could hide. But you look around. You stare at it. Slowly it starts to sway, fist one direction, then another. Off in one very cold attic is a free-speech-freeze peach." ;
+               : pocket "freeze_peach" ;
+               : set_true "point_first_attic" ;
+               : gosub "add_point" ;
                : done ;
+            }
+            : if (!point_first_attic) {
+               : match "first _;_ attic" {
+                  : gosub "say_half" ;
+                  : done ;
+               }
             }
          }
       }
