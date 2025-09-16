@@ -28,6 +28,8 @@ strings {
 
    # commands
    v_about : string "<ABOUT<#0f0>>" ;
+   v_credits : string "<CREDITS<#0f0>>" ;
+   v_history : string "<HISTORY<#0f0>>" ;
    v_i : string "<I<#0f0>>" ;
    v_score : string "<SCORE<#0f0>>" ;
    v_verbs : string "<VERBS<#0f0>>" ;
@@ -495,9 +497,9 @@ on_command {
       : print "" ;
       : print "{cdsa} is a ten-room game. The main area is 3x3. Originally I wanted to make it symmetrical, but unfortunately the clearest way to do so would draw a hate symbol. You know which one. So if you want to map {cdsa} on your own, the left 2x3 are ground level, and the first room is center west." ;
       : print "" ;
-      : print "For thanks, CREDITS." ;
-      : print "For a more detailed history, HISTORY." ;
-      : print "For verbs to use, VERBS." ;
+      : print "For thanks, {v_credits}." ;
+      : print "For a more detailed history, {v_history}." ;
+      : print "For verbs to use, {v_verbs}." ;
    }
    : match "credits _;credit _" {
       : print "Thanks to the organizers of EctoComp past and present." ;
