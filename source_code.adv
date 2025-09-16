@@ -357,19 +357,25 @@ locations {
    }
    r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_blank" {
       on_command {
-         : match "a dart" {
-            : if (point_a_dart) {
-               : print "Already done!" ;
-            }
-            : print "Narrative text." ;
-            : set_true "point_a_dart" ;
-            : gosub "add_point" ;
-            : done ;
-         }
-         : if (!point_a_dart) {
-            : match "a _;_ dart" {
-               : gosub "say_half" ;
+         : match "s _" {
+            : if (!progress_full_map) {
+               : print "You have no way through the maze." ;
                : done ;
+            }
+            : if (!progress_got_dart) {
+               : print "You use the map and the key to work your way through the maze. Well, near the end. But something supernatural and scary lies near the end. You have to flee. However, in the process, you find some {i_aid_art} in the maze." ;
+               : pocket "aid_art" ;
+               : set_true "progress_got_dart" ;
+               : done ;
+            }
+            : if (!point_great_ankhs) {
+               : print "You get to the end of the maze, but some great evil blows you back. You have no protective item." ;
+               : done ;
+            }
+            : if (!has_visited "r21") {
+               : mask {
+                  : print "Ah, yes, that's the way through." ;
+               }
             }
          }
       }
@@ -381,6 +387,8 @@ locations {
 objects {
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
+   aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
+   dart : object "a dart" msg="It's the dart you got from the aid art." ;
 }
 
 connections {
@@ -502,6 +510,26 @@ on_describe {
 ## Test VERB NOUN that the player types and executes conditional actions
 
 on_command {
+   : if (is_carried "aid_art") {
+      : match "a dart" {
+         : if (point_a_dart) {
+            : print "Already done!" ;
+            : done ;
+         }
+         : destroy "aid_art" ;
+         : pocket "dart" ;
+         : print "Narrative text." ;
+         : set_true "point_a_dart" ;
+         : gosub "add_point" ;
+         : done ;
+      }
+      : if (!point_a_dart) {
+         : match "a _;_ dart" {
+            : gosub "say_half" ;
+            : done ;
+         }
+      }
+   }
    : if (is_carried "key_nigh" && is_carried "sly_maps") {
       : match "x key; x map;x maps;x sly;x nigh" {
          : print "You notice the key and the map come together to form a full maze. This could be useful later!" ;
