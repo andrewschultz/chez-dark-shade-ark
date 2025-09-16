@@ -38,8 +38,10 @@ strings {
 
    # location stuff
    r00_header : dynamic_string {( point_sly_maps ? "<Slime Apps<#f80>>" : "<A Cramp-Ache Ramp<#f80>>" )} ;
-   r00_loc_desc : dynamic_string {( point_sly_maps ? "A ramp leads up east. Back north, the wall." : "Slime apps leave ooze blocking passage every way but back north." )} ;
-   r00_no_go : string {( "You can only go north or east." )} ;
+   r00_loc_desc : dynamic_string {( return_sly_maps ? "A ramp leads up east. Back north, the wall." :
+      point_sly_maps ? "The slime is slowly oozing away. Come back in a bit to see what's there." :
+      "Slime apps leave ooze blocking passage every way but back north." )} ;
+   r00_no_go : dynamic_string {( "You can only go north" + (return_sly_maps ? " or east." : ".") )} ;
 
    r01_loc_desc : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
    r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
@@ -76,13 +78,13 @@ strings {
    custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
       is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
-      is_at "r00" ? "{r01_nogo}" :
+      is_at "r00" ? "{r00_nogo}" :
       is_at "r01" ? "{r01_nogo}" :
       is_at "r02" ? "{r02_nogo}" :
-      is_at "r10" ? "{r11_nogo}" :
+      is_at "r10" ? "{r10_nogo}" :
       is_at "r11" ? "{r11_nogo}" :
       is_at "r12" ? "{r12_nogo}" :
-      is_at "r20" ? "{r21_nogo}" :
+      is_at "r20" ? "{r20_nogo}" :
       is_at "r21" ? "{r21_nogo}" :
       is_at "r22" ? "{r22_nogo}" :
       "You can't go that way. I should have a non-default message." ;
