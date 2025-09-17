@@ -172,7 +172,7 @@ locations {
          }
       }
    }
-   r01 : location "{r01_loc_desc}" header = "<Wall, Crowned<#ff0>>" graphic="r_wall_crowned" {
+   r01 : location "{r01_loc_desc}" header = "<Wall, Crowned<#ff0>>" graphic="r_01_0" {
          on_command {
          : match "walk round" {
             : print "Narrative text." ;
@@ -230,7 +230,7 @@ locations {
          }
       }
    }
-   r10 : location "{r10_loc_desc}" header = "{r10_header}" graphic="r_blank" {
+   r10 : location "{r10_loc_desc}" header = "{r10_header}" {
       on_command {
          : match "great ankhs" {
             : if (point_great_ankhs) {
@@ -250,7 +250,7 @@ locations {
          }
       }
    }
-   r11 : location "You can go back west here, or a forbidding passage leads down." header = "<Pond, Icy<#f80>>" graphic="r_blank" {
+   r11 : location "You can go back west here, or a forbidding passage leads down." header = "<Pond, Icy<#f80>>" graphic="r_11_0" {
       on_command {
          : match "pawn dicey" {
             : if (point_pawn_dicey) {
@@ -332,7 +332,7 @@ locations {
          }
       }
    }
-   r21 : location "r21 desc" header = "<r21<#ff0>>" graphic="r_blank" {
+   r21 : location "r21 desc" header = "<r21<#ff0>>" graphic="r_21_0" {
       on_command {
          : match "deem unfit" {
             : if (point_deem_unfit) {
@@ -679,7 +679,14 @@ assets {
       o_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAABlBMVEX///+AgIBizNOVAAAAAXRSTlMAQObYZgAAACtJREFUKFNjYBgigP0BfppB/gd+msH+D36asIL6f/hpKij4/x8/PaqAPgoAytGDTRmnj0oAAAAASUVORK5CYII=" ;
 
    # rooms
-      r_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAD/AAD//wAAAP8SxTJ0AAAAr0lEQVR4XsyTsQ3AMAgEs8IJFkFMgJT9Z0qRBkP9Slz+PdLJNtd9HhiBmk+B8hFI+Rbw8joTKd8CeHEmAv61wJ+foPyG8U+EfAsAFkDPdHwLFJAJdEUd3wLYW4iuKORbIAMLLHtBy/cNWAxDBf+tQEVmWKZ5C7V8ryGMNVHzazTWvJo/7dSxCQBADMSw8KN4/yF/jGt0kF6k8M3Xq+UB3Hy1/QGADgDoAIAOAOgAwAc4WsdzbGzXvgAAAABJRU5ErkJggg==" ;
+      r_01_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAD/AAD//wAAAP8SxTJ0AAAAr0lEQVR4XsyTsQ3AMAgEs8IJFkFMgJT9Z0qRBkP9Slz+PdLJNtd9HhiBmk+B8hFI+Rbw8joTKd8CeHEmAv61wJ+foPyG8U+EfAsAFkDPdHwLFJAJdEUd3wLYW4iuKORbIAMLLHtBy/cNWAxDBf+tQEVmWKZ5C7V8ryGMNVHzazTWvJo/7dSxCQBADMSw8KN4/yF/jGt0kF6k8M3Xq+UB3Hy1/QGADgDoAIAOAOgAwAc4WsdzbGzXvgAAAABJRU5ErkJggg==" ;
+
+      r10 : dynamic_graphic {( point_great_ankhs ? "r_10_1" : "r_10_0" )} ;
+      r_10_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAAAAAIDAwMCAQACAgIDWOnkCAAABVklEQVR4XuzO0QmAMAwE0Kt0AIUMIJ3EQPafSf9SUqwEARHuvi5Akoft4/wdQAABBBBAAAEEEECAWWjp4BVJjqqxjVeQAqwNCQCgXfOglb6nAMsoELuiYZwB0PYSum9FwLNATG9GO6p5m/331ZCzXTJKYRgEguigHkSWHmDBHECauf+ZyiKw0aSx9qc/HYi8FWZ5EFFO0SD9bUV6M5JkTxZIjiN7dQjKOZrIjwRoYU/GNRo4rwqU7SjAlmG8FdgNnMfqXEBZXQYt+8XImmrikSyJ0WBkr04FNiKRXwqQFTQ950WBjS2tSM95hAGK06F9t2lBYIPkIO3YTyP4fJiAk7cnm6YCFdGGKiHk3I40jJcCitQEeh6qtwIqQgLAXEDj86Em6mRFUqTjRYEgkgHE+S/Q2L4DKQBb0PHSL7ArE4hl9givoyZQ0PHCI/Tr74OlPSg/zl/gBQLtO9IThigAAAAAAElFTkSuQmCC" ;
+      r_10_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAICAQAD//wBgioY8AAAAjUlEQVR4XtzTuw3AIBRD0StXiCkoEVN6FEqUKZMZnotEcXcaF+/DZ7JOZnbPLMuJ6bATM2EmZkBL/H5BPoMGI3G+RoED55eY/wJzRhZ947rR6Xu5bnQ9cd3kBUderhsh47oBmYJ/UnAvFALCpkIZpPIRBowaELUUyiCVjzBg1ICslVAGqXyGUMoA5QYAAOvZeXzHvZrsAAAAAElFTkSuQmCC" ;
+      r_11_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAFVBMVEUAAACAAAAAgACAgAAAAICmyvD///9KEYt2AAABPElEQVR4XsTVwQnEMBBD0W1BoE52GxBR/zUtgpx9S77NyNcHMsyn5LEEA8oBvBAI0AzBANlFAUqFVhDV7CccICQgdoRWIE+BAdRoDwWQ22wgQLyYAgJokcoQQHeG3AX3KmABaklA6yPgehyQM+D7exxQGNAT4HoL8C+fjE4YhmEgajJJkfEC7SYFeQNn/xEaixw1rpFqhBugD0hCfu7lcg405nGPJCSe5UkTWAJssVcKc965QUkMlc0SiCKAr881QsL4EwjgVtQWbuFEF5D4+G5fMsRELiddAwdQhcEoH9gCBwzw8bn0b7gTgLOaL9gNjAZYmp8C8GwPMbRs6gZkBaMRoggdIq+AtOA4htoCwDcNgDSZ7RfADDvSRLBjA5ihg+sFXMcQK1hqQKYAWGNA4GcCAAO8SADYAvQ3Ai8XS2aBEwhq/wAAAABJRU5ErkJggg==" ;
+      r_12_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAADFBMVEWAAAAAgAAAAICAQAD6AD8SAAABxklEQVR4XpSUwW3DMBAEr8nlgyVcPyohjzBFpArmkRJUQh52AGExogxRhvwR4F3Pncc4R3vzWt/kR8CH9JJ//hJSuQAsUm4fk9LBSlSozAGSqsdUAERUTgCsJ3lM8Vs//iqSksoMsEhSbm0WXYlUqMwAkqTqMRUAEZURgB8PVvEYO+tDlFR202E/KJA8RkgkqlR204EfAB6jHACLJwPAdNjPDKCepwBMB37ubYDpwA8SrwBIxHTgp+3puGevo0QqlAI4P/LVr0AFUQBQlWwHwHWiPAMwx0959V4ay1GZADi1+S1QAYBEjp1rBMA1UhklArArPyF2cU1UDgD8bPHzr13+I1HBdODnkH4/2gvg67kOFUxzCxOA1JUnAExzjbc34Brxcw+A6f9SyCUFQhgIohGZtSvPE48gYO6bI3kAoSaflgdKAsHadKCK16l2SWs4nElnnf4qY8oV9uLMikRuc3N49roAVGFFIoRaAOkJWGzzGOCXKxwDgEXq/4BIHzDLmAC8be4DpLwHwJorBABEAFCvLK4xbzMpYkUixmoClATAyunsAxCAUCpsAEwAqNdSbBgc6iuA+7w1haL97XBp6o1U4FDfAX/SsDR4txu33wAAAABJRU5ErkJggg==" ;
+      r_21_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAElBMVEUAAACAAADAwMCAQACAgID//wAHZQqUAAABXElEQVR4Xu3XUYrCMBCH8XHqAeoNhskFQv/su4A3EO9/ldV0I10nODXZFBb6PRWw8HMITUKXHOucsHZLOD9ccgbQUyCsDqCvQFgdQF+BsK4FqFCHWN8Czr+w2iHWRcdVgB2wA3ZAALQ5YKoGIL3cVgCwCsAWEHC7QhvD1w2TBcgaAO6A1hGEBwB1gJAA0KaQAFMVAAnQNoIwA1ABSMO79xwBFWNvALd7V0wVAGTANJsQB7w2gLwBzAD8BQAlQOwJSGsgA3QAGUBEZAeQ1kAVIGSAPgE2ZwKaAf4aOKsHEAwwDbUAPf4/gFIBEKkbwH6ICLbIFR+iWoBQoS0BdLKNGwJkLAAOGwIOBcB46gWw27FQoUMGeNuxD2AXcCrUAJD3gB1AjxIg0k9lADkNCZAePwGwPZSWJzB+cCgVH2CvBXAA7ANgLgY+gBcv6zsAqdviT4gPKPywfiewcQHwDSXB7I2tcgFNAAAAAElFTkSuQmCC" ;
 
       r_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAgIDAwMAAXXgPAAAAyElEQVR4Xu3WMQoDIRAF0MFqSZ9+mdKjpAzJfSQQGDxF1krmlCk0/MYt/Cm2SKZywX18/IXKfTTR3R/+mf5Rh1v3gRoB1DgNIEJbMgAi1EgBnqRP8Eng1oJn71Pa4nwQUEW+BMyOSPBPcB0neJKACA/0YQGzrGpWVGngpMFSWWkg5VVtKYEGlhw02Uv1qDPgW7iME2yTAFogAbRAAmiBBvgzGLew/VILcdxCnQPQAg2gBRLA9U4CeGAQAH5rFAMUAJkCMoCyD7wBMsQsMHU9JoUAAAAASUVORK5CYII=" ;
 
