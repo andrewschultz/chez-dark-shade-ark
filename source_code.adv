@@ -327,6 +327,7 @@ locations {
             : match "first attic" {
                : if (point_first_attic) {
                   : print "You already discovered the first attic!" ;
+                  : done ;
                }
                : print "You wonder what a fir (static) could hide. But you look around. You stare at it. Slowly it starts to sway, fist one direction, then another. Off in one very cold attic is a free-speech-freeze peach." ;
                : pocket "freeze_peach" ;
@@ -495,7 +496,7 @@ barriers {
       message = {r02_nogo}
    }
    block_r00_e : block {
-      location = r12
+      location = r10
       block_when_not = return_sly_maps
       message = {r00_nogo}
    }
