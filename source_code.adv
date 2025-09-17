@@ -233,6 +233,18 @@ locations {
    r10 : location "{r10_loc_desc}" header = "{r10_header}" {
       on_command {
          : match "great ankhs" {
+            : if (!point_pawn_dicey && !point_a_dart) {
+               : print "These tanks are tough. It can't happen just by wishing." ;
+               : done ;
+            }
+            : if (!point_a_dart) {
+               : print "The pawn shrugs. It can't do much without a weapon." ;
+               : done ;
+            }
+            : if (!point_pawn_dicey && !point_a_dart) {
+               : print "Perhaps you could find someone or something to shoot the dart at the tanks just right, but there's no chance you can." ;
+               : done ;
+            }
             : if (point_great_ankhs) {
                : print "Already done!" ;
                : done ;
