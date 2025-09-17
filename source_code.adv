@@ -119,6 +119,13 @@ booleans {
    progress_full_map : boolean "false" ;
    progress_got_dart : boolean "true" ;
 
+   think_great_ankhs : boolean "false" ;
+   think_deem_unfit : boolean "false" ;
+   think_the_floored : boolean "false" ;
+   think_hi_strawberry : boolean "false" ;
+
+   got_think : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_the_floored || think_hi_strawberry )} ;
+
    # map rendering booleans
    showing_map : boolean "true" ;
 
@@ -235,22 +242,26 @@ locations {
          : match "great ankhs" {
             : if (!point_pawn_dicey && !point_a_dart) {
                : print "These tanks are tough. It can't happen just by wishing." ;
+               : set_true "think_great_ankhs" ;
                : done ;
             }
             : if (!point_a_dart) {
                : print "The pawn shrugs. It can't do much without a weapon." ;
+               : set_true "think_great_ankhs" ;
                : done ;
             }
             : if (!point_pawn_dicey && !point_a_dart) {
                : print "Perhaps you could find someone or something to shoot the dart at the tanks just right, but there's no chance you can." ;
+               : set_true "think_great_ankhs" ;
                : done ;
             }
             : if (point_great_ankhs) {
-               : print "Already done!" ;
+               : print "You already transformed the tanks!" ;
                : done ;
             }
             : print "Narrative text." ;
             : set_true "point_great_ankhs" ;
+            : set_false "think_great_ankhs" ;
             : gosub "add_point" ;
             : done ;
          }
@@ -325,6 +336,7 @@ locations {
          : match "the floored;thee floored" {
             : if (!point_deem_unfit) {
                : print "The thief lord isn't distracted by you." ;
+               : set_true "think_the_floored" ;
                : done ;
             }
             : if (point_the_floored) {
@@ -333,6 +345,7 @@ locations {
             }
             : print "Narrative text." ;
             : set_true "point_the_floored" ;
+            : set_false "think_the_floored" ;
             : gosub "add_point" ;
             : done ;
          }
@@ -352,6 +365,7 @@ locations {
             }
             : if (!point_first_attic) {
                : print "You thought you had some good points, but the demon (fit) roars back at you with a variety of rhetorical debating techniques, before suggesting you're lucky they didn't use violence. If only you had some way to trip them up." ;
+               : set_true "think_deem_unfit" ;
                : done ;
             }
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
@@ -359,6 +373,7 @@ locations {
             : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a po' charm-poach arm, which doesn't seem to have gotten a lot of use. You take it." ;
             : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
+            : set_false "think_deem_unfit" ;
             : gosub "add_point" ;
             : done ;
          }
@@ -584,10 +599,12 @@ on_command {
          }
          : if (!is_at "r01") {
             : print "You look around to find someone or something to notify of the heist robbery, but they're not here." ;
+            : set_true "think_hi_strawberry" ;
             : done ;
          }
          : print "Narrative text." ;
          : set_true "point_hi_strawberry" ;
+         : set_false "think_hi_strawberry" ;
          : gosub "add_point" ;
          : win_game ;
          : done ;
@@ -647,6 +664,24 @@ on_command {
       : if (!warn_score_header) {
          : print "{note_once}This is tracked in the upper left." ;
          : set_true "warn_score_header" ;
+      }
+   }
+   : match "think _" {
+      : if (!got_think) {
+         : print "There are no commands you figured out before you had the right assistance." ;
+         : done ;
+      }
+      : if (think_deem_unfit) {
+         : print "You can <DEEM UNFIT<#f80>> the demon (fit) once you can shut it up a bit." ;
+      }
+      : if (think_hi_strawberry) {
+         : print "You can say <HI STRAWBERRY<#f80>> once you find where it might be." ;
+      }
+      : if (think_the_floored) {
+         : print "You can say <THEE FLOORED<#f80>> to the thief lord once you have more leverage." ;
+      }
+      : if (think_great_ankhs) {
+         : print "You can convert the grey tanks to <GREAT ANKHS<#f80>> once you have something you can use to change them." ;
       }
    }
    : match "verbs _;verb _" {
