@@ -37,7 +37,7 @@ strings {
    xnum : string "<X NUMBER<#0f0>>" ;
 
    # location stuff
-   r00_header : dynamic_string {( point_sly_maps ? "<Slime Apps<#f80>>" : "<A Cramp-Ache Ramp<#f80>>" )} ;
+   r00_header : dynamic_string {( return_sly_maps ? "<A Cramp-Ache Ramp<#f80>>" : point_sly_maps ? "<???<#f80>>" : "<Slime Apps<#f80>>" )} ;
    r00_loc_desc : dynamic_string {( return_sly_maps ? "A ramp leads up east. Back north, the wall." :
       point_sly_maps ? "The slime is slowly oozing away. Come back in a bit to see what's there." :
       "Slime apps leave ooze blocking passage every way but back north." )} ;
@@ -47,7 +47,7 @@ strings {
    r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {wc_noback}" )} ;
    r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
 
-   r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : "<Awe Flame<#f80>>" )} ;
+   r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : point_off_lame ? "<???<#f80>>" : "<Awe Flame<#f80>>" )} ;
    r02_loc_desc : dynamic_string {( return_off_lame ? "You're in a gulf, lying. Like you can't really go anywhere." : "An awe-flame distracts you from everything." )} ;
    r02_nogo : dynamic_string {( return_off_lame ? "You see no passage." : point_off_lame ? "You should come back and look for new exits once the land's healed from the flame." : "The awe-flame distracts you too much from finding new exits." )} ;
 
@@ -60,7 +60,7 @@ strings {
    r11_no_go : string {( "You can only go back west or down." )} ;
 
    r12_header : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#f80>>" : "<Our Burdens<#f80>>" )} ;
-   r12_loc_desc : dynamic_string {( "The only way back is west." )} ;
+   r12_loc_desc : dynamic_string {( ( point_first_attic ? "You've made things real verdant here. Can't be much left." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out." : "It's bare and desolate here." ) + "\nThe only way back is west." )} ;
    r12_no_go : string {( "You can only go back west." )} ;
 
    r20_header : dynamic_string {( "\"Do Dark, Dude\" Ark" )} ;
@@ -162,7 +162,7 @@ locations {
          }
       }
    }
-   r00 : location "{r00_loc_desc}" header = "{r00_header}" graphic="r_blank" {
+   r00 : location "{r00_loc_desc}" header = "{r00_header}" {
       on_command {
          : match "sly maps" {
             : print "Narrative text." ;
@@ -202,7 +202,7 @@ locations {
          }
       }
    }
-   r02 : location "{r02_loc_desc}" header = "{r02_header}" graphic="r_blank" {
+   r02 : location "{r02_loc_desc}" header = "{r02_header}" {
       on_command {
          : match "off lame" {
             : print "Narrative text." ;
@@ -293,7 +293,7 @@ locations {
          }
       }
    }
-   r12 : location "It's bare and desolate here/There are a bit more trees now, but one particularly stands out/You've made things real verdant here. Can't be much left." header = "<r12<#ff0>>" graphic="r_blank" {
+   r12 : location "" header = "{r12_header}" {
       on_command {
          : match "arbor dens" {
             : if (point_arbor_dens) {
@@ -331,7 +331,7 @@ locations {
          }
       }
    }
-   r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_blank" {
+   r20 : location "r20 desc" header = "<r20<#ff0>>" graphic="r_20_0" {
       on_command {
          : match "the floored;thee floored" {
             : if (!point_deem_unfit) {
@@ -385,7 +385,7 @@ locations {
          }
       }
    }
-   r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_blank" {
+   r22 : location "r22 desc" header = "<r22<#ff0>>" graphic="r_22_0" {
       on_command {
          : match "s _" {
             : if (!progress_full_map) {
@@ -726,14 +726,30 @@ assets {
       o_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAABlBMVEX///+AgIBizNOVAAAAAXRSTlMAQObYZgAAACtJREFUKFNjYBgigP0BfppB/gd+msH+D36asIL6f/hpKij4/x8/PaqAPgoAytGDTRmnj0oAAAAASUVORK5CYII=" ;
 
    # rooms
-      r_01_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAD/AAD//wAAAP8SxTJ0AAAAr0lEQVR4XsyTsQ3AMAgEs8IJFkFMgJT9Z0qRBkP9Slz+PdLJNtd9HhiBmk+B8hFI+Rbw8joTKd8CeHEmAv61wJ+foPyG8U+EfAsAFkDPdHwLFJAJdEUd3wLYW4iuKORbIAMLLHtBy/cNWAxDBf+tQEVmWKZ5C7V8ryGMNVHzazTWvJo/7dSxCQBADMSw8KN4/yF/jGt0kF6k8M3Xq+UB3Hy1/QGADgDoAIAOAOgAwAc4WsdzbGzXvgAAAABJRU5ErkJggg==" ;
+      r_mid : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAAAAAAIBwa344AAAAK0lEQVR4XmNYRSEYXgaMGjBqwKgBowaMGuBCIWAQpBAMFheMumDUBaMuAACbHaY97NTKrAAAAABJRU5ErkJggg==" ;
+
+      r00 : dynamic_graphic {( return_sly_maps ? "r_00_2" : point_sly_maps ? "r_mid" : "r_00_0" )} ;
+      r_00_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEWAAAAAAIAA/wCbS6LGAAABM0lEQVR4XmIIpRAMKwNGDRg1YNSAUQNGDQAUQgcpFsMgGIDFVfAUZVbBU8pbDT2FdCX/KQeb5EWGQqWApObjN0QCkzj4wtGolAJ2N41eSgDjCL7wKQAD8PHfXoAcJQkN08p+gebEr0D0ZE7y2BssoOsLQADwqwjSU3/L4cTAJMeOm3iUpHNW73loI7EF7Cu9AE6CAmAAnzswfxy4FmBrl9N8AOzEGRS+vQQ6XAF0EsUJTBm0GocNQGMCNrPwyNmQFY06gKXvDTJwz86AAmBWWooR+JovV1cQJNUYLpZnCeSMFIAUoAk57eQVEHj7ST6/HNIKiNMC7D8w0okisg1eACpQn3QD8QV85JDxBpwAPwF0UAVQgGsAQTIBeQT0AZAbsAH4F9BHgODsG7AN3BsJbABRgT8yoPD/l1zXwAAAAABJRU5ErkJggg==" ;
+      r_00_2 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAAAAAAID/AAD//wBupwDMAAABJElEQVR4XsTOsQ3AMBCAQIoMYmUW7z9TFLmgcvmCBQ7eNKDV96bU/+j0E41uNLrR6EagBwNLPRhY8OxrNLrR6EajG41uNLoxpEcDqAcDwJW5R6MbjW40utHoxow+P7C+3srYhgEYCIEUDJDMkgyA5Nt/pjRv0Uf5fGV9c4CM/RM6oOcX85i6n38LKH3mHY8ORfG2gNIVx4JXjA8G46wnUO/hHsAE0LqAeh96AAmiIC8nUO8JioFYgAWRZOGtO1Dv9RjNwTeBtRb0g1VMwAB3GYPJWg0lUfrAAUd3DT74bAgYukMysctIVgN3DLzPrxMo3VSqjOzuWHuKJbXrtqNrnMJ3BJSe0ZeEBNPktwSUPkWXCUDvwKKA0lv0OGZ9VHx3csKf5gMOF4/O7jGpyQAAAABJRU5ErkJggg==" ;
+
+      r_01_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAAAAID/AAD//wAZRjVTAAAArklEQVR4XsyTsQ0EMQgEv4VBNMB1gkT/NX3wCfbGqz+HMwQjbH+e88AF3P4OqLiA1WtAVNRJrF4DiOIkBv/vgDdfQcUD8k5sXgOAbGAzn9eAAmaAnejzGkD+BpoFjV4DpskmhwW9XjeQfRU6/GsDqmc6ZzIW9Hr9hgBs5vYfneBAbv9tp45NAABiIIYFfiTvv9uPcY0O0osUvvl6tTyAm6+2PwDQAQAdANABAB0A+EG4ZUutMkeZAAAAAElFTkSuQmCC" ;
+
+      r02 : dynamic_graphic {( return_off_lame ? "r_02_2" : point_off_lame ? "r_mid" : "r_02_0" )} ;
 
       r10 : dynamic_graphic {( point_great_ankhs ? "r_10_1" : "r_10_0" )} ;
       r_10_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAAAAAIDAwMCAQACAgIDWOnkCAAABVklEQVR4XuzO0QmAMAwE0Kt0AIUMIJ3EQPafSf9SUqwEARHuvi5Akoft4/wdQAABBBBAAAEEEECAWWjp4BVJjqqxjVeQAqwNCQCgXfOglb6nAMsoELuiYZwB0PYSum9FwLNATG9GO6p5m/331ZCzXTJKYRgEguigHkSWHmDBHECauf+ZyiKw0aSx9qc/HYi8FWZ5EFFO0SD9bUV6M5JkTxZIjiN7dQjKOZrIjwRoYU/GNRo4rwqU7SjAlmG8FdgNnMfqXEBZXQYt+8XImmrikSyJ0WBkr04FNiKRXwqQFTQ950WBjS2tSM95hAGK06F9t2lBYIPkIO3YTyP4fJiAk7cnm6YCFdGGKiHk3I40jJcCitQEeh6qtwIqQgLAXEDj86Em6mRFUqTjRYEgkgHE+S/Q2L4DKQBb0PHSL7ArE4hl9givoyZQ0PHCI/Tr74OlPSg/zl/gBQLtO9IThigAAAAAAElFTkSuQmCC" ;
       r_10_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAICAQAD//wBgioY8AAAAjUlEQVR4XtzTuw3AIBRD0StXiCkoEVN6FEqUKZMZnotEcXcaF+/DZ7JOZnbPLMuJ6bATM2EmZkBL/H5BPoMGI3G+RoED55eY/wJzRhZ947rR6Xu5bnQ9cd3kBUderhsh47oBmYJ/UnAvFALCpkIZpPIRBowaELUUyiCVjzBg1ICslVAGqXyGUMoA5QYAAOvZeXzHvZrsAAAAAElFTkSuQmCC" ;
+
       r_11_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAFVBMVEUAAACAAAAAgACAgAAAAICmyvD///9KEYt2AAABPElEQVR4XsTVwQnEMBBD0W1BoE52GxBR/zUtgpx9S77NyNcHMsyn5LEEA8oBvBAI0AzBANlFAUqFVhDV7CccICQgdoRWIE+BAdRoDwWQ22wgQLyYAgJokcoQQHeG3AX3KmABaklA6yPgehyQM+D7exxQGNAT4HoL8C+fjE4YhmEgajJJkfEC7SYFeQNn/xEaixw1rpFqhBugD0hCfu7lcg405nGPJCSe5UkTWAJssVcKc965QUkMlc0SiCKAr881QsL4EwjgVtQWbuFEF5D4+G5fMsRELiddAwdQhcEoH9gCBwzw8bn0b7gTgLOaL9gNjAZYmp8C8GwPMbRs6gZkBaMRoggdIq+AtOA4htoCwDcNgDSZ7RfADDvSRLBjA5ihg+sFXMcQK1hqQKYAWGNA4GcCAAO8SADYAvQ3Ai8XS2aBEwhq/wAAAABJRU5ErkJggg==" ;
+
+      r12 : dynamic_graphic {( point_arbor_dens ? "r_12_1" : "r_12_0" )} ;
+      r_12_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAAAAAAIBwa344AAABo0lEQVR4XmJYRSEYHgaMGjBqwKgBowaMGrACQgHqJHdciWEQimIp9FOE/Rhp3GMJ9r+Vx4V8iqf5GRtuDuBAEWGSSzAWz6VOq04S/dkdaf9q41KGEH7FegP0wu2fAOi+gwAwyv2MeAPwcQHsdtsDYBgT2K9+AOAYXUoHpXNaZ+XLPYnAlI6vHUPDj5He4SebzBN+h3w0wKWqUrhH16bhF4BHGHIgsVURVUUY5B9kUpSIiKG6VHJTOwkgvstHxRaVUqoNYKdMGap+Clxh4vlNv6Emx180HQfnmYrNJggb528Dy7EtYZrnFEcMQ2qPQ8JcQHLZU+OY1D3hKffqoiZgeTiEkq6Du5EVZsIp4lAUgYbOLwBz9FVR3PeIPhbIx4kyu2kGRhExvu7ZAcBLCH7nTuPeCw7LPvG8277mOZbRqLtzJgyyv8N8z94aAEAUZwGMK+RltAE9ysqdtdXP7JkU4AaLzpTeQ7kB6PGlYG3JjfELVorlo/2yUs0t8q5SSkshJiRP8S9gOwBItftOGEsdwt9rorQk8R/Qm6VEsnsvFXkB3d0fYbcRJrJy0BIAAAAASUVORK5CYII=" ;
       r_12_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAADFBMVEWAAAAAgAAAAICAQAD6AD8SAAABxklEQVR4XpSUwW3DMBAEr8nlgyVcPyohjzBFpArmkRJUQh52AGExogxRhvwR4F3Pncc4R3vzWt/kR8CH9JJ//hJSuQAsUm4fk9LBSlSozAGSqsdUAERUTgCsJ3lM8Vs//iqSksoMsEhSbm0WXYlUqMwAkqTqMRUAEZURgB8PVvEYO+tDlFR202E/KJA8RkgkqlR204EfAB6jHACLJwPAdNjPDKCepwBMB37ubYDpwA8SrwBIxHTgp+3puGevo0QqlAI4P/LVr0AFUQBQlWwHwHWiPAMwx0959V4ay1GZADi1+S1QAYBEjp1rBMA1UhklArArPyF2cU1UDgD8bPHzr13+I1HBdODnkH4/2gvg67kOFUxzCxOA1JUnAExzjbc34Brxcw+A6f9SyCUFQhgIohGZtSvPE48gYO6bI3kAoSaflgdKAsHadKCK16l2SWs4nElnnf4qY8oV9uLMikRuc3N49roAVGFFIoRaAOkJWGzzGOCXKxwDgEXq/4BIHzDLmAC8be4DpLwHwJorBABEAFCvLK4xbzMpYkUixmoClATAyunsAxCAUCpsAEwAqNdSbBgc6iuA+7w1haL97XBp6o1U4FDfAX/SsDR4txu33wAAAABJRU5ErkJggg==" ;
+
+      r_20_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAGFBMVEUAAACAgADAwMCmyvCAQAAA4ID/AAD//wAUMLhVAAACy0lEQVR4XsXVwY6bMBSF4T8DdrfwBhHqA1iysrdSlG6RRuxZTN0XGIXXLzGBK7CbiYhKj7LKIv507rVD/VoufsxHvTGbAV7ykoHNx9Pp8PHdmI0CNjevu/ARgAj2AEgDuwIkcwNe6xmw5xJepgb8VIH2//sW7AUQQWeABrCA3usWSAEdBlQD1gDsvYRDsKAgMzBW4PcGZAFgeQggfw3A7QeA1Agyg5oKQCdnAJC/AjhzT54AYI1qLNAOSQIIeQVQHbkn/hcELK2BtgHlY4AT/FbA+RFAQWaVUW0D4G9J49kOqKoqPYOL9t2vFrKTba0NAO29XtirWZBvBVRD0hVcOq+78Aic3k1mDeFN9gJwb1Wk3wQQQb4egUe1YA1goxGAAET/9IZKizIE6r7vP6UB7UG17fuphcysGgC+qCCiOfI0QCr4ee2XDUDYwxYMfhDINQBIDFBCBADSABH0/vdnBDhlhraxdH4gTAAH8CaAqAIXARyQPwZ8u177fh4BOgCyE9bQZKYDWABIz4CQCCDMGFDdAUMDPczXsAsABdYojNdDngCQBjhxJgDHO+B6WwKmEQSAVYBRWA/o+iFAaIcIINAkQBoI2yqAzIyA1TWEAZEEjOeX5Qrg1iJ5TELugPsOMB5nb2EENGgvgPE4twLIQUVZUESAWOCYBNE7MF+CALAsANNp5xgwnX9YASAlcEwCgSUB2QIgczwnAUVRIiOQAhCsAJiWQFiygzEgetAEIAcVh6IsiwcAxCSA+kkApF8cAVCGLADHCOAIfU0z+F7/FdBCNu+A1BchJCWHkkUD54r1DFisYS0RwAcAqoGM/P5V/UUACgbAYQU4rgBunuMN8D0JCA2pFvgRUElAuoz1EsptmVRE9hSgdigQlAAeBAkCWFXg8ucAkucBtUsCqiUgcseCj4RKNM8T5id/uQT/OC4BOO4FEEEMENVugj9m0CyMRLeKpQAAAABJRU5ErkJggg==" ;
+
       r_21_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAElBMVEUAAACAAADAwMCAQACAgID//wAHZQqUAAABXElEQVR4Xu3XUYrCMBCH8XHqAeoNhskFQv/su4A3EO9/ldV0I10nODXZFBb6PRWw8HMITUKXHOucsHZLOD9ccgbQUyCsDqCvQFgdQF+BsK4FqFCHWN8Czr+w2iHWRcdVgB2wA3ZAALQ5YKoGIL3cVgCwCsAWEHC7QhvD1w2TBcgaAO6A1hGEBwB1gJAA0KaQAFMVAAnQNoIwA1ABSMO79xwBFWNvALd7V0wVAGTANJsQB7w2gLwBzAD8BQAlQOwJSGsgA3QAGUBEZAeQ1kAVIGSAPgE2ZwKaAf4aOKsHEAwwDbUAPf4/gFIBEKkbwH6ICLbIFR+iWoBQoS0BdLKNGwJkLAAOGwIOBcB46gWw27FQoUMGeNuxD2AXcCrUAJD3gB1AjxIg0k9lADkNCZAePwGwPZSWJzB+cCgVH2CvBXAA7ANgLgY+gBcv6zsAqdviT4gPKPywfiewcQHwDSXB7I2tcgFNAAAAAElFTkSuQmCC" ;
+      r_22_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAAB7PwDAwMAAxrgrAAAA+UlEQVR4Xu3SsWrDQAzH4XTt7pfIU3T2GCxDtDsQvUeW7ieop3rQEf2fsjiN20B74LujpIX+5uND6LRBqqnDGZeaLZ6R6meB182lDCBAXYwG4jgDE72XA/TOcAPCDJzyAemNYQYcpBhQqMHjWATosY+K0a47aPKBvWoEG1AOBHK5AmfKB4Ky1QI+oAJQFR+WQ5oWoC075XrgtAC7ewHNAnR/CLDeyUWJ1GXq6KPtWkDN/CjqUgqMFrFfAPqsXQsotA4wVrzMQKAyAGEGvk6wWw1YJcAewd8AXc43ClcA1oMQOA9IdQvQ492BNg0ke7gFntLvqLLfAPwDb1rKUt3zn4kDAAAAAElFTkSuQmCC" ;
 
       r_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAgIDAwMAAXXgPAAAAyElEQVR4Xu3WMQoDIRAF0MFqSZ9+mdKjpAzJfSQQGDxF1krmlCk0/MYt/Cm2SKZywX18/IXKfTTR3R/+mf5Rh1v3gRoB1DgNIEJbMgAi1EgBnqRP8Eng1oJn71Pa4nwQUEW+BMyOSPBPcB0neJKACA/0YQGzrGpWVGngpMFSWWkg5VVtKYEGlhw02Uv1qDPgW7iME2yTAFogAbRAAmiBBvgzGLew/VILcdxCnQPQAg2gBRLA9U4CeGAQAH5rFAMUAJkCMoCyD7wBMsQsMHU9JoUAAAAASUVORK5CYII=" ;
 
