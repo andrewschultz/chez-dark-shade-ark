@@ -162,6 +162,18 @@ locations {
          }
       }
    }
+   cell_farming : location "This is the final location." header="<Cell, Farming<#ff00>>" graphic="r_cell_farming" {
+      on_command {
+         : match "hi strawberry;high strawberry" {
+            : print "Narrative text." ;
+            : set_true "point_hi_strawberry" ;
+            : set_false "think_hi_strawberry" ;
+            : gosub "add_point" ;
+            : win_game ;
+            : done ;
+         }
+      }
+   }
    r00 : location "{r00_loc_desc}" header = "{r00_header}" {
       on_command {
          : match "sly maps" {
@@ -452,6 +464,11 @@ barriers {
       block_when = point_weak_link
       message = You have no desire or need to go back to the wee clink.
    }
+   block_r01_w : block {
+      location = cell_farming
+      block_when_not = point_the_floored
+      message = {r01_nogo}
+   }
    block_r01_n : block {
       location = r02
       block_when_not = point_walk_round
@@ -593,20 +610,8 @@ on_command {
    }
    : if (point_the_floored) {
       : match "hi strawberry;high strawberry" {
-         : if (point_hi_strawberry) {
-            : print "Already done!" ;
-            : done ;
-         }
-         : if (!is_at "r01") {
-            : print "You look around to find someone or something to notify of the heist robbery, but they're not here." ;
-            : set_true "think_hi_strawberry" ;
-            : done ;
-         }
-         : print "Narrative text." ;
-         : set_true "point_hi_strawberry" ;
-         : set_false "think_hi_strawberry" ;
-         : gosub "add_point" ;
-         : win_game ;
+         : print "You look around to find someone or something to notify of the heist robbery, but they're not here." ;
+         : set_true "think_hi_strawberry" ;
          : done ;
       }
       : if (!point_hi_strawberry) {
@@ -750,6 +755,8 @@ assets {
 
       r_21_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAElBMVEUAAACAAADAwMCAQACAgID//wAHZQqUAAABXElEQVR4Xu3XUYrCMBCH8XHqAeoNhskFQv/su4A3EO9/ldV0I10nODXZFBb6PRWw8HMITUKXHOucsHZLOD9ccgbQUyCsDqCvQFgdQF+BsK4FqFCHWN8Czr+w2iHWRcdVgB2wA3ZAALQ5YKoGIL3cVgCwCsAWEHC7QhvD1w2TBcgaAO6A1hGEBwB1gJAA0KaQAFMVAAnQNoIwA1ABSMO79xwBFWNvALd7V0wVAGTANJsQB7w2gLwBzAD8BQAlQOwJSGsgA3QAGUBEZAeQ1kAVIGSAPgE2ZwKaAf4aOKsHEAwwDbUAPf4/gFIBEKkbwH6ICLbIFR+iWoBQoS0BdLKNGwJkLAAOGwIOBcB46gWw27FQoUMGeNuxD2AXcCrUAJD3gB1AjxIg0k9lADkNCZAePwGwPZSWJzB+cCgVH2CvBXAA7ANgLgY+gBcv6zsAqdviT4gPKPywfiewcQHwDSXB7I2tcgFNAAAAAElFTkSuQmCC" ;
       r_22_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAAB7PwDAwMAAxrgrAAAA+UlEQVR4Xu3SsWrDQAzH4XTt7pfIU3T2GCxDtDsQvUeW7ieop3rQEf2fsjiN20B74LujpIX+5uND6LRBqqnDGZeaLZ6R6meB182lDCBAXYwG4jgDE72XA/TOcAPCDJzyAemNYQYcpBhQqMHjWATosY+K0a47aPKBvWoEG1AOBHK5AmfKB4Ky1QI+oAJQFR+WQ5oWoC075XrgtAC7ewHNAnR/CLDeyUWJ1GXq6KPtWkDN/CjqUgqMFrFfAPqsXQsotA4wVrzMQKAyAGEGvk6wWw1YJcAewd8AXc43ClcA1oMQOA9IdQvQ492BNg0ke7gFntLvqLLfAPwDb1rKUt3zn4kDAAAAAElFTkSuQmCC" ;
+
+      r_cell_farming : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEWAAAAAAICAgIA/YV9fAAAAgElEQVR4XuzQoQ2AQBBE0WuCEihpNln8lnQlnLkqESSIcT8YxH435okZ+thPgNiwZUAK5kCJFWXAFCsNCMHKgBRsGoAvkAGbZgD+8HqABhpoYJzHO+4xMDAwNDCQBrgYFBgQYIga0EChAUwMFBrAQakBCpQagK5hFamAYbiBUQAAnghJ9GFji2wAAAAASUVORK5CYII=" ;
 
       r_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAgIDAwMAAXXgPAAAAyElEQVR4Xu3WMQoDIRAF0MFqSZ9+mdKjpAzJfSQQGDxF1krmlCk0/MYt/Cm2SKZywX18/IXKfTTR3R/+mf5Rh1v3gRoB1DgNIEJbMgAi1EgBnqRP8Eng1oJn71Pa4nwQUEW+BMyOSPBPcB0neJKACA/0YQGzrGpWVGngpMFSWWkg5VVtKYEGlhw02Uv1qDPgW7iME2yTAFogAbRAAmiBBvgzGLew/VILcdxCnQPQAg2gBRLA9U4CeGAQAH5rFAMUAJkCMoCyD7wBMsQsMHU9JoUAAAAASUVORK5CYII=" ;
 
