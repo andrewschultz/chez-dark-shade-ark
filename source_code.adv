@@ -112,6 +112,7 @@ booleans {
    point_great_ankhs : boolean "false" ;
    point_deem_unfit : boolean "false" ;
    point_the_floored : boolean "false" ;
+   return_the_floored : boolean "false" ;
    point_hi_strawberry : boolean "false" ;
 
    progress_x_sly : boolean "false" ;
@@ -206,6 +207,10 @@ locations {
          }
       }
       on_describe {
+         : if (point_the_floored && !return_the_floored) {
+            : print "Hmm. The documents you found showed a new door to the left, and when you have a look -- there it is. It must've gotten lost in the shuffle." ;
+            : set_true "return_the_floored" ;
+         }
          : if (point_off_lame && !return_off_lame) {
             : set_true "return_off_lame" ;
          }
@@ -719,9 +724,22 @@ on_tick {
 }
 
 on_render {
-   : if (showing_map) {
-      : if (is_at "r01" && point_walk_round) {
+   : if (!showing_map) {
+      : done ;
+   }
+   : if (is_at "r01") {
+      : if (point_the_floored) {
          : overlay "o_wall_crowned" x="0" y="16" ;
+         : overlay "o_wall_crowned" x="48" y="16" ;
+         : overlay "o_wall_crowned" x="96" y="16" ;
+         : overlay "o_wall_crowned" x="144" y="16" ;
+         : overlay "o_wall_crowned" x="192" y="16" ;
+      }
+      : else_if (point_walk_round) {
+         : overlay "o_wall_crowned" x="0" y="16" ;
+         : overlay "o_wall_crowned" x="64" y="16" ;
+         : overlay "o_wall_crowned" x="128" y="16" ;
+         : overlay "o_wall_crowned" x="192" y="16" ;
       }
    }
 }
@@ -729,7 +747,7 @@ on_render {
 assets {
    graphics {
    # overlays
-      o_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAABlBMVEX///+AgIBizNOVAAAAAXRSTlMAQObYZgAAACtJREFUKFNjYBgigP0BfppB/gd+msH+D36asIL6f/hpKij4/x8/PaqAPgoAytGDTRmnj0oAAAAASUVORK5CYII=" ;
+      o_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAYAQMAAABwemkHAAAABlBMVEX///+AgIBizNOVAAAAAXRSTlMAQObYZgAAACBJREFUCFtjYCARsD+AMuR/QBn2f9AZ9f9wMv7/pw8DAMy5INRDqbfqAAAAAElFTkSuQmCC" ;
 
    # rooms
       r_mid : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAAAAAAIBwa344AAAAK0lEQVR4XmNYRSEYXgaMGjBqwKgBowaMGuBCIWAQpBAMFheMumDUBaMuAACbHaY97NTKrAAAAABJRU5ErkJggg==" ;
