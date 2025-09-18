@@ -23,6 +23,8 @@ strings {
    ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
    wp : string "<Why Pout<#f80>>[http://andrewschultz.itch.io/us-too]" ;
    note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
+   r_cfsa : string "<Cell, Farming Self-Arming<#ff0>>" ;
+   heist : string "<HEIST! ROBBERY!<#f44>>" ;
 
    my_score : string "{score}/{max_score}" ;
 
@@ -163,7 +165,7 @@ locations {
          }
       }
    }
-   cell_farming : location "This is the final location." header="<Cell, Farming<#ff00>>" graphic="r_cell_farming" {
+   cell_farming : location "This is the final location." header="{r_cfsa}" graphic="r_cell_farming" {
       on_command {
          : match "hi strawberry;high strawberry" {
             : print "Narrative text." ;
@@ -439,6 +441,7 @@ objects {
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
    freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
+   me_code : object "a meek-owed-me code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
 }
 
 connections {
@@ -449,6 +452,7 @@ connections {
       r01, enter, wee_clink
       r01, north, r02
       r01, south, r00
+      r01, west, cell_farming
       r01, down, r22
       r01, east, r11
       r02, east, r12
