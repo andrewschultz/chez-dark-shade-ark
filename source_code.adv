@@ -23,8 +23,10 @@ strings {
    ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
    wp : string "<Why Pout<#f80>>[http://andrewschultz.itch.io/us-too]" ;
    note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
+   r_blob : string "<Blah, Bland Blob Land<#ccc>>" ;
    r_cfsa : string "<Cell, Farming Self-Arming<#ff0>>" ;
    heist : string "<HEIST! ROBBERY!<#f44>>" ;
+   yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
 
    my_score : string "{score}/{max_score}" ;
 
@@ -37,6 +39,12 @@ strings {
    v_verbs : string "<VERBS<#0f0>>" ;
    xme : string "<X ME<#0f0>>" ;
    xnum : string "<X NUMBER<#0f0>>" ;
+
+   # keyboard stuff
+   key_enter : string "the <ENTER<#f88>>/<RETURN<#f88>> key" ;
+
+   # items
+   i_aid_art : string "<aid art<#f4f>>" ;
 
    # location stuff
    r00_header : dynamic_string {( return_sly_maps ? "<A Cramp-Ache Ramp<#f80>>" : point_sly_maps ? "{r_blob}" : "<Slime Apps<#f80>>" )} ;
@@ -140,6 +148,8 @@ booleans {
    intro_shown_yet : boolean "false" ;
    ever_x_me : boolean "false" ;
    ever_x_number : boolean "false" ;
+
+   in_number_choice : boolean "false" ;
 }
 
 vocabulary {
@@ -382,6 +392,7 @@ locations {
          : match "deem unfit" {
             : if (point_deem_unfit) {
                : print "You already got rid of the demon!" ;
+               : done ;
             }
             : if (!point_first_attic) {
                : print "You thought you had some good points, but the demon (fit) roars back at you with a variety of rhetorical debating techniques, before suggesting you're lucky they didn't use violence. If only you had some way to trip them up." ;
