@@ -568,7 +568,7 @@ on_describe {
 
 on_command {
    : if (is_carried "aid_art") {
-      : match "a dart" {
+      : match "dart -" {
          : if (point_a_dart) {
             : print "Already done!" ;
             : done ;
@@ -581,8 +581,8 @@ on_command {
          : done ;
       }
       : if (!point_a_dart) {
-         : match "a _;_ dart" {
-            : gosub "say_half" ;
+         : match "dart _;_ dart" {
+            : print "You just technically need one word, due to how Adventuron processes certain words." ;
             : done ;
          }
       }
