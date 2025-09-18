@@ -45,6 +45,7 @@ strings {
 
    # items
    i_aid_art : string "<aid art<#f4f>>" ;
+   bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
 
    # location stuff
    r00_header : dynamic_string {( return_sly_maps ? "<A Cramp-Ache Ramp<#f80>>" : point_sly_maps ? "{r_blob}" : "<Slime Apps<#f80>>" )} ;
@@ -129,6 +130,7 @@ booleans {
    progress_x_key : boolean "true" ;
    progress_full_map : boolean "false" ;
    progress_got_dart : boolean "false" ;
+   progress_ankh_used : boolean "false" ;
 
    think_great_ankhs : boolean "false" ;
    think_deem_unfit : boolean "false" ;
@@ -288,9 +290,10 @@ locations {
                : print "You already transformed the tanks!" ;
                : done ;
             }
-            : print "Narrative text." ;
+            : print "Great ankhs rise from the ground. A voice says: \nTake this. You have performed well. It will not make you unhappy, but it will make mean people or entities around you unhappy. It is a ... {bdb_ankh}.\"" ;
             : set_true "point_great_ankhs" ;
             : set_false "think_great_ankhs" ;
+            : pocket "brood_ankh" ;
             : gosub "add_point" ;
             : done ;
          }
@@ -415,6 +418,13 @@ locations {
             }
          }
       }
+      on_describe {
+         : if (!progress_ankh_used) {
+            : print "The {bdb_ankh} glows. The demon looks horrified. It becomes less talkative. But it is not defeated yet. You must do the rest." ;
+            : set_true "progress_ankh_used" ;
+            : destroy "brood_ankh" ;
+         }
+      }
    }
    r22 : location "{r22_loc_desc}" header = "{r22_header}" graphic="r_22_0" {
       on_command {
@@ -460,6 +470,7 @@ objects {
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
    freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
+   brood_ankh : object "It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
    me_code : object "a meek-owed-me code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
 }
 
