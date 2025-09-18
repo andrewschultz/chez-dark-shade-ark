@@ -120,7 +120,7 @@ booleans {
    progress_x_sly : boolean "false" ;
    progress_x_key : boolean "true" ;
    progress_full_map : boolean "false" ;
-   progress_got_dart : boolean "true" ;
+   progress_got_dart : boolean "false" ;
 
    think_great_ankhs : boolean "false" ;
    think_deem_unfit : boolean "false" ;
@@ -409,11 +409,19 @@ locations {
       on_command {
          : match "s _" {
             : if (!progress_full_map) {
-               : print "You have no way through the maze." ;
+               : if (point_sly_maps && point_off_lame) {
+                  : print "You haven't found a way through the maze. But maybe examining something in your inventory will help." ;
+                  : done ;
+               }
+               : if (point_sly_maps || point_off_lame) {
+                  : print "You see no way through the maze, even though you have something useful in your inventory that helps halfway." ;
+                  : done ;
+               }
+               : print "You have nothing that could help you through the maze. You don't want to go getting lost." ;
                : done ;
             }
             : if (!progress_got_dart) {
-               : print "You use the map and the key to work your way through the maze. Well, near the end. But something supernatural and scary lies near the end. You have to flee. However, in the process, you find some {i_aid_art} in the maze." ;
+               : print "You use the map and the key to work your way through the maze. Well, near the end. But something supernatural and scary lies near the end. You have to flee. However, in the process, you find some {i_aid_art} in the maze. It may help elsewhere." ;
                : pocket "aid_art" ;
                : set_true "progress_got_dart" ;
                : done ;
@@ -597,6 +605,7 @@ on_command {
          : set_false "showing_map" ;
          : update_graphic "s_maze_full" ;
          : set_true "showing_map" ;
+         : set_true "progress_full_map" ;
          : done ;
       }
    }
