@@ -236,6 +236,8 @@ locations {
             : set_true "return_off_lame" ;
          }
          : if (point_sly_maps && !return_sly_maps) {
+            : print "As you returned, you uncovered something cool: a {hope_light}! That should help with the dreariness to the north." ;
+            : pocket "hope_light" ;
             : set_true "return_sly_maps" ;
          }
       }
@@ -483,6 +485,7 @@ objects {
    sun_cold : scenery "{sosc}" msg="It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." location="wee_clink" ;
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
+   hope_light : object "<\"Ho! Plight? Hope!\" light<#ccc>>"; msg="The {hope_light} provides a reassuring light." ;
    fir_static : scenery "{puz_fir_static}"; msg="{desc_fir_static}" ; #need better
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
@@ -490,6 +493,8 @@ objects {
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
    brood_ankh : object "a brew-dank-brood ankh" msg="It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
    me_code : object "a meek \"owed, me\" code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
+
+   # scenery e.g. non-default description may need to go in on_describe block
 }
 
 connections {
