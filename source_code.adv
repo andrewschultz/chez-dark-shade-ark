@@ -1,6 +1,7 @@
 start_at = "wee_clink"
 start_theme = my_theme
 
+#cch.py makes sure of things
 game_information {
    game_name                    = Chez Dark Shade Ark
    game_version                 = 1.0.0
@@ -26,11 +27,13 @@ strings {
    r_blob : string "<Blah, Bland Blob Land<#ccc>>" ;
    r_cfsa : string "<Cell, Farming Self-Arming<#ff0>>" ;
    sosc : string "<sunk old sun, cold<#ccc>>" ;
-   heist : string "<HEIST! ROBBERY!<#f44>>" ;
    yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
 
    my_score : string "{score}/{max_score}" ;
 
+   # puzzly stuff
+   puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
+   puz_fir_static : string "<fir, static<#f4f>>" ;
    # commands
    v_about : string "<ABOUT<#0f0>>" ;
    v_credits : string "<CREDITS<#0f0>>" ;
@@ -44,9 +47,12 @@ strings {
    # keyboard stuff
    key_enter : string "the <ENTER<#f88>>/<RETURN<#f88>> key" ;
 
-   # items
+   # item names
    i_aid_art : string "<aid art<#f4f>>" ;
    bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
+
+   # variable item descriptions
+   desc_fir_static : dynamic_string {( point_first_attic ? "The fir (static) holds no more secrets." : "The fir (static) looks like it can hold more." )} ;
 
    # location stuff
    r00_header : dynamic_string {( return_sly_maps ? "<A Cramp-Ache Ramp<#f80>>" : point_sly_maps ? "{r_blob}" : "<Slime Apps<#f80>>" )} ;
@@ -330,11 +336,12 @@ locations {
       on_command {
          : match "arbor dens" {
             : if (point_arbor_dens) {
-               : print "Already done!" ;
+               : print "You already made this place less depressing." ;
                : done ;
             }
-            : print "Narrative text." ;
+            : print "You look past all the whining, and there's actually somewhere much nicer to be, better irrigated, and so forth, all sorts of trees all over the place. Most of them seem pretty happy and well kept up, but there is one fur, static, in the middle of them all." ;
             : set_true "point_arbor_dens" ;
+            : create "fir_static" ;
             : gosub "add_point" ;
             : done ;
          }
@@ -476,6 +483,7 @@ objects {
    sun_cold : scenery "{sosc}" msg="It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." location="wee_clink" ;
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
+   fir_static : scenery "{puz_fir_static}"; msg="{desc_fir_static}" ; #need better
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
    freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
