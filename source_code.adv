@@ -367,19 +367,27 @@ locations {
    }
    r20 : location "{r20_loc_desc}" header = "{r20_header}" graphic="r_20_0" {
       on_command {
-         : match "the floored;thee floored" {
+         : match "floored" {
+            : if (!point_thee_floored) {
+               : print "Floored is right, but this is a bit tricky. Adventuron doesn't parse articles, and I didn't want two potential one-word solutions, so you need something similar." ;
+               : done ;
+         }
+         : match "thee floored" {
             : if (!point_deem_unfit) {
-               : print "The thief lord isn't distracted by you." ;
+               : print "The thief lord can't be floored by you alone. You need a distraction." ;
                : set_true "think_the_floored" ;
                : done ;
             }
             : if (point_the_floored) {
-               : print "Already done!" ;
+               : print "But you already got rid of the thief." ;
                : done ;
             }
-            : print "Narrative text." ;
+            : print "The {poach_arm} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing." ;
+            : print "Wow, they sure seem tough, but you managed to find a way to deal with them. The thief goes back through the portal, ostensibly to plan hard to Show You. They could Show You now, but once they get their friends together, they'll really Show You!" ;
+            : print "As the thief is about to leave, The {poach_arm} discovers a {me_code} and flips it your way. The thief sees this and grabs the {poach_arm}, which is actually a really bad idea since the {poach_arm} isn't going to work FOR the thief." ;
             : set_true "point_the_floored" ;
             : set_false "think_the_floored" ;
+            : pocket "me_code" ;
             : gosub "add_point" ;
             : done ;
          }
@@ -472,8 +480,8 @@ objects {
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
    freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
-   brood_ankh : object "It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
-   me_code : object "a meek-owed-me code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
+   brood_ankh : object "a brew-dank-brood ankh" msg="It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
+   me_code : object "a meek \"owed, me\" code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
 }
 
 connections {
