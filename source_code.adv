@@ -47,8 +47,9 @@ strings {
 
    # item names, with puzzle
 
-   puz_demon_fit : string "demon, fit<#f4f>>" ;
-   puz_thief_lord : string "thief lord<#f4f>>" ;
+   puz_demon_fit : string "<demon, fit<#f4f>>" ;
+   puz_gray_tanks : string "<gray tanks<#f4f>>" ;
+   puz_thief_lord : string "<thief lord<#f4f>>" ;
    puz_fir_static : string "<fir (static)<#f4f>>" ;
    puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
    i_aid_art : string "<aid art<#f4f>>" ;
@@ -75,7 +76,7 @@ strings {
    r02_nogo : dynamic_string {( return_off_lame ? "You see no passage." : point_off_lame ? "You should come back and look for new exits once the land's healed from the flame." : "The awe-flame distracts you too much from finding new exits." )} ;
 
    r10_header : dynamic_string {( point_great_ankhs ? "<Great Ankhs<#f80>>" : "<Gray Tanks<#888>>" )} ;
-   r10_loc_desc : dynamic_string {( "This place is covered with " + ( point_great_ankhs ? "great ankhs" : "grey tanks" ) + ". It's too desolate everywhere except back west." )} ;
+   r10_loc_desc : dynamic_string {( "This place is covered with " + ( point_great_ankhs ? "great ankhs" : "{puz_gray_tanks}" ) + ". It's too desolate everywhere except back west." )} ;
    r10_nogo : string "You can only go back west." ;
 
    r11_header : dynamic_string {( "<Pond, Icy<#f80>>" )} ;
@@ -326,6 +327,8 @@ locations {
             }
             : print "Great ankhs rise from the ground. A voice says: \nTake this. You have performed well. It will not make you unhappy, but it will make mean people or entities around you unhappy. It is a ... {bdb_ankh}.\"" ;
             : set_true "point_great_ankhs" ;
+            : destroy "gray_tanks" ;
+            : create "great_ankhs" ;
             : set_false "think_great_ankhs" ;
             : pocket "brood_ankh" ;
             : gosub "add_point" ;
@@ -521,11 +524,11 @@ locations {
 # Defines things in the world (scenery cannot be carried)
 
 objects {
-   sun_cold : scenery "{sosc}" msg="It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." at="wee_clink" ;
+   sun_cold : scenery "{sosc}" msg="It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." at="wee_clink" conspicuous="false" ;
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
    hope_light : object "<\"Ho! Plight? Hope!\" light<#ccc>>" msg="The {hope_light} provides a reassuring light." ;
-   fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" ; #need better
+   fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" conspicuous="false" ;
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
    freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
@@ -536,6 +539,8 @@ objects {
    # scenery e.g. non-default description may need to go in on_describe block
    demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." at="r21" ;
    thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." at="r20" ;
+   gray_tanks : scenery "{puz_gray_tanks}" msg="Very intimidating and warlike." at="r10" conspicuous="false" ;
+   great_ankhs : scenery "great ankhs" msg="They radiate peace and stillness." conspicuous="false" ;
 }
 
 connections {
@@ -792,7 +797,7 @@ on_command {
          : print "You can say <THEE FLOORED<#f80>> to the thief lord once you have more leverage." ;
       }
       : if (think_great_ankhs) {
-         : print "You can convert the grey tanks to <GREAT ANKHS<#f80>> once you have something you can use to change them." ;
+         : print "You can convert the gray tanks to <GREAT ANKHS<#f80>> once you have something you can use to change them." ;
       }
    }
    : match "verbs _;verb _" {
