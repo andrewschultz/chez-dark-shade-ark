@@ -25,6 +25,7 @@ strings {
    note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
    r_blob : string "<Blah, Bland Blob Land<#ccc>>" ;
    r_cfsa : string "<Cell, Farming Self-Arming<#ff0>>" ;
+   sosc : string "<sunk old sun, cold<#ccc>>" ;
    heist : string "<HEIST! ROBBERY!<#f44>>" ;
    yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
 
@@ -161,7 +162,7 @@ vocabulary {
 }
 
 locations {
-   wee_clink      : location "It sure is claustrophobic in here. You're not sure how to get out." header="<Wee Clink<#ff0>>" graphic="r_wee_clink" {
+   wee_clink : location "It sure is claustrophobic in here. You're not sure how to get out. The only think you see in the outside is a {sosc}." header="<Wee Clink<#ff0>>" graphic="r_wee_clink" {
       on_command {
          : match "weak link" {
             : print "There you go." ;
@@ -464,6 +465,7 @@ locations {
 # Defines things in the world (scenery cannot be carried)
 
 objects {
+   sun_cold : scenery "{sosc}" msg="It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." location="wee_clink" ;
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
