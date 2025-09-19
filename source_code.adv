@@ -59,7 +59,7 @@ strings {
    r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
 
    r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : point_off_lame ? "{r_blob}" : "<Awe Flame<#f80>>" )} ;
-   r02_loc_desc : dynamic_string {( return_off_lame ? "You're in a gulf, lying. Like you can't really go anywhere." : "An awe-flame distracts you from everything." )} ;
+   r02_loc_desc : dynamic_string {( (point_gull_flying ? "The gull, flying, showed you a path east." : return_off_lame ? "You're in a gulf, lying. Like you can't really go anywhere further. Right?" : "An awe-flame distracts you from everything.") + "\nOf course, nothing obstructs your path back south." )} ;
    r02_nogo : dynamic_string {( return_off_lame ? "You see no passage." : point_off_lame ? "You should come back and look for new exits once the land's healed from the flame." : "The awe-flame distracts you too much from finding new exits." )} ;
 
    r10_header : dynamic_string {( point_great_ankhs ? "<Great Ankhs<#f80>>" : "<Gray Tanks<#888>>" )} ;
@@ -68,23 +68,23 @@ strings {
 
    r11_header : dynamic_string {( "<Pond, Icy<#f80>>" )} ;
    r11_loc_desc : dynamic_string {( "Back west is the wall. There's also a forbidding passage down past the pond." )} ;
-   r11_nogo : string {( "You can only go back west or down." )} ;
+   r11_nogo : string "You can only go back west or down." ;
 
    r12_header : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#f80>>" : "<Our Burdens<#f80>>" )} ;
    r12_loc_desc : dynamic_string {( ( point_first_attic ? "You've made things real verdant here. Can't be much left." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out." : "It's bare and desolate here." ) + "\nThe only way back is west." )} ;
-   r12_nogo : string {( "You can only go back west." )} ;
+   r12_nogo : string "You can only go back west." ;
 
    r20_header : dynamic_string {( "<\"Do Dark, Dude\" Ark<#ff0>>" )} ;
    r20_loc_desc : dynamic_string {( "Hoo boy it's dark in here. You can only go back up." )} ;
-   r20_nogo : string {( "You can only go back up." )} ;
+   r20_nogo : string "You can only go back up." ;
 
    r21_header : dynamic_string {( point_deem_unfit ? "<Tomb Eek-Too-Meek<#f80>>" : "<Tomb End-To-Mend<#f80>>" )} ;
    r21_loc_desc : dynamic_string {( "This is where the maze ends. You can only go back north." )} ;
-   r21_nogo : string {( "You can only go back north or east." )} ;
+   r21_nogo : string "You can only go back north or east." ;
 
    r22_header : dynamic_string {( "<Maze Which May Switch<#f80>>" )} ;
    r22_loc_desc : dynamic_string {( "There's a maze to the south, though you can go back up, too." )} ;
-   r22_nogo : string {( "You can only go back north or east." )} ;
+   r22_nogo : string "You can only go back north or east." ;
 
    custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
