@@ -187,7 +187,11 @@ locations {
    cell_farming : location "This is the final location." header="{r_cfsa}" graphic="r_cell_farming" {
       on_command {
          : match "hi strawberry;high strawberry" {
-            : print "Narrative text." ;
+            : print "You wonder what the weird thing in the {me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
+            : print "But it looks really embarrassed when it shows up. You ask what's the matter. It says, well, I feel really embarrassed, because I was the one who threw you in jail in the first place. In the weak link.
+            : print "\"Oh, man. What are you even talking about?\" You ask. It says, \"Well, somebody told me that it was the person that I least expected that would do something to me. And I figured that the thief Lord was pretty suspicious, but on the other hand, they were someone I expected, so I knew better. So I look for someone played, someone who maybe had a lot to high, and you certainly fit the bill, like someone they wouldn't expect to be a robber. So I threw you in the click. I feel kind of dumb now, but I guess it worked out okay?\"" ;
+            : print "This is all very awkward, and you can't help cursing under your breath, until you nod and say, okay, well, I guess I was the right choice with what I was able to do. The strawberry nods. \"Let's take care of those folks. Destroy the portal for good.\"" ;
+            : print "You do so. The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. You feel more up to it now. That's something." ;
             : set_true "point_hi_strawberry" ;
             : set_false "think_hi_strawberry" ;
             : gosub "add_point" ;
@@ -199,7 +203,7 @@ locations {
    r00 : location "{r00_loc_desc}" header = "{r00_header}" {
       on_command {
          : match "sly maps" {
-            : print "Narrative text." ;
+            : print "You were worried about looking through all the slime at first, because you didn't know what to look for, and it would be too messy. But since you decided you might be looking for maps, you were able to focus, and not worry about certain blobs which pretty much could not hold them. And what do you know? You find half of a particularly clever map. Why, you might call it a sly map, with how carefully it was hidden." ;
             : set_true "point_sly_maps" ;
             : gosub "add_point" ;
             : pocket "sly_maps" ;
@@ -216,7 +220,7 @@ locations {
    r01 : location "{r01_loc_desc}" header = "<Wall, Crowned<#ff0>>" graphic="r_01_0" {
          on_command {
          : match "walk round" {
-            : print "Narrative text." ;
+            : print "Certainly the wall looks intimidating at first. You're still getting your bearings. But after a while, you stop being impressed and blown away, and you realize you can take your time to look around. Nobody is after you. You find one door, then another, then two more. You wonder if there might be a final one, but really, if it is, you can find it later when you're more aware of your goals. You have enough to explore for the moment. There's even one leading down. They all look pretty safe, at least at first." ;
             : set_true "point_walk_round" ;
             : gosub "add_point" ;
             : press_any_key ;
@@ -245,7 +249,7 @@ locations {
    r02 : location "{r02_loc_desc}" header = "{r02_header}" {
       on_command {
          : match "off lame" {
-            : print "Narrative text." ;
+            : print "The flame seems impressive at first, but once you stop staring at it, you realize it's contained, and it's not going to catch and go anywhere else. In fact, instead of being odd by it, you're glad it provides like to look at other places. And that light turns up. However, as you stare at it more, it sort of burns away, and you can't see it anymore. Unfortunately, it burns out enough that you can't find a way forward, for the moment. Maybe you will find a light source later." ;
             : set_true "point_off_lame" ;
             : gosub "add_point" ;
             : pocket "key_nigh" ;
@@ -263,7 +267,7 @@ locations {
                   : print "Already done!" ;
                   : done ;
                }
-               : print "Narrative text." ;
+               : print "No, you think, the light wouldn't have shown the passage to the gulf without being more explicit that there was hope. The gulf seems to say, no, there really is nowhere else, but you also know that by water, there are signs and animals you can look for. You discover a gull and note them flying east. Once you know there's a passage that way, your mind is clearer, and you see the passage now." ;
                : set_true "point_gull_flying" ;
                : gosub "add_point" ;
                : done ;
@@ -318,10 +322,10 @@ locations {
       on_command {
          : match "pawn dicey" {
             : if (point_pawn_dicey) {
-               : print "Already done!" ;
+               : print "You already found an ally here." ;
                : done ;
             }
-            : print "Narrative text." ;
+            : print "Looking around the pond, you look for friends, any sort, and you find it in the guise of a pawn. It looks a little shifty, and this worries you, but it says, well, I have to look shifty around here, it will be suspicious if I don't. I'll tell you what, I know some secrets. I'm a pretty good marksman, and I can take innocuous things and make them into something powerful, maybe not lethal, but they can change the nature of something that is intimidating you. Your soul. You don't seem to have many other friends to help you here, so you'll take what you can get." ;
             : set_true "point_pawn_dicey" ;
             : gosub "add_point" ;
             : done ;
