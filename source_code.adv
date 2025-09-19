@@ -117,6 +117,22 @@ strings {
 integers {
    score : integer "0" ;
    max_score : integer "13" ;
+
+   clue_number : dynamic_integer {(
+      is_at "wee_clink" ? 44 :
+      is_at "r00" ? (point_sly_maps ? 0 : 34) :
+      is_at "r01" ? (point_walk_round ? 0 : 45) :
+      is_at "r02" ? (!point_off_lame ? 34 : (!point_gull_flying && return_off_lame) ? 46 : 0) :
+      is_at "r10" ? (point_great_ankhs ? 0 : 55) :
+      is_at "r11" ? (point_pawn_dicey ? 0 : 45) :
+      is_at "r12" ? (point_first_attic ? 0 : point_arbor_dens ? 55 : 54) :
+      is_at "r20" ? (point_the_floored ? 0 : 47) :
+      is_at "r21" ? (point_deem_unfit ? 0 : 45) :
+      is_at "r22" ? (point_walk_round ? 0 : 45) :
+      is_carried "aid_art" ? 14 :
+      is_at "cell_farming" ? 410 :
+      0
+      )} ;
 }
 
 booleans {
@@ -796,10 +812,18 @@ on_command {
    : match "x number;x umber" {
       : set_true "ever_x_me" ;
       : if (!ever_x_number) {
-         : print "You don't remember getting a tattoo. But it's weird ... it swirls around a bit." ;
+         : print "You don't remember getting a tattoo. And the name sure feels artifical, but hey, any help is better than no help. Plus you don't have to use it." ;
+         : print "As you inspect it, it swirls around a bit." ;
+         : print "{one_time} the number doesn't distinguish if you have the in-game help needed to solve a puzzle. I was close to 4 hours for EctoComp Petite Mort when I implemented it." ;
          : set_true "ever_x_number" ;
       } : else {
          : print "You watch the number swirl around a bit more." ;
+      }
+      : print "The current number is {clue_number}.";
+      : if (clue_number == 0) {
+         : print "So, nothing to do here." ;
+      } : else_if (clue_number > 100) {
+         : print "Weird it's so big. Twice as big as it should be." ;
       }
    }
 }
