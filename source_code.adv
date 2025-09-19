@@ -193,7 +193,7 @@ locations {
       on_command {
          : match "hi strawberry;high strawberry" {
             : print "You wonder what the weird thing in the {me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
-            : print "But it looks really embarrassed when it shows up. You ask what's the matter. It says, well, I feel really embarrassed, because I was the one who threw you in jail in the first place. In the weak link.
+            : print "But it looks really embarrassed when it shows up. You ask what's the matter. It says, well, I feel really embarrassed, because I was the one who threw you in jail in the first place. In the weak link." ;
             : print "\"Oh, man. What are you even talking about?\" You ask. It says, \"Well, somebody told me that it was the person that I least expected that would do something to me. And I figured that the thief Lord was pretty suspicious, but on the other hand, they were someone I expected, so I knew better. So I look for someone played, someone who maybe had a lot to high, and you certainly fit the bill, like someone they wouldn't expect to be a robber. So I threw you in the click. I feel kind of dumb now, but I guess it worked out okay?\"" ;
             : print "This is all very awkward, and you can't help cursing under your breath, until you nod and say, okay, well, I guess I was the right choice with what I was able to do. The strawberry nods. \"Let's take care of those folks. Destroy the portal for good.\"" ;
             : print "You do so. The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. You feel more up to it now. That's something." ;
@@ -346,7 +346,7 @@ locations {
    r12 : location "{r12_loc_desc}" header = "{r12_header}" {
       on_describe {
          : if (point_arbor_dens) {
-            : print "A fir (static) sits here. You " + {( point_first_attic ? "got something from it" : "haven't unlocked its mysteries yet" )} + "." ;
+            : print {( "A fir (static) sits here. You " + ( point_first_attic ? "got something from it" : "haven't unlocked its mysteries yet" ) + "." )} ;
          }
       }
       on_command {
@@ -395,10 +395,11 @@ locations {
          }
       }
       on_command {
-         : match "floored" {
-            : if (!point_thee_floored) {
+         : match "floored -" {
+            : if (!point_the_floored) {
                : print "Floored is right, but this is a bit tricky. Adventuron doesn't parse articles, and I didn't want two potential one-word solutions, so you need something similar." ;
                : done ;
+            }
          }
          : match "thee floored" {
             : if (!point_deem_unfit) {
@@ -430,7 +431,12 @@ locations {
    r21 : location "{r21_loc_desc}" header = "{r21_header}" graphic="r_21_0" {
       on_describe {
          : if (!point_deem_unfit) {
-            : print "A {puz_demon_fit} stands here, contemptuous of you. But hey, you beat back its first wave of intimidation." ;
+            : print "A {puz_demon_fit} stands here, contemptuous of you, surprised you haven't fled yet." ;
+         }
+         : if (!progress_ankh_used) {
+            : print "The {bdb_ankh} glows. The demon looks horrified. It becomes less talkative. But it is not defeated yet. You must do the rest." ;
+            : set_true "progress_ankh_used" ;
+            : destroy "brood_ankh" ;
          }
       }
       on_command {
@@ -458,13 +464,6 @@ locations {
                : gosub "say_half" ;
                : done ;
             }
-         }
-      }
-      on_describe {
-         : if (!progress_ankh_used) {
-            : print "The {bdb_ankh} glows. The demon looks horrified. It becomes less talkative. But it is not defeated yet. You must do the rest." ;
-            : set_true "progress_ankh_used" ;
-            : destroy "brood_ankh" ;
          }
       }
    }
@@ -506,11 +505,11 @@ locations {
 # Defines things in the world (scenery cannot be carried)
 
 objects {
-   sun_cold : scenery "{sosc}" msg="It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." location="wee_clink" ;
+   sun_cold : scenery "{sosc}" msg="It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." at="wee_clink" ;
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
-   hope_light : object "<\"Ho! Plight? Hope!\" light<#ccc>>"; msg="The {hope_light} provides a reassuring light." ;
-   fir_static : scenery "{puz_fir_static}"; msg="{desc_fir_static}" ; #need better
+   hope_light : object "<\"Ho! Plight? Hope!\" light<#ccc>>" msg="The {hope_light} provides a reassuring light." ;
+   fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" ; #need better
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
    freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
@@ -519,8 +518,8 @@ objects {
    me_code : object "a meek \"owed, me\" code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
 
    # scenery e.g. non-default description may need to go in on_describe block
-   demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." location="r21" ;
-   thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." location="r20" ;
+   demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." at="r21" ;
+   thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." at="r20" ;
 }
 
 connections {
