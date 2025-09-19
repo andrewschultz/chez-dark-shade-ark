@@ -2,6 +2,7 @@ start_at = "wee_clink"
 start_theme = my_theme
 
 #cch.py makes sure of things
+
 game_information {
    game_name                    = Chez Dark Shade Ark
    game_version                 = 1.0.0
@@ -31,9 +32,6 @@ strings {
 
    my_score : string "{score}/{max_score}" ;
 
-   # puzzly stuff
-   puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
-   puz_fir_static : string "<fir, static<#f4f>>" ;
    # commands
    v_about : string "<ABOUT<#0f0>>" ;
    v_credits : string "<CREDITS<#0f0>>" ;
@@ -47,12 +45,19 @@ strings {
    # keyboard stuff
    key_enter : string "the <ENTER<#f88>>/<RETURN<#f88>> key" ;
 
-   # item names
+   # item names, with puzzle
+
+   puz_demon_fit : string "demon, fit<#f4f>>" ;
+   puz_thief_lord : string "thief lord<#f4f>>" ;
+   puz_fir_static : string "<fir (static)<#f4f>>" ;
+   puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
    i_aid_art : string "<aid art<#f4f>>" ;
+
+   # item names, no puzzle
    bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
 
    # variable item descriptions
-   desc_fir_static : dynamic_string {( point_first_attic ? "The fir (static) holds no more secrets." : "The fir (static) looks like it can hold more." )} ;
+   desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
 
    # location stuff
    r00_header : dynamic_string {( return_sly_maps ? "<A Cramp-Ache Ramp<#f80>>" : point_sly_maps ? "{r_blob}" : "<Slime Apps<#f80>>" )} ;
@@ -339,6 +344,11 @@ locations {
       }
    }
    r12 : location "{r12_loc_desc}" header = "{r12_header}" {
+      on_describe {
+         : if (point_arbor_dens) {
+            : print "A fir (static) sits here. You " + {( point_first_attic ? "got something from it" : "haven't unlocked its mysteries yet" )} + "." ;
+         }
+      }
       on_command {
          : match "arbor dens" {
             : if (point_arbor_dens) {
