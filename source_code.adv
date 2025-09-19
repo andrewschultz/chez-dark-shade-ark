@@ -389,6 +389,11 @@ locations {
       }
    }
    r20 : location "{r20_loc_desc}" header = "{r20_header}" graphic="r_20_0" {
+      on_describe {
+         : if (!point_the_floored) {
+            : print "A {puz_thief_lord} stands here, guarding its treasures, whatever they're worth. It's very vigilant." ;
+         }
+      }
       on_command {
          : match "floored" {
             : if (!point_thee_floored) {
@@ -423,6 +428,11 @@ locations {
       }
    }
    r21 : location "{r21_loc_desc}" header = "{r21_header}" graphic="r_21_0" {
+      on_describe {
+         : if (!point_deem_unfit) {
+            : print "A {puz_demon_fit} stands here, contemptuous of you. But hey, you beat back its first wave of intimidation." ;
+         }
+      }
       on_command {
          : match "deem unfit" {
             : if (point_deem_unfit) {
@@ -509,6 +519,8 @@ objects {
    me_code : object "a meek \"owed, me\" code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
 
    # scenery e.g. non-default description may need to go in on_describe block
+   demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." location="r21" ;
+   thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." location="r20" ;
 }
 
 connections {
@@ -708,6 +720,7 @@ on_command {
       : print "For thanks, {v_credits}." ;
       : print "For a more detailed history, {v_history}." ;
       : print "For verbs to use, {v_verbs}." ;
+      : print "Note {cdsa} uses a color-coding scheme. Stuff to change is <lavender<#f4f>>, while stuff that's just for amusement is <grey<#ccc>>." ;
    }
    : match "credits _;credit _" {
       : print "Thanks to the organizers of EctoComp past and present." ;
