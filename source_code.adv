@@ -179,6 +179,7 @@ booleans {
    intro_shown_yet : boolean "false" ;
    ever_x_me : boolean "false" ;
    ever_x_number : boolean "false" ;
+   wait_yet : boolean "false" ;
 
    in_number_choice : boolean "false" ;
 }
@@ -687,6 +688,13 @@ on_describe {
 ## Test VERB NOUN that the player types and executes conditional actions
 
 on_command {
+   : match "z _;wait _" {
+      : print "\"Loaf, right? Lo, fright!\"" ;
+      : if (!wait_yet) {
+         : print "{note_once}This is just a silly general response. Waiting gives no penalty or benefit." ;
+         : set_true "wait_yet" ;
+      }
+   }
    : if (is_carried "aid_art") {
       : match "dart -" {
          : if (point_a_dart) {
