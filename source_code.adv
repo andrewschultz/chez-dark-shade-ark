@@ -53,6 +53,7 @@ strings {
    puz_gray_tanks : string "<gray tanks<#f4f>>" ;
    puz_thief_lord : string "<thief lord<#f4f>>" ;
    puz_fir_static : string "<fir (static)<#f4f>>" ;
+   puz_wall : string "<wall, crowned<#f4f>>" ;
    puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
    i_aid_art : string "<aid art<#f4f>>" ;
 
@@ -69,8 +70,8 @@ strings {
       "Slime apps leave ooze blocking passage every way but back north." )} ;
    r00_nogo : dynamic_string {( "You can only go north" + (return_sly_maps ? " or east." : ".") )} ;
 
-   r01_loc_desc : dynamic_string {( "A wall, crowned. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
-   r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The wall, crowned is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {r01_noback}" )} ;
+   r01_loc_desc : dynamic_string {( "A {puz_wall}. You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "Go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.") )} ;
+   r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The {puz_wall} is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {r01_noback}" )} ;
    r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
 
    r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : point_off_lame ? "{r_blob}" : "<Awe Flame<#f80>>" )} ;
@@ -101,7 +102,7 @@ strings {
    r22_loc_desc : dynamic_string {( "There's a maze to the south, though you can go back up, too." )} ;
    r22_nogo : string "The maze is south, or you can go back up." ;
 
-   r_desc_sasf : dynamic_string {( is_visited "cell_farm" ? "The anthropomorphic fruits wait around. They still regard you warily, but maybe if you ask for their leader, they might give you an audience." : "A bunch of anthropomorphic fruits sit around and regard you suspiciously. As if you're the weird one here. They say, are you looking for anybody? Our leader is busy right now. They won't just see anybody. We will tolerate you different types around here. But don't expect to make friends." )} ;
+   r_desc_sasf : dynamic_string {( (has_visited "sell_farm" ? "The anthropomorphic fruits wait around. They still regard you warily, but maybe if you ask for their leader, they might give you an audience." : "A bunch of anthropomorphic fruits sit around and regard you suspiciously. As if you're the weird one here. They say, are you looking for anybody? Our leader is busy right now. They won't just see anybody. We will tolerate you different types around here. But don't expect to make friends.") + "\nYou don't feel you fit in here, but there's nothing to do back east. Maybe something you have on you will start negotiations." )} ;
 
    custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
@@ -115,6 +116,7 @@ strings {
       is_at "r20" ? "{r20_nogo}" :
       is_at "r21" ? "{r21_nogo}" :
       is_at "r22" ? "{r22_nogo}" :
+      is_at "sell_farm" ? "Nothing beyond here. You must call the fruits' leader to you." :
       "You can't go that way. I should have a non-default message." )} ;
    nospecial_custom : string "You see no specific item like that. For rooms, <LOOK<#0f0>>. Note that this game may not note adjectives as synonyms, so use nouns." ;
 }
@@ -171,6 +173,7 @@ booleans {
    think_hi_strawberry : boolean "false" ;
 
    got_think : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_the_floored || think_hi_strawberry )} ;
+   at_end : dynamic_boolean {( is_at "sell_farm" && point_the_floored )} ;
 
    # map rendering booleans
    showing_map : boolean "true" ;
@@ -636,6 +639,11 @@ barriers {
       location = r10
       block_when_not = return_sly_maps
       message = {r00_nogo}
+   }
+   block_from_end : block {
+      location = r01
+      block_when = at_end
+      message = No point retreating to look for more. You feel you have what you need, if you just know what to look for.
    }
 }
 
