@@ -210,13 +210,17 @@ locations {
       on_command {
          : match "hi strawberry;high strawberry" {
             : print "You wonder what the weird thing in the {me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
-            : print "But it looks really embarrassed when it shows up. You ask what's the matter. It says, well, I feel really embarrassed, because I was the one who threw you in jail in the first place. In the weak link." ;
+            : print "But it looks really embarrassed when it shows up. You ask what's the matter." ;
+            : set_false "showing_map" ;
+            : update_graphic "s_hist_1" ;
+            : print "It says, well, I feel really embarrassed, because I was the one who threw you in jail in the first place. In the weak link." ;
             : print "\"Oh, man. What are you even talking about?\" You ask. It says, \"Well, somebody told me that it was the person that I least expected that would do something to me. And I figured that the thief Lord was pretty suspicious, but on the other hand, they were someone I expected, so I knew better. So I look for someone played, someone who maybe had a lot to high, and you certainly fit the bill, like someone they wouldn't expect to be a robber. So I threw you in the click. I feel kind of dumb now, but I guess it worked out okay?\"" ;
             : print "This is all very awkward, and you can't help cursing under your breath, until you nod and say, okay, well, I guess I was the right choice with what I was able to do. The strawberry nods. \"Let's take care of those folks. Destroy the portal for good.\"" ;
             : print "You do so. The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. You feel more up to it now. That's something." ;
             : set_true "point_hi_strawberry" ;
             : set_false "think_hi_strawberry" ;
             : gosub "add_point" ;
+            : set_true "showing_map" ;
             : win_game ;
             : done ;
          }
@@ -514,6 +518,9 @@ locations {
             : if (!has_visited "r21") {
                : mask {
                   : print "Ah, yes, that's the way through." ;
+                  : set_false "showing_map" ;
+                  : update_graphic "s_maze_thru" ;
+                  : set_true "showing_map" ;
                }
             }
          }
@@ -855,12 +862,31 @@ on_render {
          : overlay "o_wall_crowned" x="192" y="16" ;
       }
    }
+   : if (is_at "r21") {
+      : if (!point_gull_flying) {
+         : overlay "o_02_gulls" x="224" y="0" ;
+      }
+   }
+   : if (is_at "r21") {
+      : if (!point_deem_unfit) {
+         : overlay "o_21_demon_fit" x="134" y="0" ;
+      }
+   }
+   : if (is_at "r22") {
+      : if (!point_the_floored) {
+         : overlay "o_22_thief_lord" x="134" y="0" ;
+      }
+   }
 }
 
 assets {
    graphics {
    # overlays
       o_wall_crowned : base64_png "iVBORw0KGgoAAAANSUhEUgAAAEAAAAAYAQMAAABwemkHAAAABlBMVEX///+AgIBizNOVAAAAAXRSTlMAQObYZgAAACBJREFUCFtjYCARsD+AMuR/QBn2f9AZ9f9wMv7/pw8DAMy5INRDqbfqAAAAAElFTkSuQmCC" ;
+
+      o_02_gulls : base64_png "iVBORw0KGgoAAAANSUhEUgAAACAAAAAQAQMAAABNzu8aAAAABlBMVEX///+IiIiq3YAXAAAAAXRSTlMAQObYZgAAAC1JREFUCFtjYACBHAYGMwYBhhscQLYCEN9ggDIgcgxAOTBgOwAkGJFJVHkGBgAINgX4QTuJkwAAAABJRU5ErkJggg==" ;
+      o_21_demon_fit : base64_png "iVBORw0KGgoAAAANSUhEUgAAADAAAAAoBAMAAABKqWRCAAAAGFBMVEX///8A/wCAAACAAICAgIDAwMD/gED//wDYnRvTAAAAAXRSTlMAQObYZgAAASlJREFUeF6FzdENgzAMBNBQMQCWGACxQug/iOsErdkgZQO6fu3YNCA+egrg+GE5WG59dyi8FOj7oKJ9qQU6q2+dYrCX3vyvrrePPaJCGncd6X1POKaGZAyXACwBTkAUwO/EvLwZevNURM2D1431eemtQPvg5ZPk8GsqQISamd/58Aii3wDAvwA+4rAYpAOQrUgpLctiS2gHEti2bV1XAXKoHD45Dk0Blt9liAuQBsy6ICVmkMZBt1tsdwHCDqAztC6YdqiobbPEO/Mz5v40USNA+YIY788YkccpQwut55gz6Ah8AphaRI/W8Aki77sQ2YSt3mPrf4ACOMFcYPgHRHqO4C21K1QCQQ0FoN2QoQqhLjCG0Cg0V/Ce5gye/zAA8xWsU19h3mFw+ALyGn1QVa1xqwAAAABJRU5ErkJggg==" ;
+      o_22_thief_lord : base64_png "iVBORw0KGgoAAAANSUhEUgAAABUAAAAoBAMAAADj3azWAAAAG1BMVEX///8AAP8A4IAA//+AAACAAMCAgIDg4ID/AABNsa8ZAAAAAXRSTlMAQObYZgAAAJFJREFUeF6lyjEKwzAMhWG5g7tWkAMUn8CQK/gAWZzZSzSXYlAOUIiPXcVW0qEpLfSfvgcPfu3knNscpKs6d7m7N55zeARW87zwbqnaA/Bc+La5lEVdT6AGoimqSZqG5kSS2HtvV48JoO+9BXGk+mkexWRpt1C9pk4vR/juQY2IgjcbNB8MeDm2OTIK1Abr/Ksn7QcvObr32koAAAAASUVORK5CYII=" ;
 
    # rooms
       r_mid : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAACVBMVEUAAACAAAAAAIBwa344AAAAK0lEQVR4XmNYRSEYXgaMGjBqwKgBowaMGuBCIWAQpBAMFheMumDUBaMuAACbHaY97NTKrAAAAABJRU5ErkJggg==" ;
@@ -897,8 +923,10 @@ assets {
       r_blank : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAAA1BMVEX//wCKxvRFAAAAD0lEQVR4XmPAAKNgFIwCAAMYAAFrMpCEAAAAAElFTkSuQmCC" ;
 
    # scenery/individual items
+      s_hist_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAADwAAAA8AgMAAABHkjHhAAAADFBMVEUAAAAAgAD/AAD///+CqD+SAAABPElEQVR4Xn3RMWqFQBAA0EC6NF5DbNP9Ip5ChDTeIxC2SPdPEYTAMv7gBQKG2Aas5N/BShAbcf9mnNmdrISfwZV57sDM4I3dh3Nvc7FRs0Kbwijyls7PxfYRzcVofDvP6jxnxdkUzqboTabyWTlbTDP8KP168whvKhebJwB4V+IFtqjFA2hIoBIDh/cFEpSGRlwN+AQ+HeLTYWcIvLj62vtIDUoxcISOQ2u6TsSYg/69H4CjuuatGo8YNl2t/zsP7y++AByhhGBfCrEtiUfr/aWRyYv4ju5fvdeErFPvhearvUdu0ETOkyXbzrnFDWKcvmWPEW1QY0KeUue1I9tbmrixn1y/3jt/p2ws4b/Ppol5WjH+39DrA3ykoS3Yve3OIzoKPKG7f9zyEXdcI47QY+CUeopXcsqW0kgcxA8Mw/mCEuR+vQAAAABJRU5ErkJggg==" ;
       s_maze_full : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAABRAQMAAAAHGerDAAAABlBMVEUAAAD///+l2Z/dAAABD0lEQVR4XsXWMY7EIAwF0L9KkZIb5CQz90KiyOReg5iTQG7gdC5G5K/IFrNaCbqVXaSIXvGNIxzwUwDg0Gr9vPwNVjIJi1LsgF80ypSPrx4Ip0YJJ2kIptf8dB7ohlyLxqtXQ+CX475fSbttMpGFSeyAX+YHpjw4SWoiM8n/BHEIAI07cMD1M9SfIHbAL4DzGI67tkcSO+Bx3PeQdetmoFZ5Z6UhmPJ8XUG37rgzo4SilXYgZNxcyLjvXcAkIWulJdCtgYfrg8i1KMUQvPQJAN1xh6KR71MrDUH7JttxDse9FlaxBMfNARjsbrY2WWkH2hWJazcOF+upVezA9NJNsMzbYC1S3mSiHUAr/+d/8hvvtjQLfUIXKgAAAABJRU5ErkJggg==" ;
       s_maze_n : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAApAQMAAADgaGVvAAAABlBMVEUAAAD///+l2Z/dAAAAqElEQVR4XsXUMQ7DIAwF0F8xZOQGnKS9l6UMae9V1J4EcgPYPFSJa9EhWWCr7NF6MjZGQI6AhocGliN5Bpp+FcksxQ5Q4FhcqpcemHcF8y5iCNx7enoCuk0umWOb1RBQqLe1ddodU14iWSvYAQrTHS4NblJYKySl/wRxCACOK1Dh+xW23zl2gALgCcN1b20hxQ4Q9E3OiR/dCsJb+SQWQ+DS1L6gqz+BL3qUpiQWbdjqAAAAAElFTkSuQmCC" ;
       s_maze_s : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAApAQMAAADgaGVvAAAABlBMVEUAAAD///+l2Z/dAAAApElEQVR4XsXTsQ2EMAwFUJ8oKNmASbi9kFLk2IsIJkluA9O5QM4/XEGTa+3CRfRkKfkx4a4u94m7fExDvA+fIGYkDkUUfiBkmoarvb9NgI1DFoUnkMXAZ2iDhFgE7Ah2WemqZtyhSMJZReEI7E/ac/6NOxYoOwLbGSJ6NUGFXRMKPzBTv9I8Hs3FiZZFrKLsB7pdFqaxX5oTIOAT2OAHyGq29gA/7gin8wjDu+EAAAAASUVORK5CYII=" ;
+      s_maze_thru : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAABRAgMAAABAuZATAAAACVBMVEUAAAD/AAD///9nGWQeAAAB2ElEQVR4XuXXsarrMAwGYNGx73ELzfvIdCyZDn2KzN4DpVMxRPj+T3kr4fQsvYMlOB6OBkOWD9nI+THhY9FeQu+a8Kn+A0y2ZlQBin1WDAI25nlNsQ7mhziA5VAx5VKFjvNdiA69QEYDpny7C4CRAF82Zv7yA6hKdgJ0fBJN+UkyLaR16O0ABdoBZJ+IUcCaGsBOAGjAzTOJdCyV2nFeyTEHyIaV1kEM4K8ggDjQf4hkQ6gn6ZlEW1oHVdfbUECvsw8oMEDU6QPoVQrU73TxdNAiAaKb8QJnZk4hQKkBgE2iFs4L2d/RdZ2tg3Yr6gBAgzkECBAAFiIN5krnXCqmxZHOkAlzxV8DgJ8HmJMCG3uBG6CAwAfY+U35BWi6WFj3AbZ9KNDyreD3AXnWYL6SAtXShboBy2QDnB1sKQiIZL4EAdxDwGk57MBC5AFyecjeffUBawoCwDjgSi/gSa36r3OeYR3skVDw88CagsADQeBOJxvCPVioG4C8uwdU6QW2FAQEwwGbP9JyvJ3twfueA6CgH9hSCOALJASgxoCFiOw6fz8A+x+e7YcCG4YKF7CmIPCQUYANoQWLDqGdpOO9cALsQgC6OIA/zJctBQDbPgYB9C6bSavPwD9PHDwkbwJilAAAAABJRU5ErkJggg==" ;
    }
 }
