@@ -187,11 +187,16 @@ vocabulary {
    : verb / aliases = [gt, goto]
    : verb / aliases = [in, enter]
    : verb / aliases = [out, exit]
+
+   # nouns are of course tricky
 }
 
 locations {
    wee_clink : location "It sure is claustrophobic in here. You're not sure how to get out. The only think you see in the outside is a {sosc}." header="<Wee Clink<#ff0>>" graphic="r_wee_clink" {
       on_command {
+         : match "_ sun;_ sunk;_ old;_ cold" {
+            : print "It's out of reach. It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." ;
+         }
          : match "weak link" {
             : print "There you go." ;
             : set_true "point_weak_link" ;
@@ -378,7 +383,7 @@ locations {
                : print "You already made this place less depressing." ;
                : done ;
             }
-            : print "You look past all the whining, and there's actually somewhere much nicer to be, better irrigated, and so forth, all sorts of trees all over the place. Most of them seem pretty happy and well kept up, but there is one fur, static, in the middle of them all." ;
+            : print "You look past all the whining, and there's actually somewhere much nicer to be, better irrigated, and so forth, all sorts of trees all over the place. Most of them seem pretty happy and well kept up, but there is one fir, static, in the middle of them all." ;
             : set_true "point_arbor_dens" ;
             : create "fir_static" ;
             : gosub "add_point" ;
@@ -544,8 +549,8 @@ objects {
    me_code : object "a meek \"owed, me\" code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
 
    # scenery e.g. non-default description may need to go in on_describe block
-   demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." at="r21" ;
-   thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." at="r20" ;
+   demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." at="r21" conspicuous="false" ;
+   thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." at="r20" conspicuous="false" ;
    gray_tanks : scenery "{puz_gray_tanks}" msg="Very intimidating and warlike." at="r10" conspicuous="false" ;
    great_ankhs : scenery "great ankhs" msg="They radiate peace and stillness." conspicuous="false" ;
 }
