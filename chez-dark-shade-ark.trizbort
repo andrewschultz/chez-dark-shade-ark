@@ -2,12 +2,8 @@
 <trizbort version="1.7.0.0">
 	<info />
 	<map>
-		<room id="1" name="Wall, Crowned" subtitle="" x="-160" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
-			<objects>Heist Robbery (0)</objects>
-		</room>
-		<room id="2" name="Awe-Flame" subtitle="" x="-160" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
-			<objects>Gulf Lying</objects>
-		</room>
+		<room id="1" name="Wall, Crowned" subtitle="" x="-160" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="2" name="Awe-Flame / Gulf, Lying" subtitle="" x="-160" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="3" name="" description="" style="dashed">
 			<dock index="0" id="1" port="n" />
 			<dock index="1" id="2" port="s" />
@@ -15,11 +11,11 @@
 		<room id="4" name="Wee Clink" subtitle="" x="-320" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" isStartRoom="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects at="n" custom="yes" customRight="-48" customDown="0">Cell for Self, Or ...?</objects>
 		</room>
-		<line id="5" name="" description="" style="dashed" flow="oneWay" startText="up" endText="down">
+		<line id="5" name="" description="" style="dashed" flow="oneWay" startText="out" endText="in">
 			<dock index="0" id="4" port="se" />
 			<dock index="1" id="1" port="nw" />
 		</line>
-		<room id="6" name="Slime Apps" subtitle="" x="-160" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
+		<room id="6" name="Slime Apps / A Cramp-Ache Ramp" subtitle="" x="-160" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
 			<objects>A Cramp/Ache Ramp</objects>
 		</room>
 		<line id="7" name="" description="" style="dashed">
@@ -39,21 +35,21 @@
 			<dock index="1" id="10" port="w" />
 		</line>
 		<room id="12" name="Do-Dark-Dude Ark" subtitle="" x="160" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
-			<objects>Thief Lord</objects>
+			<objects>Thief Lord|Sword-or-Sore Door</objects>
 		</room>
 		<line id="13" name="" description="" startText="up" endText="down">
 			<dock index="0" id="12" port="nw" />
 			<dock index="1" id="8" port="se" />
 		</line>
 		<room id="14" name="Maze Which May Switch" subtitle="" x="160" y="-160" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
-			<objects>Aid Art</objects>
+			<objects>(Aid Art, later)</objects>
 		</room>
 		<line id="15" name="" description="" style="dashed" startText="up" endText="down">
 			<dock index="0" id="14" port="sw" />
 			<dock index="1" id="1" port="ne" />
 		</line>
 		<room id="16" name="Tomb End-To-Mend" subtitle="" x="160" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
-			<objects custom="yes" customRight="-64" customDown="0">Too Meek Tomb Eek (7)|Demon, Fit</objects>
+			<objects custom="yes" customRight="-24" customDown="0">Demon, Fit</objects>
 		</room>
 		<line id="17" name="" description="" style="dashed">
 			<dock index="0" id="14" port="s" />
@@ -66,7 +62,7 @@
 			<dock index="0" id="2" port="e" />
 			<dock index="1" id="18" port="w" />
 		</line>
-		<room id="20" name="Cell For Self Arming" subtitle="" x="-320" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" isEndRoom="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="20" name="Self-Arm Sell Farm" subtitle="" x="-320" y="-32" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" isEndRoom="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="21" name="" description="" style="dashed" flow="oneWay">
 			<dock index="0" id="1" port="w" />
 			<dock index="1" id="20" port="e" />
