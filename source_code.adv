@@ -40,6 +40,7 @@ strings {
    v_score : string "<SCORE<#0f0>>" ;
    v_verbs : string "<VERBS<#0f0>>" ;
    xme : string "<X ME<#0f0>>" ;
+   xnumhint : dynamic_string {( "will see general hints for " + (ever_x_me ? "{xnum}" : "the item from {xme}") + "." )} ;
    xnum : string "<X NUMBER<#0f0>>" ;
 
    # keyboard stuff
@@ -233,6 +234,7 @@ locations {
             : print "This is all very awkward, and you can't help cursing under your breath, until you nod and say, okay, well, I guess I was the right choice with what I was able to do. The strawberry nods. \"Let's take care of those folks. War!!!!!\"" ;
             : print "\"Wait a minute,\" you say, \"you're being rash again. If you just want to protect yourself against the thief lord, why not just destroy the sword-or-sore door for good?\"" ;
             : print "\"That makes a ton of sesnse,\" says the strawberry. \"The thief lord never took anything we could do without.\"" ;
+            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a sword or sore door, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make this one work. The door can no longer bring the Thief Lord back." ;
             : print "You do so. The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more up to it now. That's something." ;
             : print "Everyone walks over to destroy the portal." ;
             : set_true "point_hi_strawberry" ;
@@ -766,9 +768,9 @@ on_command {
    }
 
    : match "about _" {
-      : print "{cdsa} is a simplified-parser game that requires two-word commands to solve puzzles. Some puzzles rely on others. A few have alternate spellings. It should always say if you are half-right." ;
+      : print "{cdsa} is a simplified-parser game that requires two-word commands to solve puzzles. Some puzzles rely on others. A few have alternate spellings. One, due to Adventuron's parser, can eliminate the first (very common) word. {cdsa} should always say if you are half-right." ;
       : print "" ;
-      : print "{cdsa} is a ten-room game. The main area is 3x3. Originally I wanted to make it symmetrical, but unfortunately the clearest way to do so would draw a hate symbol. You know which one. So if you want to map {cdsa} on your own, the left 2x3 are ground level, and the first room is center west." ;
+      : print "{cdsa}'s main area is 3x3, with the start and end rooms falling outside. Originally I wanted to make it symmetrical, but unfortunately the clearest way to do so would draw a hate symbol. You know which one. So if you want to map {cdsa} on your own, the left 2x3 are ground level, and the first room is center west." ;
       : print "" ;
       : print "For thanks, {v_credits}." ;
       : print "For a more detailed history, {v_history}." ;
@@ -787,8 +789,20 @@ on_command {
    }
    : match "help _;hint _;hints _" {
       : if (!warn_hints) {
-         : print "{note_once}there are no explicit in-game hints beyond the first point. {cdsa} comes with a walkthrough if you want spoilers. Also, there is a hint item you can find/have found with X ME." ;
+         : print {( "{note_once}there are no explicit in-game hints beyond how to leave the starting room. So you " + (point_weak_link ? "will see {xnumhint}." : "will see how to get the first point, until you leave the clink. Then you will see {xnumhint}." ) )};
+         : print "Also, {cdsa} comes with a walkthrough, map and logic flow chart if you want spoilers." ;
          : set_true "warn_hints" ;
+         : done ;
+      }
+      : if (is_at "wee_clink") {
+         : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
+            : print "Standard commands won't help you leave, though WAITing may give an additional clue." ;
+            : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
+            : print "Also, the titles of similar games if you type {v_about} then {v_history} may provide clues." ;
+            : print "The {cdsa}. The {sosc}. But how do they fit in with the wee clink?" ;
+            : print "You need to break up wee clink into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
+            : print "A <WEAK LINK<#f80>>, if you will. (This is the last hint. They will cycle until you leave here.)" ;
+         }
          : done ;
       }
       : print "" ;
