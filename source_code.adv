@@ -99,6 +99,8 @@ strings {
    r22_loc_desc : dynamic_string {( "There's a maze to the south, though you can go back up, too." )} ;
    r22_nogo : string "The maze is south, or you can go back up." ;
 
+   r_desc_sasf : dynamic_string {( is_visited "cell_farm" ? "The anthropomorphic fruits wait around. They still regard you warily, but maybe if you ask for their leader, they might give you an audience." : "A bunch of anthropomorphic fruits sit around and regard you suspiciously. As if you're the weird one here. They say, are you looking for anybody? Our leader is busy right now. They won't just see anybody. We will tolerate you different types around here. But don't expect to make friends." )} ;
+
    custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
       is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
@@ -212,7 +214,12 @@ locations {
          }
       }
    }
-   sell_farm : location "This is the final location." header="{r_sasf}" graphic="r_sell_farm" {
+   sell_farm : location "{r_desc_sasf}" header="{r_sasf}" graphic="r_sell_farm" {
+      on_describe {
+         : match "_ fruits" {
+            : print "Well, what you really need to do here, is get in touch with their leader. One item must have a clue as to its identity." ;
+         }
+      }
       on_command {
          : match "hi strawberry;high strawberry" {
             : print "You wonder what the weird thing in the {me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
@@ -556,6 +563,7 @@ objects {
 
    # scenery e.g. non-default description may need to go in on_describe block
    demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." at="r21" conspicuous="false" ;
+   say_fruits : object "safe-root-say fruits" msg="All sorts of fruits, with some notable exception. They seem leaderless." at="sell_farm" conspicuous="false" ;
    thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." at="r20" conspicuous="false" ;
    gray_tanks : scenery "{puz_gray_tanks}" msg="Very intimidating and warlike." at="r10" conspicuous="false" ;
    great_ankhs : scenery "great ankhs" msg="They radiate peace and stillness." conspicuous="false" ;
