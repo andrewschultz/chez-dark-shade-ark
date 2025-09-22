@@ -252,8 +252,9 @@ locations {
             : print "\"That would make a ton of sense,\" says the strawberry, \"But our weapons didn't work against it. I just figured we needed more lethal ones. What else is there?\"" ;
             : update_graphic "s_hist_4" ;
             : press_any_key ;
-            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a {sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make this one work. The door explodes! The Thief Lord can no longer come back." ;
+            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a {sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make the {sosd} shudder and lose its magic power. The {sosd} can no longer bring the Thief Lord back." ;
             : print "The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more up to it now. That's something." ;
+            : print "But how to get back? A simple globe and glow band lie where the {sosd} used to be. You pick them up ... they hum ... the scenery changes ... and you are back home." ;
             : update_graphic "s_hist_5" ;
             : press_any_key ;
             : set_true "showing_map" ;
@@ -726,7 +727,7 @@ on_startup {
    : update_graphic "s_start_2" ;
    : print "A huge glowing ark appears before you. A voice intones: CHEZ DARK SHADE ARK. You feel compelled to enter ..." ;
    : press_any_key ;
-   : print"And when you do, unseen hands grab you. \"Another portal! They don't look suspicious at all! They must be the people we least suspect!\"" ;
+   : print "And when you do, unseen hands grab you. \"The first visitor through the portal! They don't look suspicious at all, but remember, it's the people we least suspect that are ruining things!\"" ;
    : print "You black out and wake up in ...";
    : press_any_key ;
    : clear_screen;
