@@ -62,6 +62,7 @@ strings {
 
    # item names, no puzzle
    bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
+   sosd : string "<sword-or-sore door<#ccc>>" ;
 
    # variable item descriptions
    desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
@@ -447,10 +448,18 @@ locations {
    r20 : location "{r20_loc_desc}" header = "{r20_header}" graphic="r_20_0" {
       on_describe {
          : if (!point_thee_floored) {
-            : print "A {puz_thief_lord} stands here, guarding its treasures, whatever they're worth. It's very vigilant." ;
+            : print "A {puz_thief_lord} stands here next to a {sosd}, guarding its treasures, whatever they're worth. It's very vigilant." ;
+         } : else {
+            : print "The {sosd} stands here, still. No immediate danger, of course." ;
          }
       }
       on_command {
+         : if (point_thee_floored) {
+            : match "_ door;_ sword;_ sore" {
+               : print "Don't mess with the door now. Figure what to do with the {me_code}." ;
+               : done ;
+            }
+         }
          : match "floored -" {
             : if (!point_thee_floored) {
                : print "Floored is right, but this is a bit tricky. Adventuron doesn't parse articles, and I didn't want two potential one-word solutions, so you need something similar." ;
