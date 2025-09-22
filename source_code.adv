@@ -796,8 +796,9 @@ on_command {
       : print "Note {cdsa} uses a color-coding scheme. Stuff to change is <lavender<#f4f>>, while stuff that's just for amusement is <grey<#ccc>>." ;
    }
    : match "credits _;credit _" {
-      : print "Thanks to the organizers of {ecomp} past and present." ;
+      : print "Thanks to the administrators Ruber Eaglenest and Alyshkalia for holding {ecomp}, as well as former administrators like JJ Guest and Duncan Bowsman." ;
       : print "Thanks to Chris Ainsley for creating Adventuron." ;
+      : print "I had no time for testers, alas, but if you find a bug, you can get your name here!" ;
       : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
       : print "Blanket thanks to Python and its developers for scripts that helped me generate similar code (point scoring, etc.) quickly." ;
       : if (!warn_generic_credit) {
@@ -807,18 +808,26 @@ on_command {
    }
    : match "help _;hint _;hints _" {
       : if (!warn_hints) {
-         : print {( "{note_once}there are no explicit in-game hints beyond how to leave the starting room. So you " + (point_weak_link ? "will see {xnumhint}." : "will see how to get the first point, until you leave the clink. Then you will see {xnumhint}." ) )};
+         : print "{note_once}there are no explicit in-game hints beyond how to use {hint_item}." ;
          : print "Also, {cdsa} comes with a walkthrough, map and logic flow chart if you want spoilers." ;
+         : if (!point_weak_link) {
+            : print "You may wish to use {v_think} for the solution to the first puzzle." ;
+         }
          : set_true "warn_hints" ;
          : done ;
       }
-      : print "" ;
-      : print "You can {xme} for a hint device which is meant to be relatively intuitive." ;
-      : print "{xnum} should give you a number. You may be able to guess what it means, but if not, I will give progressive hints." ;
-      : print "If {xnum}'s number is 0 or -1, you are done here." ;
-      : print "Most of the time, {xnum} gives a two-digit number. If it's blurry, that means nothing to do here yet. But you can still try to guess for future reference. If it's particularly" ;
-      : print "If the number is not blurry, {xnum} will not spoil any letters. However ..." ;
-      : print "{xnum} will give, in order, the number of letters in each word (tens digit = first, ones = second.)" ;
+      : if (!ever_x_me) {
+         : print "Before using hints, {xme} to see what your hint/help item is." ;
+		 : done ;
+      }
+      : cycle key = "xnumhints" predictable_order = "true" skip_interval = "0" {
+         : print "This help has five parts total and is game state agnostic, e.g. the cycle won't change. {xnum} should give you a number. You may be able to guess what it means, but if not, I will give progressive hints." ;
+         : print "If {xnum}'s number is 0 or -1, you are done here." ;
+         : print "Most of the time, {xnum} gives a two-digit number." ;
+         : print "{xnum} will give, in order, the number of letters in each word (tens digit = first, ones = second.) In one case, it gives a three-digit number." ;
+         : print "Then the tens digit=first, hundreds digit=second." ;
+      }
+      : done ;
    }
    : match "history _" {
       : print "{cdsa} came about after {gsgr}, when I just said, what would happen if I had an {ecomp} entry with the leftovers from brainstorming {ut} and {wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
