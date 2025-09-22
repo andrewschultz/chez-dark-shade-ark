@@ -63,6 +63,7 @@ strings {
    # item names, no puzzle
    bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
    sosd : string "<sword-or-sore door<#ccc>>" ;
+   pcpa : string "<po' charm-poach arm<#ccc>" ;
 
    # variable item descriptions
    desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
@@ -476,11 +477,11 @@ locations {
                : print "But you already got rid of the thief." ;
                : done ;
             }
-            : print "The {poach_arm} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing." ;
+            : print "The {pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing." ;
             : print "Wow, they sure seem tough, but you managed to find a way to deal with them. The thief goes back through the portal, ostensibly to plan hard to Show You. They could Show You now, but once they get their friends together, they'll really Show You!" ;
-            : print "As the thief is about to leave, The {poach_arm} discovers a {me_code} and flips it your way. The thief sees this and grabs the {poach_arm}, which is actually a really bad idea since the {poach_arm} isn't going to work FOR the thief." ;
             : set_true "point_thee_floored" ;
             : set_false "think_thee_floored" ;
+            : print "As the thief is about to leave, The {pcpa} discovers a {me_code} and flips it your way. The thief sees this and grabs the {pcpa}, which is actually a really bad idea since the {pcpa} isn't going to work FOR the thief." ;
             : pocket "me_code" ;
             : gosub "add_point" ;
             : done ;
@@ -516,12 +517,13 @@ locations {
                : done ;
             }
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
-            : print "That does it! They stomp off. They wonder why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up." ;
+            : print "That does it! They summon a very evil looking {ddda}. They wonder aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. Then they vanish through the {ddda}." ;
             : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a po' charm-poach arm, which doesn't seem to have gotten a lot of use. You take it." ;
             : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
             : set_false "think_deem_unfit" ;
             : gosub "add_point" ;
+            : update_graphic ;
             : done ;
          }
          : if (!point_deem_unfit) {
