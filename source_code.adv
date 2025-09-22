@@ -40,6 +40,7 @@ strings {
    v_hint : string "<HINT<#0f0>>/<HINTS<#0f0>>/<HELP<#0f0>>" ;
    v_history : string "<HISTORY<#0f0>>" ;
    v_i : string "<I<#0f0>>" ;
+   v_inv : string "<INVENTORY<#0f0>>" ;
    v_score : string "<SCORE<#0f0>>" ;
    v_verbs : string "<VERBS<#0f0>>" ;
    xme : string "<X ME<#0f0>>" ;
@@ -658,8 +659,8 @@ barriers {
 subroutines {
    add_point : subroutine {
       : print "<Your score has just gone up by a point!<#ff0>>" ;
-	  : increment "score" ;
-	  : update_graphic ;
+      : increment "score" ;
+      : update_graphic ;
    }
    say_half : subroutine {
       : print "You got half right." ;
@@ -865,10 +866,11 @@ on_command {
       }
    }
    : match "verbs _;verb _" {
-      : print "{cdsa} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your <INVENTORY<#0f0>>, which you can see with <I<#0f0>>. There is no need for <TAKE<#0f0>> or <DROP<#0f0>>, but {v_i} and {v_score} chart your inventory and progress." ;
-      : print "Meta-verbs include {v_about}, {v_credits}, and {v_verbs}." ;
+      : print "{cdsa} uses a stripped-down parser. <TAKE<#0f0>> or <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. {v_i} still shows them." ;
+      : print "{cdsa} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your {v_inv}, which you can also see with <I<#0f0>>." ;
+      : print "Meta-verbs include {v_about}, {v_credits}, and {v_verbs}. {v_score} shows the score, which is also in the upper right header." ;
       : print {( "All point-scoring commands have two words which you need to figure. {v_think} will " + (point_weak_link ? " walk you through this first puzzle, then later " : "" ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
-	  : print "{v_hint} explains how to use {hint_item}." ;
+      : print "{v_hint} explains how to use {hint_item}." ;
       : print "TSTART/TSTOP start and stop a transcript." ;
    }
    : match "x me;x myself" {
