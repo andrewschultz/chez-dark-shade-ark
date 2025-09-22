@@ -230,22 +230,28 @@ locations {
       on_command {
          : match "hi strawberry;high strawberry" {
             : print "You wonder what the weird thing in the {me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
+            : set_true "point_hi_strawberry" ;
+            : set_false "think_hi_strawberry" ;
+            : gosub "add_point" ;
             : print "But it looks really embarrassed when it shows up. You ask what's the matter." ;
             : set_false "showing_map" ;
             : update_graphic "s_hist_1" ;
             : press_any_key ;
             : print "It says, well, I feel really embarrassed, because I was the one who threw you in jail in the first place. In the weak link." ;
             : print "\"Oh, man. What are you even talking about?\" You ask. It says, \"Well, somebody told me that it was the person that I least expected that would do something to me. And I figured that the thief Lord was pretty suspicious, but on the other hand, they were someone I expected, so I knew better. So I look for someone played, someone who maybe had a lot to high, and you certainly fit the bill, like someone they wouldn't expect to be a robber. So I threw you in the click. I feel kind of dumb now, but I guess it worked out okay?\"" ;
-            : update_graphic "s_hist_1" ;
+            : update_graphic "s_hist_2" ;
+            : press_any_key ;
             : print "This is all very awkward, and you can't help cursing under your breath, until you nod and say, okay, well, I guess I was the right choice with what I was able to do. The strawberry nods. \"Let's take care of those folks. War!!!!!\"" ;
-            : print "\"Wait a minute,\" you say, \"you're being rash again. If you just want to protect yourself against the thief lord, why not just destroy the sword-or-sore door for good?\"" ;
-            : print "\"That makes a ton of sesnse,\" says the strawberry. \"The thief lord never took anything we could do without.\"" ;
-            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a sword or sore door, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make this one work. The door can no longer bring the Thief Lord back." ;
-            : print "You do so. The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more up to it now. That's something." ;
-            : print "Everyone walks over to destroy the portal." ;
-            : set_true "point_hi_strawberry" ;
-            : set_false "think_hi_strawberry" ;
-            : gosub "add_point" ;
+            : update_graphic "s_hist_3" ;
+            : press_any_key ;
+            : print "\"Wait a minute,\" you say, \"you're being rash again. If you just want to protect yourself against the thief lord, why not just destroy the {sosd} for good?\"" ;
+            : print "\"That would make a ton of sense,\" says the strawberry, \"But our weapons didn't work against it. I just figured we needed more lethal ones. What else is there?\"" ;
+            : update_graphic "s_hist_4" ;
+            : press_any_key ;
+            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a {sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make this one work. The door explodes! The Thief Lord can no longer come back." ;
+            : print "The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more up to it now. That's something." ;
+            : update_graphic "s_hist_5" ;
+            : press_any_key ;
             : set_true "showing_map" ;
             : win_game ;
             : done ;
@@ -975,7 +981,10 @@ assets {
       r_blank : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAAA1BMVEX//wCKxvRFAAAAD0lEQVR4XmPAAKNgFIwCAAMYAAFrMpCEAAAAAElFTkSuQmCC" ;
 
    # scenery/individual items
-      s_hist_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAADwAAAA8AgMAAABHkjHhAAAADFBMVEUAAAAAgAD/AAD///+CqD+SAAABPElEQVR4Xn3RMWqFQBAA0EC6NF5DbNP9Ip5ChDTeIxC2SPdPEYTAMv7gBQKG2Aas5N/BShAbcf9mnNmdrISfwZV57sDM4I3dh3Nvc7FRs0Kbwijyls7PxfYRzcVofDvP6jxnxdkUzqboTabyWTlbTDP8KP168whvKhebJwB4V+IFtqjFA2hIoBIDh/cFEpSGRlwN+AQ+HeLTYWcIvLj62vtIDUoxcISOQ2u6TsSYg/69H4CjuuatGo8YNl2t/zsP7y++AByhhGBfCrEtiUfr/aWRyYv4ju5fvdeErFPvhearvUdu0ETOkyXbzrnFDWKcvmWPEW1QY0KeUue1I9tbmrixn1y/3jt/p2ws4b/Ppol5WjH+39DrA3ykoS3Yve3OIzoKPKG7f9zyEXdcI47QY+CUeopXcsqW0kgcxA8Mw/mCEuR+vQAAAABJRU5ErkJggg==" ;
+      s_hist_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAA8BAMAAAB7k3k3AAAAElBMVEUAAACAAAAAgAAAAID/AAD///+1IbuqAAABfElEQVR4XuTWQWrEMAyFYUPVi8QXGKwcQJC/+wK9/1lqHAHOekAPmIexlvp4hpDm4rwHGIf70RWA0dfmBbjH6JWAbftmqATk9gVISSkgK5iAmTmXoRgwjvtMyDrlAM/N6fBqQFYAsCQCgI9OZnRXANiiAJwAAQZwCQA8Ug84wcgEXAoAP3/kLQL8fmMxbyUAVACeT0A9INhiAsAzMoCFDhBkwFQNGEBIGjh5huvzAFl/Tk0DifjMJ9B/iAAjEwrACRCEYcj+B4DWQANwDIjW1sDrAS8jboARXwJA25+g1QNeBkCs8UYF/+XWMQoDMQxEUc0N5sNeyOD7nymkUBy2XIKmyDQSLsTDCOPiYcz3S4h4mMeA4tqfLGocIDgA8DTAgqu/ZAusWUAVnCvok0GAdAfYowBK0Gu4ABejAOsOsGYBcJYAAEYBnXoDekQCoDfAOYB17b2sHAD2higAkoDqkgIIAPy3AKtrCtBNClCnyQDUjTMA63QRQP1oSjgv3GJ/MUJvljAAAAAASUVORK5CYII=" ;
+      s_hist_2 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAA8BAMAAAB7k3k3AAAAElBMVEUAAACAAAAAgAAAAID/AAD///+1IbuqAAABeElEQVR4XuTWQQoDIQwF0ID2IuMFxMwBBNN9gd7/LE35grZ01cIP0M+g4CZvkmFQNDi/AdqhepQIQCvPygBga4UKWNWXgQtAXQBg4ALQAgd4tKEBZEA78DgEDxugs/J0KB2AuuaBhA/QVmymFY0A2JYIwGmebpbNMwIA9hI+4JzvPvswIgB2vRvWKMDtYrn7GgnwBAHQ/LXyAd225ADAa8IAuYcB9hnkEAAKA8IHnPaW8X+A2f65B3UAiL8bQUrp84+o1soFrPsAF1Blu5H1vN3JJFEAWtP6CESwD5xzACoeRfNFMAickQCYw2nWAXDCQPdZAAj2EaA+FaAVM8AEkn4beZRbBykAgzAQRZMbZKAXCvT+Z2oF7HRtCx9wNrqSFxlELef9Emo5HwDH+aQRgAwQAzjml6wZgK9AewJcw94U4BKIA8QABAjIASgOUHm3oCs5wGiBhAIkEhBeAIBHr20BlV4ZwNxAAOODAXjwYgBlQCKA+OkUOBeCT3zNAbKLFgAAAABJRU5ErkJggg==" ;
+      s_hist_3 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAA8BAMAAAB7k3k3AAAAElBMVEUAAACAAAAAgAAAAID/AAD///+1IbuqAAABjklEQVR4XsTXQQrEIAwF0ECdi9QLiOkBBDP7Aeb+Z5no/ILttpD/KbrMq5GSipLzDFB31T0zADWPyhOAreZIwFJ9MUQCUH0CIAkF4Agc4PF9GKIBdf8/DplPOEBRGQ6NB8y65pkSAkBrNqRmZQBsCQNwmKeZpbF3AsAuiQcceHecQ2cA7P01rCTA52Wp+coEeEgAu7bA4gHNliTTUkos4BYtIgxAaidAS3AL1h4kBgCFAQkHHHZL5wMkGIDjP/euWyzgdgc4gDW9qHI/RNEANKDNZQAkGICJTOScyTYGwJpIwhXgzITimQAVxlTc/oA0DmALB8jaAhGNBpQNPXj6Y/Irt45SGIZhGIBaN5CgB1pg9z/TklDP/6FYQEVB/gqP4EB1mNB+iJ/5zUHHOQUQur7/jE5AwQugdgAh6cpfsmEA7KoLaAeEG4BVuYajH0A74O5cgW4A43bHAoQBQGoHC8BuQIWYWzAIH2BtgWQFSE5AZLkA0A5fCyCyXYAcXICowQNADvQAiJosgHjoFHN+ZZx8jg329vYAAAAASUVORK5CYII=" ;
+      s_hist_4 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAA8BAMAAAB7k3k3AAAAElBMVEUAAACAAAAAgAAAAID/AAD///+1IbuqAAABgklEQVR4XuTXSwrDMAwEUEOnF4kvUKwcQJDpvkDvf5ZGrsinyxY8QAdjL/WQwHGKifMboE1mU1UAWo3KHZBHq0MBe/XdMBaQdQOQkqGAbMEKWBNnGAYD2vReK6Sv4QDLyumw8YBelyS7RACwVplp1RQAHqIAzAFwEnEuAgBPGQ+YSTDj5KIA8P5k7iLA40p47EIAqQLwPAKOBzgPgQBwjgwA1wGcW6DqAGJzSQdmfmT5PwBI0JljkHTAs7hsBO7CEVgA4NqLCAXscQVg3q5BUPU5djCjAOx3MTRvQgNLCLwAmlfxhYjyRfVfcOuAwnfK5VvAq5w6SKEYCGEAaqAHMNALDfT+Z+qXKu7bYj7UVVbyYOIYb47z18FtyyPk7T0PAN43sOg2D7AGBAjTAGCvv2jlpiFA04+cSzQNoB7APSv4JwCMA6oEyVEALACW2TAPQAA8M+YBHl/B6sefB0QLSCmAlAFabzIAruCfBXgBoAJUUAGsgwaACq4BODpJAPbSFvGcTAN+oKYeLwkAAAAASUVORK5CYII=" ;
       s_maze_full : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAABRAQMAAAAHGerDAAAABlBMVEUAAAD///+l2Z/dAAABD0lEQVR4XsXWMY7EIAwF0L9KkZIb5CQz90KiyOReg5iTQG7gdC5G5K/IFrNaCbqVXaSIXvGNIxzwUwDg0Gr9vPwNVjIJi1LsgF80ypSPrx4Ip0YJJ2kIptf8dB7ohlyLxqtXQ+CX475fSbttMpGFSeyAX+YHpjw4SWoiM8n/BHEIAI07cMD1M9SfIHbAL4DzGI67tkcSO+Bx3PeQdetmoFZ5Z6UhmPJ8XUG37rgzo4SilXYgZNxcyLjvXcAkIWulJdCtgYfrg8i1KMUQvPQJAN1xh6KR71MrDUH7JttxDse9FlaxBMfNARjsbrY2WWkH2hWJazcOF+upVezA9NJNsMzbYC1S3mSiHUAr/+d/8hvvtjQLfUIXKgAAAABJRU5ErkJggg==" ;
       s_maze_n : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAApAQMAAADgaGVvAAAABlBMVEUAAAD///+l2Z/dAAAAqElEQVR4XsXUMQ7DIAwF0F8xZOQGnKS9l6UMae9V1J4EcgPYPFSJa9EhWWCr7NF6MjZGQI6AhocGliN5Bpp+FcksxQ5Q4FhcqpcemHcF8y5iCNx7enoCuk0umWOb1RBQqLe1ddodU14iWSvYAQrTHS4NblJYKySl/wRxCACOK1Dh+xW23zl2gALgCcN1b20hxQ4Q9E3OiR/dCsJb+SQWQ+DS1L6gqz+BL3qUpiQWbdjqAAAAAElFTkSuQmCC" ;
       s_maze_s : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAApAQMAAADgaGVvAAAABlBMVEUAAAD///+l2Z/dAAAApElEQVR4XsXTsQ2EMAwFUJ8oKNmASbi9kFLk2IsIJkluA9O5QM4/XEGTa+3CRfRkKfkx4a4u94m7fExDvA+fIGYkDkUUfiBkmoarvb9NgI1DFoUnkMXAZ2iDhFgE7Ah2WemqZtyhSMJZReEI7E/ac/6NOxYoOwLbGSJ6NUGFXRMKPzBTv9I8Hs3FiZZFrKLsB7pdFqaxX5oTIOAT2OAHyGq29gA/7gin8wjDu+EAAAAASUVORK5CYII=" ;
