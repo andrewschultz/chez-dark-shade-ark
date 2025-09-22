@@ -20,6 +20,7 @@ game_information {
 strings {
    # general strings
    a_num : string "<an umber, uhh, number<#f80>>" ;
+   hint_item : dynamic_string {( ever_x_me ? {a_num} : "a hint-item you can see with {xme}" )} ;
    cdsa : string "<Chez Dark Shade Arc<#f80>>" ;
    gsgr : string "<Go-Strange-Ghost Range<#f80>>" ;
    ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
@@ -36,6 +37,7 @@ strings {
    # commands
    v_about : string "<ABOUT<#0f0>>" ;
    v_credits : string "<CREDITS<#0f0>>" ;
+   v_hint : string "<HINT<#0f0>>/<HINTS<#0f0>>/<HELP<#0f0>>" ;
    v_history : string "<HISTORY<#0f0>>" ;
    v_i : string "<I<#0f0>>" ;
    v_score : string "<SCORE<#0f0>>" ;
@@ -859,7 +861,8 @@ on_command {
    : match "verbs _;verb _" {
       : print "{cdsa} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your <INVENTORY<#0f0>>, which you can see with <I<#0f0>>. There is no need for <TAKE<#0f0>> or <DROP<#0f0>>, but {v_i} and {v_score} chart your inventory and progress." ;
       : print "Meta-verbs include {v_about}, {v_credits}, and {v_verbs}." ;
-      : print "All point-scoring commands have two words which you need to figure." ;
+      : print {( "All point-scoring commands have two words which you need to figure. {v_think} will " + (point_weak_link ? " walk you through this first puzzle, then later " : "" ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
+	  : print "{v_hint} explains how to use {hint_item}." ;
       : print "TSTART/TSTOP start and stop a transcript." ;
    }
    : match "x me;x myself" {
@@ -875,7 +878,7 @@ on_command {
       : if (!ever_x_number) {
          : print "You don't remember getting a tattoo. And the name sure feels artifical, but hey, any help is better than no help. Plus you don't have to use it." ;
          : print "As you inspect it, it swirls around a bit." ;
-         : print "{one_time} the number doesn't distinguish if you have the in-game help needed to solve a puzzle. I was close to 4 hours for {ecomp} Petite Mort when I implemented it." ;
+         : print "{one_time} the number doesn't distinguish if you have the in-game help needed to solve a puzzle. I was close to 4 hours for {ecomp} Petite Mort when I implemented it. If you wish to understand how it works, type {v_hint}." ;
          : set_true "ever_x_number" ;
       } : else {
          : print "You watch the number swirl around a bit more." ;
