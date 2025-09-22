@@ -20,7 +20,7 @@ game_information {
 strings {
    # general strings
    a_num : string "<an umber, uhh, number<#f80>>" ;
-   hint_item : dynamic_string {( ever_x_me ? {a_num} : "a hint-item you can see with {xme}" )} ;
+   hint_item : dynamic_string {( ever_x_me ? "{a_num}" : "a hint-item you can see with {xme}" )} ;
    cdsa : string "<Chez Dark Shade Arc<#f80>>" ;
    gsgr : string "<Go-Strange-Ghost Range<#f80>>" ;
    ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
@@ -62,6 +62,7 @@ strings {
 
    # item names, no puzzle
    bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
+   ddda : string "<Do-Dark-Dude Ark<#ccc>>" ;
    sosd : string "<sword-or-sore door<#ccc>>" ;
    pcpa : string "<po' charm-poach arm<#ccc>" ;
 
@@ -506,6 +507,12 @@ locations {
          }
       }
       on_command {
+         : if (point_deem_unfit) {
+            : match "_ do;_ dark;_ dude;_ ark;_ arc" {
+               : print "You note a warning on the side of the {ddda}: SUPERNATURAL BEINGS WHO ENTER THE MORTAL PLANE THROUGH THIS RISK DISSOLUTION IF THEY EXPLORE TOO FAR. Whew. This probably isn't highest priority to destroy." ;
+               : done ;
+            }
+         }
          : match "deem unfit" {
             : if (point_deem_unfit) {
                : print "You already got rid of the demon!" ;
