@@ -11,7 +11,7 @@ game_information {
    uuid                         = 9a53454f-9f3c-4af9-b93a-4a04c86c6c96
    year_of_release              = 2025
    copyright_message            = Free to distribute, voluntary payments welcome
-   short_synopsis               = EctoComp 2025 Petite Mort entry, in the vein of {wp} and {ut}
+   short_synopsis               = EctoComp 2025 Petite Mort entry, in the vein of {l_wp} and {l_ut}
 }
 
 
@@ -22,15 +22,19 @@ strings {
    a_num : string "<an umber, uhh, number<#f80>>" ;
    hint_item : dynamic_string {( ever_x_me ? "{a_num}" : "a hint-item you can see with {xme}" )} ;
    cdsa : string "<Chez Dark Shade Arc<#f80>>" ;
-   gsgr : string "<Go-Strange-Ghost Range<#f80>>" ;
-   ut : string "<Us Too<#f80>>[http://andrewschultz.itch.io/us-too]" ;
-   wp : string "<Why Pout<#f80>>[http://andrewschultz.itch.io/us-too]" ;
    note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
    r_blob : string "<Blah, Bland Blob Land<#ccc>>" ;
    r_sasf : string "<Self-Arm-Sell Farm<#ff0>>" ;
    sosc : string "<sunk old sun, cold<#ccc>>" ;
    yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
    ecomp : string "<EctoComp<#f80>>[https://itch.io/jam/ectocomp-2025]" ;
+
+   # links
+   l_ut : string "<Us Too<#0f0>>[http://andrewschultz.itch.io/us-too]" ;
+   l_wp : string "<Why Pout<#0f0>>[http://andrewschultz.itch.io/why-pout]" ;
+   l_cdsa : string "<Chez Dark Shade Ark<#0f0>>[http://andrewschultz.itch.io/chez-dark-shade-ark]" ;
+   l_dadc : string "<Dusk, Airy, Does Carry<#0f0>>[http://andrewschultz.itch.io/dusk-airy-does-carry]" ;
+   l_gsgr : string "<Go-Strange-Ghost Range<#0f0>>[http://andrewschultz.itch.io/go-strange-ghost-range]" ;
 
    my_score : string "{score}/{max_score}" ;
 
@@ -42,6 +46,7 @@ strings {
    v_i : string "<I<#0f0>>" ;
    v_inv : string "<INVENTORY<#0f0>>" ;
    v_score : string "<SCORE<#0f0>>" ;
+   v_think : string "<THINK<#0f0>>" ;
    v_verbs : string "<VERBS<#0f0>>" ;
    xme : string "<X ME<#0f0>>" ;
    xnumhint : dynamic_string {( "will see general hints for " + (ever_x_me ? "{xnum}" : "the item from {xme}") + "." )} ;
@@ -59,6 +64,8 @@ strings {
    puz_wall : string "<wall, crowned<#f4f>>" ;
    puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
    i_aid_art : string "<aid art<#f4f>>" ;
+   i_hope_light : string "<ho-plight-hope light<#f4f>>" ;
+   i_me_code : string "<a meek \"owed, me\" code<#f4f>>" ;
 
    # item names, no puzzle
    bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
@@ -233,7 +240,7 @@ locations {
       }
       on_command {
          : match "hi strawberry;high strawberry" {
-            : print "You wonder what the weird thing in the {me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
+            : print "You wonder what the weird thing in the {i_me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
             : set_true "point_hi_strawberry" ;
             : set_false "think_hi_strawberry" ;
             : gosub "add_point" ;
@@ -303,7 +310,7 @@ locations {
             : set_true "return_off_lame" ;
          }
          : if (point_sly_maps && !return_sly_maps) {
-            : print "As you returned, you uncovered something cool: a {hope_light}! That should help with the dreariness to the north." ;
+            : print "As you returned, you uncovered something cool: a {i_hope_light}! That should help with the dreariness to the north." ;
             : pocket "hope_light" ;
             : set_true "return_sly_maps" ;
          }
@@ -459,7 +466,7 @@ locations {
       on_command {
          : if (point_thee_floored) {
             : match "_ door;_ sword;_ sore" {
-               : print "Don't mess with the door now. Figure what to do with the {me_code}." ;
+               : print "Don't mess with the door now. Figure what to do with the {i_me_code}." ;
                : done ;
             }
          }
@@ -483,7 +490,7 @@ locations {
             : print "Wow, they sure seem tough, but you managed to find a way to deal with them. The thief goes back through the portal, ostensibly to plan hard to Show You. They could Show You now, but once they get their friends together, they'll really Show You!" ;
             : set_true "point_thee_floored" ;
             : set_false "think_thee_floored" ;
-            : print "As the thief is about to leave, The {pcpa} discovers a {me_code} and flips it your way. The thief sees this and grabs the {pcpa}, which is actually a really bad idea since the {pcpa} isn't going to work FOR the thief." ;
+            : print "As the thief is about to leave, The {pcpa} discovers a {i_me_code} and flips it your way. The thief sees this and grabs the {pcpa}, which is actually a really bad idea since the {pcpa} isn't going to work FOR the thief." ;
             : pocket "me_code" ;
             : gosub "add_point" ;
             : done ;
@@ -586,14 +593,14 @@ objects {
    cold_sun : scenery "{sosc}" msg="<see command>" at="wee_clink" conspicuous="false" ;
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
-   hope_light : object "<\"Ho! Plight? Hope!\" light<#ccc>>" msg="The {hope_light} provides a reassuring light." ;
+   hope_light : object "<\"Ho! Plight? Hope!\" light<#ccc>>" msg="The {i_hope_light} provides a reassuring light." ;
    fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" conspicuous="false" ;
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
    freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
    brood_ankh : object "a brew-dank-brood ankh" msg="It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
-   me_code : object "a meek \"owed, me\" code" msg="A list of grievances about why the Thief Lord was right to steal. It has {heist} written in it a lot." ;
+   me_code : object "{i_me_code}" code" msg="A list of grievances about why the Thief Lord was right to steal. It has {puz_heist} written in it a lot." ;
 
    # scenery e.g. non-default description may need to go in on_describe block
    demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." at="r21" conspicuous="false" ;
@@ -873,12 +880,13 @@ on_command {
       }
       : done ;
    }
-   : match "history _" {
-      : print "{cdsa} came about after {gsgr}, when I just said, what would happen if I had an {ecomp} entry with the leftovers from brainstorming {ut} and {wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
+   : match "history _;version _;versions _" {
+      : print "{cdsa} came about after {l_gsgr}, when I just said, what would happen if I had an {ecomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
       : print "" ;
-      : print "So {gsgr} formed, and I focused on features. During the stretch run for {ut} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. One of the transcripts was to blame, so to speak: two testers noticed an unintentional red herring in the Cell, Urban ... which might have been a better puzzle than the cell itself, though the cell had a better \"after\" room name. So that was my starting puzzle. Then soon after I saw something indicating the final puzzle. I had to go through with it!" ;
+      : print "So {l_gsgr} formed, and I focused on features. During the stretch run for {l_ut} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. One of the transcripts was to blame, so to speak: two testers noticed an unintentional red herring in the Cell, Urban ... which might have been a better puzzle than the cell itself, though the cell had a better \"after\" room name. So that was my starting puzzle. Then soon after I saw something indicating the final puzzle. I had to go through with it!" ;
       : print "" ;
-      : print "{cdsa} has more rooms than {gsgr} so it doesn't have bells and whistles, but I may add them post-comp. No way was I fitting everything in under four hours." ;
+      : print "{cdsa} has more rooms than {l_gsgr} so it doesn't have bells and whistles, but I may add them post-comp. No way was I fitting everything in under four hours." ;
+      : print "Leftovers from {cdsa} are found in {l_dadc}." ;
       : print "" ;
       : print "So, late August 2025, then the second half of September 2025." ;
    }
@@ -937,9 +945,9 @@ on_command {
    : match "x number;x umber" {
       : set_true "ever_x_me" ;
       : if (!ever_x_number) {
-         : print "You don't remember getting a tattoo. And the name sure feels artifical, but hey, any help is better than no help. Plus you don't have to use it." ;
+         : print "You don't remember getting a tattoo. And the name sure feels artificial, but hey, any help is better than no help. Plus you don't have to use it." ;
          : print "As you inspect it, it swirls around a bit." ;
-         : print "{one_time} the number doesn't distinguish if you have the in-game help needed to solve a puzzle. I was close to 4 hours for {ecomp} Petite Mort when I implemented it. If you wish to understand how it works, type {v_hint}." ;
+         : print "{note_once} the number doesn't distinguish if you have the in-game help needed to solve a puzzle. I was close to 4 hours for {ecomp} Petite Mort when I implemented it. If you wish to understand how it works, type {v_hint}." ;
          : set_true "ever_x_number" ;
       } : else {
          : print "You watch the number swirl around a bit more." ;
