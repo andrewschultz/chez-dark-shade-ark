@@ -202,6 +202,8 @@ booleans {
    wait_yet : boolean "false" ;
 
    in_number_choice : boolean "false" ;
+
+   won_yet : boolean "false" scope="survivor" ;
 }
 
 vocabulary {
@@ -265,6 +267,12 @@ locations {
             : update_graphic "s_hist_5" ;
             : press_any_key ;
             : set_true "showing_map" ;
+            : if (!won_yet) {
+               : print "{note_once}there's nothing new to be found on replaying. Try some of the other {ecomp} games, whether or not {ecomp} is over!" ;
+            } : else {
+               : print "Thanks for replaying. Sorry there was no new content!" ;
+            }
+            : set_true "won_yet" ;
             : win_game ;
             : done ;
          }
