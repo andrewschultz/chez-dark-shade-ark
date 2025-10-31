@@ -23,10 +23,10 @@
 			<dock index="0" id="6" port="n" />
 			<dock index="1" id="8" port="s" />
 		</line>
-		<room id="10" name="First Attic" subtitle="" x="-192" y="-224" w="96" h="64" region="northy" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="10" name="First Attic" subtitle="" x="-32" y="-224" w="96" h="64" region="northy" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="11" name="" description="" flow="oneWay">
-			<dock index="0" id="8" port="nw" />
-			<dock index="1" id="10" port="se" />
+			<dock index="0" id="8" port="n" />
+			<dock index="1" id="10" port="s" />
 		</line>
 		<room id="12" name="Sly Maps" subtitle="" x="-352" y="-96" w="96" h="64" region="southy" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="13" name="" description="" flow="oneWay">
@@ -52,32 +52,42 @@
 			<dock index="0" id="16" port="ne" />
 			<dock index="1" id="18" port="sw" />
 		</line>
-		<room id="21" name="Demon Fit" subtitle="" x="-192" y="-352" w="96" h="64" region="down" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="21" name="Demon Fit" subtitle="" x="-192" y="-224" w="96" h="64" region="down" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="22" name="" description="" flow="oneWay">
-			<dock index="0" id="10" port="n" />
-			<dock index="1" id="21" port="s" />
+			<dock index="0" id="10" port="w" />
+			<dock index="1" id="21" port="e" />
 		</line>
 		<line id="23" name="" description="" flow="oneWay">
-			<dock index="0" id="18" port="ne" />
-			<dock index="1" id="21" port="sw" />
+			<dock index="0" id="18" port="e" />
+			<dock index="1" id="21" port="w" />
 		</line>
-		<room id="24" name="Thee Floored" subtitle="" x="-352" y="-352" w="96" h="64" region="Easty" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="24" name="Thee Floored" subtitle="" x="-192" y="-352" w="96" h="64" region="Easty" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="25" name="" description="" flow="oneWay">
-			<dock index="0" id="21" port="w" />
-			<dock index="1" id="24" port="e" />
+			<dock index="0" id="21" port="n" />
+			<dock index="1" id="24" port="s" />
 		</line>
-		<room id="26" name="High Strawberry" subtitle="" x="-512" y="-352" w="96" h="64" region="begin or end" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" isEndRoom="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="26" name="High Strawberry" subtitle="" x="-352" y="-352" w="96" h="64" region="begin or end" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" isEndRoom="yes" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
 		<line id="27" name="" description="" flow="oneWay">
 			<dock index="0" id="24" port="w" />
 			<dock index="1" id="26" port="e" />
+		</line>
+		<room id="28" name="East" subtitle="" x="-448" y="-288" w="64" h="64" region="Easty" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="31" name="Down" subtitle="" x="-448" y="-224" w="64" h="64" region="down" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="32" name="North" subtitle="" x="-512" y="-288" w="64" h="64" region="northy" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="33" name="South" subtitle="" x="-512" y="-224" w="64" h="64" region="southy" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="34" name="Begin / End" subtitle="" x="-512" y="-320" w="128" h="32" region="begin or end" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<room id="35" name="Map Legend" subtitle="" x="-512" y="-352" w="128" h="32" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0" />
+		<line id="30" name="" description="" flow="oneWay">
+			<dock index="0" id="12" port="e" />
+			<dock index="1" id="14" port="w" />
 		</line>
 		<line id="29" name="" description="" flow="oneWay">
 			<dock index="0" id="4" port="n" />
 			<dock index="1" id="14" port="s" />
 		</line>
-		<line id="30" name="" description="" flow="oneWay">
-			<dock index="0" id="12" port="e" />
-			<dock index="1" id="14" port="w" />
+		<line id="36" name="" description="" flow="oneWay">
+			<dock index="0" id="12" port="n" />
+			<dock index="1" id="18" port="s" />
 		</line>
 	</map>
 	<settings>
@@ -98,7 +108,7 @@
 			<begin____or____end Name="begin or end" TextColor="Black">#FF80C0</begin____or____end>
 			<down Name="down" TextColor="MidnightBlue">Aqua</down>
 			<Easty Name="Easty" TextColor="MidnightBlue">#FF8000</Easty>
-			<NoRegion Name="NoRegion" TextColor="Blue">White</NoRegion>
+			<NoRegion Name="NoRegion" TextColor="Black">White</NoRegion>
 			<northy Name="northy" TextColor="MidnightBlue">Yellow</northy>
 			<southy Name="southy" TextColor="MidnightBlue">Lime</southy>
 		</regions>
