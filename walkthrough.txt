@@ -2,7 +2,11 @@ Chez Dark Shade Ark walkthrough
 
 EctoComp 2025 game by Andrew Schultz
 
-There are no hidden bonus points in-game.
+This was a submission to EctoComp Petite Mort 2025, where you had 4 hours to code. Graphics were not counted against the time limit. (Please, no cracks about how they wouldn't have counted much!)
+
+The solution is, in the big picture, not too tricky, but not entirely linear. There are four branches from the second room. You can't go back to the first. You need to figure who captured you and why. Some puzzles are dependent on others. If you guess a command right before you're ready, the game leaves the right command for reference in THINK. There should be a logic flow document on itch.io. There are no hidden bonus points in-game, and there are no easter eggs or additional things to see on replay.
+
+You start off in the wee clink.
 
 > weak link (1)
 
@@ -20,7 +24,7 @@ An awe flame distracts you from everything else.
 
 You now have a keen-eye key nigh. But you sense you need something to go with it.
 
-Also, a passage will open east if you leave and come back. But you're still distracted at the moment. So why not explore elsewhere?
+Also, a passage will open east if you leave and come back. But there are other places to go. So why not explore them?
 
 > s
 
@@ -30,7 +34,7 @@ Slime apps here.
 
 They aren't obvious, but when you use the key to piece them together, you get something ...
 
-Also, you can't navigate a cramp/ache ramp, yet.
+Also, you can't navigate a cramp/ache ramp, yet. You could just go north and south and come back, but you're not yet ready for what is beyond.
 
 > n
 
@@ -48,7 +52,7 @@ You are squirted with "Oi, LOSE" oil-ooze. Oh no!
 
 > pawn dicey (1)
 
-You're not ready to face what's below yet.
+You're not ready to face what's below yet, but the pawn helps you with other stuff.
 
 > w
 
@@ -64,11 +68,11 @@ A gulf, lying ...
 
 > arbor dens (1)
 
-One fir, static, remains
+One fir, static, remains.
 
 > first attic (1)
 
-A free-speech-freeze peach!
+A free-speech-freeze peach! It will stop someone, or something, from talking too much trash.
 
 > w
 
@@ -82,7 +86,7 @@ You can go up a cramp/ache ramp now.
 
 Grey tanks attack you!
 
-Here you need the pawn, dicey to throw the dart at them, with a bit of the oil/ooze. Pow!
+Here you need the pawn, dicey to throw the (a) dart at them. Pow!
 
 > great ankhs (1)
 
@@ -91,6 +95,8 @@ Here you need the pawn, dicey to throw the dart at them, with a bit of the oil/o
 > n
 
 > d
+
+You have the key from the flame and the sly maps from the slime apps, so you can make it through. If you want, you can X MAP before it disappears.
 
 > s
 
@@ -108,20 +114,22 @@ A demon, fit!
 
 Oh no! A thief lord!
 
-> the floored (1)
+> thee floored (1)
 
-"Thee floored" also works.
+"The floored" also works.
 
-Now the meek "owed, me" code is a manifesto for a giant heist robbery. But of whom? And where?
+Now the meek "owed, me" code is a self-pitying manifesto for a giant heist robbery. But of whom? And where?
 
 > u
 
 > w
 
-Oh wait! The passage in leads somewhere new ...
+Oh wait! The passage inside leads somewhere new, to an entirely different place. Not a clink, but a cell!
 
 > in
 
 In the self-arm cell/farm, a call to action ...
 
 > hi strawberry (1)
+
+And you get your explanation and win the game.
