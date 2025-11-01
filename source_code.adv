@@ -193,6 +193,7 @@ booleans {
    think_hi_strawberry : boolean "false" ;
 
    got_think : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_thee_floored || think_hi_strawberry )} ;
+
    at_end : dynamic_boolean {( is_at "sell_farm" && point_thee_floored )} ;
 
    # map rendering booleans
@@ -211,6 +212,7 @@ booleans {
    in_number_choice : boolean "false" ;
 
    won_yet : boolean "false" scope="survivor" ;
+   think_note_yet : boolean "false" ;
 }
 
 vocabulary {
@@ -376,16 +378,19 @@ locations {
             : if (!point_pawn_dicey && !point_a_dart) {
                : print "These tanks are tough. It can't happen just by wishing." ;
                : set_true "think_great_ankhs" ;
+               : gosub "note_thinks" ;
                : done ;
             }
             : if (!point_a_dart) {
                : print "The pawn shrugs. It can't do much without a weapon." ;
                : set_true "think_great_ankhs" ;
+               : gosub "note_thinks" ;
                : done ;
             }
             : if (!point_pawn_dicey && !point_a_dart) {
                : print "Perhaps you could find someone or something to shoot the dart at the tanks just right, but there's no chance you can." ;
                : set_true "think_great_ankhs" ;
+               : gosub "note_thinks" ;
                : done ;
             }
             : if (point_great_ankhs) {
@@ -499,6 +504,7 @@ locations {
             : if (!point_deem_unfit) {
                : print "The thief lord can't be floored by you alone. You need a distraction." ;
                : set_true "think_thee_floored" ;
+               : gosub "note_thinks" ;
                : done ;
             }
             : if (point_thee_floored) {
@@ -548,6 +554,7 @@ locations {
             : if (!point_first_attic) {
                : print "You thought you had some good points, but the demon (fit) roars back at you with a variety of rhetorical debating techniques, before suggesting you're lucky they didn't use violence. If only you had some way to trip them up." ;
                : set_true "think_deem_unfit" ;
+               : gosub "note_thinks" ;
                : done ;
             }
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
@@ -707,6 +714,12 @@ subroutines {
       : increment "score" ;
       : update_graphic ;
    }
+   note_thinks : subroutine {
+      : if (!think_note_yet) {
+         : print "{note_once}{v_think} will track any command that will score points at a later time. Also, the status line in the upper left will show +1 or more, for commands you've guessed right but still need prep for." ;
+         : set_true "think_note_yet" ;
+      }
+   }
    say_half : subroutine {
       : print "You got half right." ;
    }
@@ -845,6 +858,7 @@ on_command {
       : match "hi strawberry;high strawberry" {
          : print "You look around to find someone or something to notify of the heist robbery, but they're not here." ;
          : set_true "think_hi_strawberry" ;
+         : gosub "note_thinks" ;
          : done ;
       }
       : if (!point_hi_strawberry) {
