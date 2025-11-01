@@ -36,7 +36,8 @@ strings {
    l_dadc : string "<Dusk, Airy, Does Carry<#0f0>>[http://andrewschultz.itch.io/dusk-airy-does-carry]" ;
    l_gsgr : string "<Go-Strange-Ghost Range<#0f0>>[http://andrewschultz.itch.io/go-strange-ghost-range]" ;
 
-   my_score : string "{score}/{max_score}" ;
+   my_score : string "{score}{conditional_score}/{max_score}" ;
+   conditional_score : dynamic_string {( think_any > 0 ? "+{think_any}" : "" )} ;
 
    # commands
    v_about : string "<ABOUT<#0f0>>" ;
@@ -137,6 +138,12 @@ strings {
 integers {
    score : integer "0" ;
    max_score : integer "13" ;
+   think_any : dynamic_integer {(
+      (think_great_ankhs ? 1 : 0) +
+      (think_deem_unfit ? 1 : 0) +
+      (think_thee_floored ? 1 : 0) +
+      (think_hi_strawberry ? 1 : 0)
+  )} ;
 
    clue_number : dynamic_integer {(
       is_at "wee_clink" ? 44 :
