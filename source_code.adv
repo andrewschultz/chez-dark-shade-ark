@@ -244,7 +244,7 @@ locations {
             : print "It's out of reach. It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." ;
          }
          : match "weak link" {
-            : print "There you go." ;
+            : print "Of course, anyone who's stuck in a cell can sit around and dream of a way out. A hidden key, a button or lever, or whatever. But you have something specific to look for. With diligence, you find a weak link and fiddle with it until it enlarges. You walk out..." ;
             : set_true "point_weak_link" ;
             : gosub "add_point" ;
             : press_any_key ;
@@ -460,7 +460,7 @@ locations {
                : print "You already made this place less depressing." ;
                : done ;
             }
-            : print "You look past all the whining, and there's actually somewhere much nicer to be, better irrigated, and so forth, all sorts of trees all over the place. Most of them seem pretty happy and well kept up, but there is one fir, static, in the middle of them all." ;
+            : print "You look past all the whining, and there's actually somewhere much nicer to be, better irrigated, and so forth, all sorts of trees all over the place. Most of them seem pretty happy and well kept up, but there is one {puz_fir_static} in the middle of them all." ;
             : set_true "point_arbor_dens" ;
             : create "fir_static" ;
             : gosub "add_point" ;
@@ -525,12 +525,13 @@ locations {
                : print "But you already got rid of the thief." ;
                : done ;
             }
-            : print "The {pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing." ;
-            : print "Wow, they sure seem tough, but you managed to find a way to deal with them. The thief goes back through the portal, ostensibly to plan hard to Show You. They could Show You now, but once they get their friends together, they'll really Show You!" ;
+            : print "The {pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
+            : print "The thief goes back through the portal, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve!" ;
             : set_true "point_thee_floored" ;
             : set_false "think_thee_floored" ;
-            : print "As the thief is about to leave, The {pcpa} discovers a {i_me_code} and flips it your way. The thief sees this and grabs the {pcpa}, which is actually a really bad idea since the {pcpa} isn't going to work FOR the thief." ;
+            : print "The {pcpa} combs through the area with the thief gone. It seems to ignore the treasure, instead settling on a {i_me_code} it flips your way. Then it gives you a thumbs-up and runs off. It's paid its dues for rescuing you." ;
             : pocket "me_code" ;
+            : destroy "poach_arm" ;
             : gosub "add_point" ;
             : done ;
          }
@@ -573,7 +574,7 @@ locations {
             }
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
             : print "That does it! They summon a very evil looking {ddda}. They wonder aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. Then they vanish through the {ddda}." ;
-            : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a po' charm-poach arm, which doesn't seem to have gotten a lot of use. You take it." ;
+            : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a {pcpa}, which doesn't seem to have gotten a lot of use. You take it." ;
             : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
             : set_false "think_deem_unfit" ;
@@ -834,7 +835,7 @@ on_command {
          }
          : destroy "aid_art" ;
          : pocket "dart" ;
-         : print "Narrative text." ;
+         : print "The aid art doesn't have explicit instructions, how to create a dart, but you suppose that's for the best. People shouldn't have too-easy access to lethal weapons. It takes a while to figure what to do, but thanks to your earlier wordsmithing, you see methods others might have missed. Enough to create a dart!" ;
          : set_true "point_a_dart" ;
          : gosub "add_point" ;
          : done ;
