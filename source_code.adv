@@ -1012,6 +1012,12 @@ on_command {
          : print "Weird it's so big. Twice as big as it should be." ;
       }
    }
+
+   : match "weak _;walk _;off _;sly _;dart _;pawn _;gull _;arbor _;first _;great _;deem _;thee _;hi _" {
+      : print "{custom_unknown_verb_error}" ;
+      : done ;
+   }
+
 }
 
 on_tick {
