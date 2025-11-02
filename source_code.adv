@@ -208,7 +208,8 @@ booleans {
    at_end : dynamic_boolean {( is_at "sell_farm" && point_thee_floored )} ;
 
    # map rendering booleans
-   showing_map : boolean "true" ;
+   showing_map : boolean "false" ;
+   showing_room : boolean "true" ;
 
    # flags for one time notes, etc.
    warn_generic_credit : boolean "false" ;
@@ -219,6 +220,7 @@ booleans {
    ever_x_me : boolean "false" ;
    ever_x_number : boolean "false" ;
    wait_yet : boolean "false" ;
+   first_map_note : boolean "false" ;
 
    in_number_choice : boolean "false" ;
 
@@ -270,7 +272,7 @@ locations {
             : set_false "think_hi_strawberry" ;
             : gosub "add_point" ;
             : print "But it looks really embarrassed when it shows up. You ask what's the matter." ;
-            : set_false "showing_map" ;
+            : set_false "showing_room" ;
             : update_graphic "s_hist_1" ;
             : press_any_key ;
             : clear_screen ;
@@ -293,7 +295,7 @@ locations {
             : print "But how to get back? A simple globe and glow band lie where the {sosd} used to be. You pick them up ... they hum ... the scenery changes ... and you are back home." ;
             : update_graphic "s_hist_5" ;
             : press_any_key ;
-            : set_true "showing_map" ;
+            : set_true "showing_room" ;
             : if (!won_yet) {
                : print "{note_once}there's nothing new to be found on replaying. Try some of the other {ecomp} games, whether or not {ecomp} is over!" ;
             } : else {
@@ -623,9 +625,9 @@ locations {
             : if (!has_visited "r21") {
                : mask {
                   : print "Ah, yes, that's the way through." ;
-                  : set_false "showing_map" ;
+                  : set_false "showing_room" ;
                   : update_graphic "s_maze_thru" ;
-                  : set_true "showing_map" ;
+                  : set_true "showing_room" ;
                }
             }
          }
@@ -855,9 +857,9 @@ on_command {
    : if (is_carried "key_nigh" && is_carried "sly_maps") {
       : match "x key; x map;x maps;x sly;x nigh" {
          : print "You notice the key and the map come together to form a full maze. This could be useful later!" ;
-         : set_false "showing_map" ;
+         : set_false "showing_room" ;
          : update_graphic "s_maze_full" ;
-         : set_true "showing_map" ;
+         : set_true "showing_room" ;
          : set_true "progress_full_map" ;
          : done ;
       }
@@ -865,18 +867,18 @@ on_command {
    : if (is_carried "key_nigh") {
       : match "x key;x nigh" {
          : print "You see the bottom half of a maze." ;
-         : set_false "showing_map" ;
+         : set_false "showing_room" ;
          : update_graphic "s_maze_s" ;
-         : set_true "showing_map" ;
+         : set_true "showing_room" ;
          : done ;
       }
    }
    : if (is_carried "sly_maps") {
       : match "x map;x maps;x sly" {
          : print "You see the top half of a maze." ;
-         : set_false "showing_map" ;
+         : set_false "showing_room" ;
          : update_graphic "s_maze_n" ;
-         : set_true "showing_map" ;
+         : set_true "showing_room" ;
          : done ;
       }
    }
