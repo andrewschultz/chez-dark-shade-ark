@@ -127,9 +127,9 @@ strings {
 
    r_desc_sasf : dynamic_string {( (has_visited "sell_farm" ? "The anthropomorphic fruits wait around. They still regard you warily, but maybe if you ask for their leader, they might give you an audience." : "A bunch of anthropomorphic fruits sit around and regard you suspiciously. As if you're the weird one here. They say, are you looking for anybody? Our leader is busy right now. They won't just see anybody. We will tolerate you different types around here. But don't expect to make friends.") + "\nYou don't feel you fit in here, but there's nothing to do back east. Maybe something you have on you will start negotiations." )} ;
 
-   custom_unknown_verb_error : dynamic_string {( "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
+   custom_unknown_verb_error : dynamic_string {( ( point_weak_link ? "" : "Unsure what to do, you mutter, despondently, \"Cell for self? Or...?\"\n" ) + "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
-      is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out." :
+      is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out, no directions needed." :
       is_at "r00" ? "{r00_nogo}" :
       is_at "r01" ? "{r01_nogo}" :
       is_at "r02" ? "{r02_nogo}" :
@@ -221,6 +221,7 @@ booleans {
    ever_x_number : boolean "false" ;
    wait_yet : boolean "false" ;
    first_map_note : boolean "false" ;
+   clink_think : boolean "false" ;
 
    in_number_choice : boolean "false" ;
 
@@ -243,7 +244,7 @@ locations {
    wee_clink : location "It sure is claustrophobic in here. You're not sure how to get out. The only think you see in the outside is a {sosc}." header="<Wee Clink<#ff0>>" graphic="r_wee_clink" {
       on_command {
          : match "_ sun;_ sunk;_ old;_ cold" {
-            : print "It's out of reach. It doesn't seem to give out light. It sets the mood for, well, pretty much everything here. Perhaps its gloom and doom could be a clue." ;
+            : print "So low in the sky, the {sosc} barely gives out light and sets the mood for, well, pretty much everything here. But perhaps its gloom and doom is a clue." ;
          }
          : match "weak link" {
             : print "Of course, anyone who's stuck in a cell can sit around and dream of a way out. A hidden key, a button or lever, or whatever. But you have something specific to look for. With diligence, you find a weak link and fiddle with it until it enlarges. You walk out..." ;
@@ -936,7 +937,7 @@ on_command {
          : print "{note_once}there are no explicit in-game hints beyond how to use {hint_item}." ;
          : print "Also, {cdsa} comes with a walkthrough, map and logic flow chart if you want spoilers." ;
          : if (!point_weak_link) {
-            : print "You may wish to use {v_think} for the solution to the first puzzle." ;
+            : print "You may wish to use {v_think} to receive progressive hints to the solution to the first puzzle." ;
          }
          : set_true "warn_hints" ;
          : done ;
@@ -948,9 +949,10 @@ on_command {
       : cycle key = "xnumhints" predictable_order = "true" skip_interval = "0" {
          : print "This help has five parts total and is game state agnostic, e.g. the cycle won't change. {xnum} should give you a number. You may be able to guess what it means, but if not, I will give progressive hints." ;
          : print "If {xnum}'s number is 0 or -1, you are done here." ;
-         : print "Most of the time, {xnum} gives a two-digit number." ;
+         : print "The rest of the time, {xnum} gives a two-digit number." ;
          : print "{xnum} will give, in order, the number of letters in each word (tens digit = first, ones = second.) In one case, it gives a three-digit number." ;
          : print "Then the tens digit=first, hundreds digit=second." ;
+         : print "This is necessary because one puzzle has a ten-letter word. But don't worry. It will be clued in other ways." ;
       }
       : done ;
    }
@@ -973,8 +975,14 @@ on_command {
    }
    : match "think _" {
       : if (is_at "wee_clink") {
+         : if (!clink_think) {
+            : print "{one_time}a small make-sure nag before starting. {v_think}ing here will progressively reveal hints as to the first action." ;
+            : set_true "clink_think" ;
+            : done ;
+         }
          : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
             : print "Standard commands won't help you leave, though WAITing may give an additional clue." ;
+            : print "So does what you say to yourself following a parser error. (It will disappear once you've left the clink.)" ;
             : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
             : print "Also, the titles of similar games if you type {v_about} then {v_history} may provide clues." ;
             : print "The {cdsa}. The {sosc}. But how do they fit in with the wee clink?" ;
