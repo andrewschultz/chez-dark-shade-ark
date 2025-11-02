@@ -74,6 +74,12 @@ strings {
    sosd : string "<sword-or-sore door<#ccc>>" ;
    pcpa : string "<po' charm-poach arm<#ccc>>" ;
 
+   # thinky variables
+   once_deem_unfit : dynamic_string {( point_first_attic ? "now" : "once" )} ;
+   once_great_ankhs : dynamic_string {( point_pawn_dicey && point_a_dart ? "now" : "once" )} ;
+   once_hi_strawberry : dynamic_string {( is_at "sell_farm" ? "now" : "once" )} ;
+   once_thee_floored : dynamic_string {( point_deem_unfit ? "now" : "once" )} ;
+
    # variable item descriptions
    desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
 
@@ -947,16 +953,16 @@ on_command {
          : done ;
       }
       : if (think_deem_unfit) {
-         : print "You can <DEEM UNFIT<#f80>> the demon (fit) once you can shut it up a bit." ;
+         : print "You can <DEEM UNFIT<#f80>> the demon (fit) {once_deem_unfit} you have ways to slow down its jabber a bit." ;
       }
       : if (think_hi_strawberry) {
-         : print "You can say <HI STRAWBERRY<#f80>> once you find where it might be." ;
+         : print "You can say <HI STRAWBERRY<#f80>> {once_hi_strawberry} you find where such an entity might be." ;
       }
       : if (think_thee_floored) {
-         : print "You can say <THEE FLOORED<#f80>> to the thief lord once you have more leverage." ;
+         : print "You can say <THEE FLOORED<#f80>> to the thief lord {once_thee_floored} you have more leverage." ;
       }
       : if (think_great_ankhs) {
-         : print "You can convert the gray tanks to <GREAT ANKHS<#f80>> once you have something you can use to change them." ;
+         : print "You can convert the gray tanks to <GREAT ANKHS<#f80>> {once_great_ankhs} you have someone with a weapon to shoot them down quickly and accurately." ;
       }
    }
    : match "verbs _;verb _" {
