@@ -222,10 +222,13 @@ booleans {
 }
 
 vocabulary {
+   # standard verbs
    : verb / aliases = [gt, goto]
    : verb / aliases = [in, enter]
    : verb / aliases = [out, exit]
 
+   # solutions
+   : verb / aliases = [hi, high]
    # nouns are of course tricky
 }
 
@@ -256,7 +259,7 @@ locations {
          }
       }
       on_command {
-         : match "hi strawberry;high strawberry" {
+         : match "hi strawberry" {
             : print "You wonder what the weird thing in the {i_me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
             : set_true "point_hi_strawberry" ;
             : set_false "think_hi_strawberry" ;
@@ -861,14 +864,14 @@ on_command {
       }
    }
    : if (point_thee_floored) {
-      : match "hi strawberry;high strawberry" {
+      : match "hi strawberry" {
          : print "You look around to find someone or something to notify of the heist robbery, but they're not here." ;
          : set_true "think_hi_strawberry" ;
          : gosub "note_thinks" ;
          : done ;
       }
       : if (!point_hi_strawberry) {
-         : match "hi _;high _;_ strawberry" {
+         : match "hi _;_ strawberry" {
             : gosub "say_half" ;
             : done ;
          }
