@@ -110,7 +110,7 @@ strings {
    r11_nogo : string "You can only go back west or down." ;
 
    r12_header : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#f80>>" : "<Our Burdens<#f80>>" )} ;
-   r12_loc_desc : dynamic_string {( ( point_first_attic ? "You've made things real verdant here. Can't be much left." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out." : "It's bare and desolate here." ) + "\nThe only way back is west." )} ;
+   r12_loc_desc : dynamic_string {( ( point_first_attic ? "It's real nice and verdant here, but you can't see much adventure now you've figured the mystery of the fir (static)." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out. A {puz_fir_static}." : "It's bare and desolate here." ) + "\nThe only way back is west." )} ;
    r12_nogo : string "You can only go back west." ;
 
    r20_header : dynamic_string {( "<Sword-Or-Sore Door<#ff0>>" )} ;
@@ -390,7 +390,7 @@ locations {
       on_command {
          : match "great ankhs" {
             : if (!point_pawn_dicey && !point_a_dart) {
-               : print "These tanks are tough. It can't happen just by wishing." ;
+               : print "These tanks aren't going to be neutralized without a fight. You need a weapon and, probably, someone to use it, or help you use it." ;
                : set_true "think_great_ankhs" ;
                : gosub "note_thinks" ;
                : done ;
@@ -449,11 +449,6 @@ locations {
       }
    }
    r12 : location "{r12_loc_desc}" header = "{r12_header}" {
-      on_describe {
-         : if (point_arbor_dens) {
-            : print {( "A fir (static) sits here. You " + ( point_first_attic ? "got something from it" : "haven't unlocked its mysteries yet" ) + "." )} ;
-         }
-      }
       on_command {
          : match "arbor dens" {
             : if (point_arbor_dens) {
@@ -496,7 +491,7 @@ locations {
    r20 : location "{r20_loc_desc}" header = "{r20_header}" graphic="r_20_0" {
       on_describe {
          : if (!point_thee_floored) {
-            : print "A {puz_thief_lord} stands here next to a {sosd}, guarding its treasures, whatever they're worth. It's very vigilant." ;
+            : print "A {puz_thief_lord} sits here, planning and guarding its treasures next to a {sosd}. They're oblivious to you." ;
          } : else {
             : print "The {sosd} stands here, still. No immediate danger, of course." ;
          }
