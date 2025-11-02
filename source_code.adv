@@ -352,7 +352,7 @@ locations {
       }
       on_describe {
          : if (point_thee_floored && !return_thee_floored) {
-            : print "Hmm. The documents you found showed a new door to the left, and when you have a look -- there it is. It must've gotten lost in the shuffle." ;
+            : print "But wait! There's one more exit, and it seems to lead inside!" ;
             : set_true "return_thee_floored" ;
          }
          : if (point_sly_maps && !is_exists "hope_light" && !return_sly_maps) {
@@ -671,10 +671,9 @@ connections {
    ## Connects locations together (bidirectional)
 
    from, direction, to = [
-      r01, enter, wee_clink
+      r01, enter, sell_farm
       r01, north, r02
       r01, south, r00
-      r01, west, sell_farm
       r01, down, r22
       r01, east, r11
       r02, east, r12
@@ -686,20 +685,10 @@ connections {
 }
 
 barriers {
-   block_from_clink : block {
-      location = r01
-      block_when_not = point_weak_link
-      message = You haven't found a way out yet.
-   }
-   block_to_clink : block {
-      location = wee_clink
-      block_when = point_weak_link
-      message = You have no desire or need to go back to the wee clink.
-   }
-   block_r01_w : block {
+   block_r01_inside : block {
       location = sell_farm
-      block_when_not = point_thee_floored
-      message = {r01_nogo}
+      block_when_not = return_thee_floored
+      message = You have no desire or need to return to the wee clink.
    }
    block_r01_n : block {
       location = r02
