@@ -326,6 +326,18 @@ locations {
    }
    r01 : location "{r01_loc_desc}" header = "<Wall, Crowned<#ff0>>" graphic="r_01_0" {
          on_command {
+         : mask {
+            : if (point_off_lame && !return_off_lame) {
+               : match "n _" {
+                  : set_true "return_off_lame" ;
+               }
+            }
+            : if (point_sly_maps && !return_sly_maps) {
+               : match "s _" {
+                  : set_true "return_sly_maps" ;
+               }
+            }
+         }
          : match "walk round" {
             : print "Certainly the wall looks intimidating at first. You're still getting your bearings. But after a while, you stop being impressed and blown away, and you realize you can take your time to look around. Nobody is after you. You find one door, then another, then two more. You wonder if there might be a final one, but really, if it is, you can find it later when you're more aware of your goals. You have enough to explore for the moment. There's even one leading down. They all look pretty safe, at least at first." ;
             : set_true "point_walk_round" ;
@@ -343,13 +355,9 @@ locations {
             : print "Hmm. The documents you found showed a new door to the left, and when you have a look -- there it is. It must've gotten lost in the shuffle." ;
             : set_true "return_thee_floored" ;
          }
-         : if (point_off_lame && !return_off_lame) {
-            : set_true "return_off_lame" ;
-         }
-         : if (point_sly_maps && !return_sly_maps) {
-            : print "As you returned, you uncovered something cool: a {i_hope_light}! That should help with the dreariness to the north." ;
+         : if (point_sly_maps && !is_exists "hope_light" && !return_sly_maps) {
+            : print "As you returned, you uncovered something cool: a {i_hope_light}! That should help with the dreariness to the south." ;
             : pocket "hope_light" ;
-            : set_true "return_sly_maps" ;
          }
       }
    }
