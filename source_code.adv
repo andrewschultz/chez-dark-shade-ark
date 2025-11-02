@@ -79,6 +79,9 @@ strings {
    once_great_ankhs : dynamic_string {( point_pawn_dicey && point_a_dart ? "now" : "once" )} ;
    once_hi_strawberry : dynamic_string {( is_at "sell_farm" ? "now" : "once" )} ;
    once_thee_floored : dynamic_string {( point_deem_unfit ? "now" : "once" )} ;
+   think_tank_detail : dynamic_string {(
+      point_pawn_dicey ? (point_a_dart ? "the pawn to help you shoot the dart" : "a weapon for the pawn") :
+      (point_a_dart ? "someone who can use the dart" : "firepower and ability to take down the tanks") )} ;
 
    # variable item descriptions
    desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
@@ -960,7 +963,7 @@ on_command {
          : done ;
       }
       : if (!got_think) {
-         : print "There are no commands you figured out before you had the right assistance." ;
+         : print "There are no commands you figured out and will need to re-use in the future with stronger preparation." ;
          : done ;
       }
       : if (think_deem_unfit) {
@@ -973,7 +976,7 @@ on_command {
          : print "You can say <THEE FLOORED<#f80>> to the thief lord {once_thee_floored} you have more leverage." ;
       }
       : if (think_great_ankhs) {
-         : print "You can convert the gray tanks to <GREAT ANKHS<#f80>> {once_great_ankhs} you have someone with a weapon to shoot them down quickly and accurately." ;
+         : print "You can convert the gray tanks to <GREAT ANKHS<#f80>> {once_great_ankhs} you have {think_tank_detail}." ;
       }
    }
    : match "verbs _;verb _" {
