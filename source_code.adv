@@ -339,6 +339,10 @@ locations {
             }
          }
          : match "walk round" {
+            : if (point_walk_round) {
+               : print "You find nothing new. You must've done a really thorough job the first time!" ;
+               : done ;
+            }
             : print "Certainly the wall looks intimidating at first. You're still getting your bearings. But after a while, you stop being impressed and blown away, and you realize you can take your time to look around. Nobody is after you. You find one door, then another, then two more. You wonder if there might be a final one, but really, if it is, you can find it later when you're more aware of your goals. You have enough to explore for the moment. There's even one leading down. They all look pretty safe, at least at first." ;
             : set_true "point_walk_round" ;
             : gosub "add_point" ;
