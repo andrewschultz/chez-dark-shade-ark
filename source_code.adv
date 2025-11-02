@@ -497,6 +497,16 @@ locations {
          }
       }
       on_command {
+         : if (!point_thee_floored) {
+            : match "_ thief;_ lord" {
+               : if (think_thee_floored) {
+                  : print "You already figured how to get the thief lord's attention. <THEE FLOORED<#f80>>.";
+                  : print {( point_deem_unfit ? "And with the {pcpa}, you might have a way to disstract them." : "You still don't have any way to distract them." )} ; 
+               }
+               : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, <THEE FLOORED<#f80>> will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
+               : done ;
+            }
+         }
          : if (point_thee_floored) {
             : match "_ door;_ sword;_ sore" {
                : print "Don't mess with the door now. Figure what to do with the {i_me_code}." ;
