@@ -200,6 +200,8 @@ booleans {
 
    got_think : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_thee_floored || think_hi_strawberry )} ;
 
+   pawn_is_around : dynamic_boolean {( point_pawn_dicey && !point_great_ankhs )} ;
+
    at_end : dynamic_boolean {( is_at "sell_farm" && point_thee_floored )} ;
 
    # map rendering booleans
@@ -815,6 +817,12 @@ on_command {
          : set_true "wait_yet" ;
       }
    }
+   : if (pawn_is_around) {
+      : match "_ pawn" {
+         : print "The pawn is keeping low until the moment it needs to attack." ;
+         : done ;
+      }
+   }
    : if (is_carried "aid_art") {
       : match "dart -" {
          : if (point_a_dart) {
@@ -1004,6 +1012,11 @@ on_command {
 }
 
 on_tick {
+   : if (pawn_is_around) {
+      : match "i _" {
+         : print "The pawn (dicey) also skulks behind in the shadows, ready to do your bidding at the right time." ;
+      }
+   }
 }
 
 on_render {
