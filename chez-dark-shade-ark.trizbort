@@ -39,7 +39,7 @@
 			<dock index="1" id="10" port="w" />
 		</line>
 		<room id="12" name="Sword-or-Sore Door" subtitle="" x="160" y="96" w="96" h="64" region="NoRegion" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
-			<objects custom="yes" customRight="-52" customDown="0">        Thief Lord|Sword-or-Sore Door</objects>
+			<objects custom="yes" customRight="-52" customDown="0">        Thief Lord</objects>
 		</room>
 		<line id="13" name="" description="" startText="up" endText="down">
 			<dock index="0" id="12" port="nw" />
@@ -60,7 +60,7 @@
 			<dock index="1" id="16" port="n" />
 		</line>
 		<room id="18" name="Our Burdens" subtitle="" x="0" y="-160" w="96" h="64" region="Region1" handDrawn="yes" allcornersequal="yes" ellipse="no" roundedCorners="no" octagonal="no" cornerTopLeft="15" cornerTopRight="15" cornerBottomLeft="15" cornerBottomRight="15" borderstyle="Solid" description="" roomFill="" secondFill="" secondFillLocation="Bottom" roomBorder="" roomLargeText="" roomSubtitleColor="" roomSmallText="" ZOrder="0">
-			<objects custom="yes" customRight="-26" customDown="0"> (Spoiler)|Fir, Static</objects>
+			<objects at="n" custom="yes" customRight="-26" customDown="0"> (Spoiler)|Fir, Static</objects>
 		</room>
 		<line id="19" name="" description="" style="dashed">
 			<dock index="0" id="2" port="e" />
