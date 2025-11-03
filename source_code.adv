@@ -905,7 +905,7 @@ on_command {
       : clear_screen ;
       : update_graphic "m_blank" ;
       : if (!first_map_note) {
-         : print "You can mouse-click or hit {key_enter} to return to the game. Arrows indicate one-way paths, and red lines show ones you don't need any more, if {hone_aye} is active." ;
+         : print "{note_once}You can mouse-click or hit {key_enter} to return to the game. Arrows indicate one-way paths, and red lines show ones you don't need any more, if {hone_aye} is active." ;
          : set_true "first_map_note" ;
       }
       : press_any_key ;
@@ -1134,110 +1134,110 @@ on_tick {
 on_render {
    : if (showing_map) {
       : if (has_visited "wee_clink") {
-         : overlay "mr_wee_clink" x="0" y="0" ;
+         : overlay "mr_wee_clink" x="2" y="2" ;
       }
       : if (has_visited "r00") {
          : if (return_sly_maps) {
             : if (opt_hone_aye && !is_at "r10" && point_great_ankhs) {
-               : overlay "mc_hx" x="224" y="206" ;
+               : overlay "mc_hx" x="226" y="208" ;
             } : else {
-               : overlay "mc_h" x="224" y="206" ;
+               : overlay "mc_h" x="226" y="208" ;
             }
-            : overlay "mr_00_2" x="124" y="176" ;
+            : overlay "mr_00_2" x="126" y="178" ;
          } : else_if (point_sly_maps) {
-            : overlay "mr_blobland" x="124" y="176" ;
+            : overlay "mr_blobland" x="126" y="178" ;
          } : else {
-            : overlay "mr_00_1" x="124" y="176" ;
+            : overlay "mr_00_1" x="126" y="178" ;
          }
       }
       : if (has_visited "r01") {
-         : overlay "mr_01_1" x="124" y="88" ;
-         : overlay "mc_1way_se" x="100" y="64" ;
+         : overlay "mr_01_1" x="126" y="90" ;
+         : overlay "mc_1way_se" x="102" y="66" ;
          : if (point_walk_round) {
             : if (opt_hone_aye && !is_at "r02" && !is_at "r12" && point_first_attic) {
-               : overlay "mc_vx" x="172" y="64" ;
+               : overlay "mc_vx" x="174" y="66" ;
             } : else {
-               : overlay "mc_v" x="172" y="64" ;
+               : overlay "mc_v" x="174" y="66" ;
             }
             : if (opt_hone_aye && !is_at "r00" && !is_at "r10" && point_great_ankhs) {
-               : overlay "mc_vx" x="172" y="152" ;
+               : overlay "mc_vx" x="174" y="154" ;
             } : else {
-               : overlay "mc_v" x="172" y="152" ;
+               : overlay "mc_v" x="174" y="154" ;
             }
             : if (opt_hone_aye && !is_at "r11" && !is_at "r20" && point_thee_floored) {
-               : overlay "mc_hx" x="224" y="118" ;
+               : overlay "mc_hx" x="226" y="120" ;
             } : else {
-               : overlay "mc_h" x="224" y="118" ;
+               : overlay "mc_h" x="226" y="120" ;
             }
             : if (opt_hone_aye && !is_at "r22" && !is_at "r21" && point_deem_unfit) {
-               : overlay "mc_dx_01_22" x="222" y="62" ;
+               : overlay "mc_dx_01_22" x="224" y="64" ;
             } : else {
-               : overlay "mc_d_01_22" x="222" y="62" ;
+               : overlay "mc_d_01_22" x="224" y="64" ;
             }
          }
          : if (return_thee_floored) {
-            : overlay "mc_1way_sw" x="99" y="151" ;
+            : overlay "mc_1way_sw" x="101" y="153" ;
          }
       }
       : if (has_visited "r02") {
          : if (return_off_lame) {
-            : overlay "mr_02_2" x="124" y="0" ;
+            : overlay "mr_02_2" x="126" y="2" ;
          } : else_if (point_off_lame) {
-            : overlay "mr_blobland" x="124" y="0" ;
+            : overlay "mr_blobland" x="126" y="2" ;
          } : else {
-            : overlay "mr_02_1" x="124" y="0" ;
+            : overlay "mr_02_1" x="126" y="2" ;
          }
          : if (point_gull_flying) {
             : if (opt_hone_aye && !is_at "r12" && point_first_attic) {
-               : overlay "mc_hx" x="224" y="30" ;
+               : overlay "mc_hx" x="226" y="32" ;
             } : else {
-               : overlay "mc_h" x="224" y="30" ;
+               : overlay "mc_h" x="226" y="32" ;
             }
          }
       }
       : if (has_visited "r10") {
          : if (point_great_ankhs) {
-            : overlay "mr_10_2" x="248" y="176" ;
+            : overlay "mr_10_2" x="250" y="178" ;
          } : else {
-            : overlay "mr_10_1" x="248" y="176" ;
+            : overlay "mr_10_1" x="250" y="178" ;
          }
       }
       : if (has_visited "r11") {
-         : overlay "mr_02_1" x="248" y="88" ;
+         : overlay "mr_02_1" x="250" y="90" ;
          : if (opt_hone_aye && !is_at "r20" && point_thee_floored) {
-            : overlay "mc_dx_11_20" x="346" y="150" ;
+            : overlay "mc_dx_11_20" x="348" y="152" ;
          } : else {
-            : overlay "mc_d_11_20" x="346" y="150" ;
+            : overlay "mc_d_11_20" x="348" y="152" ;
          }
       }
       : if (has_visited "r12") {
          : if (point_arbor_dens) {
-            : overlay "mr_12_2" x="248" y="0" ;
+            : overlay "mr_12_2" x="250" y="2" ;
          } : else {
-            : overlay "mr_12_1" x="248" y="0" ;
+            : overlay "mr_12_1" x="250" y="2" ;
          }
       }
       : if (has_visited "r20") {
-         : overlay "mr_20_1" x="372" y="176" ;
+         : overlay "mr_20_1" x="374" y="178" ;
       }
       : if (has_visited "r21") {
-         : overlay "mr_21_1" x="372" y="88" ;
+         : overlay "mr_21_1" x="374" y="90" ;
       }
       : if (has_visited "r22") {
          : if (point_deem_unfit) {
-            : overlay "mr_22_2" x="372" y="0" ;
+            : overlay "mr_22_2" x="374" y="2" ;
          } : else {
-            : overlay "mr_22_1" x="372" y="0" ;
+            : overlay "mr_22_1" x="374" y="2" ;
          }
          : if (opt_hone_aye && !is_at "r21" && point_deem_unfit) {
-            : overlay "mc_vx" x="432" y="64" ;
+            : overlay "mc_vx" x="434" y="66" ;
          } : else {
-            : overlay "mc_v" x="432" y="64" ;
+            : overlay "mc_v" x="434" y="66" ;
          }
       }
       : if (has_visited "sell_farm") {
-         : overlay "mc_1way_sw" x="100" y="152" ;
-         : overlay "mr_sell_farm" x="0" y="176" ;
+         : overlay "mc_1way_sw" x="102" y="154" ;
+         : overlay "mr_sell_farm" x="2" y="178" ;
       }
       : done ;
    }
@@ -1337,7 +1337,7 @@ assets {
       s_start_2 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAG1BMVEUAAACAAAAAAIDAwMCmyvDggEAA4IBAoMD///+PCc6PAAACTklEQVR4XsSUQWrDMBBFZzPQcxRygjTpAWK6Fi5Tuk9QD1Cot9kEdOyMRkJfNoaUSG2eDVir/zT+Ej0/mLsFNrLO2F9A7mNsF0C0U2j+yAxy7AQPCTMcGiawgcASmaHxvABz+A8BmguQOGkSAL8U0DUxHuYs0NYBDMER3exARRZ47CnoKACH9+1w2Bb8Ed/DMGCxq09ihw6UdAUCe++PSDcxIEq3EoKUVQTyxwvSwQ4KfQU0DgIY/qqAI+4lEEIsAPYLAVuuCziOrzL2EAgmgD+eO1Bv31dEgRjuINByD4SzGUjd+ZSoJkg/op8pW+EeAiGQKohIXTxFl3kUSMcpYEdCnDRaBRSyEXx4BQ5vXjXiHIylAJEQ9RAIF8sPF6vB3k/fKIM6+JNWwnyUwx8JnOkpCuQavE5lDiUU3YAAi+sjYCVQRCk1y5xsCH55KaX6kUgngcQlCwC00X9NSWFVQMbGYwiDRb5uv+x6+sHNgGPYQ+AzRGQmgINQN0H7mXws28X3tsC12DpMYRiEoQC8Kzy2HmR0sAv0AJMS6E12/QWemEUpAbT4APrPfpgYRZAlA/Qje73/nAxmeH9ZhfyI0T5kEk4TA3IFROMBrH7hcCgRU5UA6AEcDcAavgWUY8g3260bIHKUDtx8VNECOJPtMhoKWH0qAEkG+LAC/QBNBGBeHiDahNILWMSyryGg3YGJAPbA1QB3C7gesFMwDJDgAdbz9lh9mtzmQMIQAEX/f9cUCx4bfIQZC2DurvohfjzA50oADcEioQEIAHMzH/ADcsSMwBmT+6oAAAAASUVORK5CYII=" ;
 
    # map stuff
-      m_blank : base64_png "iVBORw0KGgoAAAANSUhEUgAAAdgAAADwAQMAAACZn+c1AAAAA1BMVEXgwKATtJncAAAAJElEQVR4Xu3AAQ0AAADCIPuntscHywEAAAAAAAAAAAAAAAAADjhAAAEgO3LqAAAAAElFTkSuQmCC" ;
+      m_blank : base64_png "iVBORw0KGgoAAAANSUhEUgAAAdwAAAD0AQMAAAAL5QVZAAAAA1BMVEXgwKATtJncAAAAJUlEQVR4Xu3AAQkAAADCMPunNsdhWw4AAAAAAAAAAAAAAAAAAAc6JAABifNuUgAAAABJRU5ErkJggg==" ;
       mr_wee_clink : base64_png "iVBORw0KGgoAAAANSUhEUgAAAGQAAABAAQMAAADWEUA3AAAABlBMVEUAAAD/gAAgfBVpAAABWUlEQVR4XqXPsU7DMBAGYCcpjRACszFVhicob+C3YWZki1GFilgMM0NWNhjZaokBtixIdAA5ldjTbinYPuzEadNWYum/ffpPpzv0fyJxEQ9MrLxygzkQUyueGZItFM2ASKAtpUvNga7JUOX1C6P0nT7UCqx8t6kEYLklgLaQFXGTXoVZ0yd9biRXOqmI37Ih6TQCryRVR9BvOjooMZCFgik2RHkdB+zgrXfb0rj35HXqtdb5sI7YZWirqIjFMTsvsbCIYCgwF2VJnWLIcsInWiXMCkOREznTqnqQQNYSBW4119rUwpWg1sRJeyXfTqDhp9LZirpeZaVwRcipaMS8lBN9wVMiP7Sp1AcOqZT+FmIlpTvGCUNWSVXag8Lqy3bMah9eQWZ2UjrFyRVkaVrqR2G1AxFwfp8r4tQ5QXfDmxBdHyIXJx6icaPLIe82CuymQYgEatKN0Fb5A3SjH+m6zbFOAAAAAElFTkSuQmCC" ;
       mr_00_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAGQAAABAAQMAAADWEUA3AAAABlBMVEUAAAD/gAAgfBVpAAABBElEQVR4Xs3SMU7EMBAF0G+5cIV9gbC5AmUkVvJVkLjAom3SxSjX4CCURlzEiAu4TBFlYMZEjMSKEvG7V/yZKQa/ZkIHH1KYaQEMZSVLhZX7ply/lAC4NGph+JQvt5eUoGSz6O4sMqvodJ6pAqCs1VfWzX2TWVjDu/SAo5JH91PXr6KgBYejVpaZV7PIUu3J+zDPtAKGihJiYjnL+s8x1VANlELZtQYqcdm1BarTyrLPJh886njYFTzGGljuyWTnMRQn6i6pMuB96427ZGZMTW1fL9s7126xG6undiciK9Jjhpdf+ZbJljVYrZN5ERUtFOkVvImWHkrTphVXACbjQeQq/iAfGzSjZ5PWkLIAAAAASUVORK5CYII=" ;
       mr_00_2 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAGQAAABAAQMAAADWEUA3AAAABlBMVEUAAAD/gAAgfBVpAAAA0klEQVR4Xu3OMW4CQQwF0LHXkwxVHDjAGpQT5AKZICJtF+AE3ASQiLS05EIU9DkDN6DcYovYWCNxghQov3uy9P3DfWRTnXskeNsYINMzxodKsisNwCQuBogxulBU6etGmHZ7yUW9yjsfLwypPi3EEIgZiGcLeXKlgclvKel3eRkXVWdw/UUwdPmzq4+SR10IESg3gWW+eiUVoolVqKLgmi9Vaedqi9Y/F5a2OVC51ce2+dbO+mTibf8x1H88u+qdXFO8kYzJNMHpVWLLeGiSMvc/v/Q9MR6Exn+dAAAAAElFTkSuQmCC" ;
