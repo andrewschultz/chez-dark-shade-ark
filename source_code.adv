@@ -309,7 +309,7 @@ locations {
    }
    r00 : location "{r00_loc_desc}" header = "{r00_header}" {
       on_command {
-         : match "sly maps" {
+         : match "sly maps;sly map" {
             : print "You were worried about looking through all the slime at first, because you didn't know what to look for, and it would be too messy. But since you decided you might be looking for maps, you were able to focus, and not worry about certain blobs which pretty much could not hold them. And what do you know? You find half of a particularly clever map. Why, you might call it a sly map, with how carefully it was hidden." ;
             : set_true "point_sly_maps" ;
             : gosub "add_point" ;
@@ -317,7 +317,7 @@ locations {
             : done ;
          }
          : if (!point_sly_maps) {
-            : match "sly _;_ maps" {
+            : match "sly _;_ maps;_ map" {
                : gosub "say_half" ;
                : done ;
             }
@@ -402,7 +402,7 @@ locations {
    }
    r10 : location "{r10_loc_desc}" header = "{r10_header}" {
       on_command {
-         : match "great ankhs" {
+         : match "great ankhs;great ankh" {
             : if (!point_pawn_dicey && !point_a_dart) {
                : print "These tanks aren't going to be neutralized without a fight. You need a weapon and, probably, someone to use it, or help you use it." ;
                : set_true "think_great_ankhs" ;
@@ -435,7 +435,7 @@ locations {
             : done ;
          }
          : if (!point_great_ankhs) {
-            : match "great _;_ ankhs" {
+            : match "great _;_ ankhs;_ ankh" {
                : gosub "say_half" ;
                : done ;
             }
@@ -545,7 +545,7 @@ locations {
                : done ;
             }
             : print "The {pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
-            : print "The thief goes back through the portal, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve!" ;
+            : print "The thief goes back through the {sosd}, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve!" ;
             : set_true "point_thee_floored" ;
             : set_false "think_thee_floored" ;
             : print "The {pcpa} combs through the area with the thief gone. It seems to ignore the treasure, instead settling on a {i_me_code} it flips your way. Then it gives you a thumbs-up and runs off. It's paid its dues for rescuing you." ;
