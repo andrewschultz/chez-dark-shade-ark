@@ -429,7 +429,7 @@ locations {
                : gosub "note_thinks" ;
                : done ;
             }
-            : if (!point_pawn_dicey && !point_a_dart) {
+            : if (!point_pawn_dicey) {
                : print "Perhaps you could find someone or something to shoot the dart at the tanks just right, but there's no chance you can." ;
                : set_true "think_great_ankhs" ;
                : gosub "note_thinks" ;
@@ -1230,9 +1230,9 @@ on_render {
             : overlay "mr_22_1" x="374" y="2" ;
          }
          : if (opt_hone_aye && !is_at "r21" && point_deem_unfit) {
-            : overlay "mc_vx" x="434" y="66" ;
+            : overlay "mc_vx" x="422" y="66" ;
          } : else {
-            : overlay "mc_v" x="434" y="66" ;
+            : overlay "mc_v" x="422" y="66" ;
          }
       }
       : if (has_visited "sell_farm") {
