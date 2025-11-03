@@ -206,6 +206,9 @@ booleans {
 
    at_end : dynamic_boolean {( is_at "sell_farm" && point_thee_floored )} ;
 
+   # option (s)
+   opt_hone_aye : boolean "false" ;
+
    # map rendering booleans
    showing_map : boolean "false" ;
    showing_room : boolean "true" ;
@@ -737,6 +740,21 @@ subroutines {
       : increment "score" ;
       : update_graphic ;
    }
+
+   check_options : subroutine {
+      : match "hone aye;hone eye" {
+         : print {( "Available exits are " + (opt_hone_aye ? "already" : "now") + " honed to ones you still need to use to win." )} ;
+         : if (clue_number == 0 && !opt_hone_aye) {
+            : print "Since you're choosing this option, and you're done here, I'll make a note of that. You can exit, but you can't come back." ;
+         }
+         : set_true "opt_hone_aye" ;
+      }
+      : match "ho nigh" {
+         : print {( "Exits are " + (opt_hone_aye ? "already" : "now") + " all available, even ones you don't need to revisited." )} ;
+         : set_false "opt_hone_aye" ;
+      }
+   }
+
    note_thinks : subroutine {
       : if (!think_note_yet) {
          : print "{note_once}{v_think} will track any command that will score points at a later time. Also, the status line in the upper left will show +1 or more, for commands you've guessed right but still need prep for." ;
@@ -910,6 +928,7 @@ on_command {
       }
    }
 
+   : gosub "check_options" ;
    : match "about _" {
       : print "{cdsa} is a simplified-parser game that requires two-word commands to solve puzzles. Some puzzles rely on others. A few have alternate spellings. One, due to Adventuron's parser, can eliminate the first (very common) word. {cdsa} should always say if you are half-right." ;
       : print "" ;
