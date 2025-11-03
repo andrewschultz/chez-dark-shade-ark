@@ -1085,7 +1085,11 @@ on_render {
       }
       : if (has_visited "r00") {
          : if (return_sly_maps) {
-            : overlay "mc_h" x="224" y="206" ;
+            : if (opt_hone_aye && !is_at "r10" && point_great_ankhs) {
+               : overlay "mc_hx" x="224" y="206" ;
+            } : else {
+               : overlay "mc_h" x="224" y="206" ;
+            }
             : overlay "mr_00_2" x="124" y="176" ;
          } : else_if (point_sly_maps) {
             : overlay "mr_blobland" x="124" y="176" ;
@@ -1097,10 +1101,26 @@ on_render {
          : overlay "mr_01_1" x="124" y="88" ;
          : overlay "mc_1way_se" x="100" y="64" ;
          : if (point_walk_round) {
-            : overlay "mc_v" x="172" y="64" ;
-            : overlay "mc_v" x="172" y="152" ;
-            : overlay "mc_h" x="224" y="118" ;
-            : overlay "mc_d_01_22" x="222" y="62" ;
+            : if (opt_hone_aye && !is_at "r02" && !is_at "r12" && point_first_attic) {
+               : overlay "mc_vx" x="172" y="64" ;
+            } : else {
+               : overlay "mc_v" x="172" y="64" ;
+            }
+            : if (opt_hone_aye && !is_at "r00" && !is_at "r10" && point_great_ankhs) {
+               : overlay "mc_vx" x="172" y="152" ;
+            } : else {
+               : overlay "mc_v" x="172" y="152" ;
+            }
+            : if (opt_hone_aye && !is_at "r11" && !is_at "r20" && point_thee_floored) {
+               : overlay "mc_hx" x="224" y="118" ;
+            } : else {
+               : overlay "mc_h" x="224" y="118" ;
+            }
+            : if (opt_hone_aye && !is_at "r22" && !is_at "r21" && point_deem_unfit) {
+               : overlay "mc_dx_01_22" x="222" y="62" ;
+            } : else {
+               : overlay "mc_d_01_22" x="222" y="62" ;
+            }
          }
          : if (return_thee_floored) {
             : overlay "mc_1way_sw" x="99" y="151" ;
@@ -1115,7 +1135,11 @@ on_render {
             : overlay "mr_02_1" x="124" y="0" ;
          }
          : if (point_gull_flying) {
-            : overlay "mc_h" x="224" y="30" ;
+            : if (opt_hone_aye && !is_at "r12" && point_first_attic) {
+               : overlay "mc_hx" x="224" y="30" ;
+            } : else {
+               : overlay "mc_h" x="224" y="30" ;
+            }
          }
       }
       : if (has_visited "r10") {
@@ -1127,7 +1151,11 @@ on_render {
       }
       : if (has_visited "r11") {
          : overlay "mr_02_1" x="248" y="88" ;
-         : overlay "mc_d_11_20" x="346" y="150" ;
+         : if (opt_hone_aye && !is_at "r20" && point_thee_floored) {
+            : overlay "mc_dx_11_20" x="346" y="150" ;
+         } : else {
+            : overlay "mc_d_11_20" x="346" y="150" ;
+         }
       }
       : if (has_visited "r12") {
          : if (point_arbor_dens) {
@@ -1148,7 +1176,11 @@ on_render {
          } : else {
             : overlay "mr_22_1" x="372" y="0" ;
          }
-         : overlay "mc_v" x="432" y="64" ;
+         : if (opt_hone_aye && !is_at "r21" && point_deem_unfit) {
+            : overlay "mc_vx" x="432" y="64" ;
+         } : else {
+            : overlay "mc_v" x="432" y="64" ;
+         }
       }
       : if (has_visited "sell_farm") {
          : overlay "mc_1way_sw" x="100" y="152" ;
@@ -1277,8 +1309,13 @@ assets {
       mc_1way_sw : base64_png "iVBORw0KGgoAAAANSUhEUgAAABoAAAAaAQMAAACThN6NAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAERJREFUCFtjYGBgOADEjCCCuQFIsAMxAx+IkAERFiCiAIgVHgCJRJCyZJCydJB4HoioAREVIKIeJPsfKEvYNAaQaWCbAYsiDia/OUT0AAAAAElFTkSuQmCC" ;
       mc_h : base64_png "iVBORw0KGgoAAAANSUhEUgAAABgAAAAEAQMAAACurW1bAAAAA1BMVEUAAACnej3aAAAACklEQVQIHWNAAwAAEAABmUMJyQAAAABJRU5ErkJggg==" ;
       mc_v : base64_png "iVBORw0KGgoAAAANSUhEUgAAAAQAAAAYAQMAAADnK87dAAAAA1BMVEUAAACnej3aAAAAC0lEQVR4XmMgEQAAADAAAYFIpkQAAAAASUVORK5CYII=" ;
+      mc_hx : base64_png "iVBORw0KGgoAAAANSUhEUgAAABgAAAAECAYAAACUY/8YAAAAFklEQVR4nGP8z8Dwn4GGgImWhg8PCwAHvgIGGydoGAAAAABJRU5ErkJggg==" ;
+      mc_vx : base64_png "iVBORw0KGgoAAAANSUhEUgAAAAQAAAAYCAYAAADd5VyeAAAAGElEQVR4nGP8z8DwnwEJMDGggVGBgRAAAE/aAi7cU12TAAAAAElFTkSuQmCC" ;
 
       mc_d_01_22 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAJgAAAAcAQMAAACnLeSsAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAAIRJREFUKM9jYMAA/JhCzP8xxf5jitn//4Bh2P8/mIb9x2LYgeQaTMOS0zANS07GNAxVHdAwkFgNww+LpmcoLitPYPiTc+wZisvsEhjOHTt2DcVlMgkMQKFrCMMgACqG4s1zYDFUb/7JqTmH7s0fFhrnUAyjRpiRZxi2qGPANIyB4QOmEABnZFYz9QE1wwAAAABJRU5ErkJggg==" ;
       mc_d_11_20 : base64_png "iVBORw0KGgoAAAANSUhEUgAAABwAAAAcAQMAAABIw03XAAAABlBMVEX///8AAABVwtN+AAAAAXRSTlMAQObYZgAAADJJREFUCFtjOMwABI8agEQxiGUBImRABB+IYAcRzCBZxgMg5gMQUUBFhSIghSIghTIGAGcwDAS2Is0uAAAAAElFTkSuQmCC" ;
+      mc_dx_01_22 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAJgAAAAcAQMAAACnLeSsAAAABlBMVEX/////AADrWueTAAAAAXRSTlMAQObYZgAAAIRJREFUKM9jYMAA/JhCzP8xxf5jitn//4Bh2P8/mIb9x2LYgeQaTMOS0zANS07GNAxVHdAwkFgNww+LpmcoLitPYPiTc+wZisvsEhjOHTt2DcVlMgkMQKFrCMMgACqG4s1zYDFUb/7JqTmH7s0fFhrnUAyjRpiRZxi2qGPANIyB4QOmEABnZFYz9QE1wwAAAABJRU5ErkJggg==" ;
+      mc_dx_11_20 : base64_png "iVBORw0KGgoAAAANSUhEUgAAABwAAAAcAQMAAABIw03XAAAABlBMVEX/////AADrWueTAAAAAXRSTlMAQObYZgAAADJJREFUCFtjOMwABI8agEQxiGUBImRABB+IYAcRzCBZxgMg5gMQUUBFhSIghSIghTIGAGcwDAS2Is0uAAAAAElFTkSuQmCC" ;
+
    }
 }
