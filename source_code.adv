@@ -206,6 +206,15 @@ booleans {
 
    at_end : dynamic_boolean {( is_at "sell_farm" && point_thee_floored )} ;
 
+   r00_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r01" && point_great_ankhs )} ;
+   r02_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r01" && point_first_attic )} ;
+   r10_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r00" && point_great_ankhs )} ;
+   r11_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r01" && point_thee_floored )} ;
+   r12_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r02" && point_first_attic )} ;
+   r20_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r11" && point_thee_floored )} ;
+   r21_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r22" && point_deem_unfit )} ;
+   r22_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r01" && point_deem_unfit )} ;
+
    # option (s)
    opt_hone_aye : boolean "false" ;
 
@@ -727,6 +736,48 @@ barriers {
       block_when_not = return_sly_maps
       message = {r00_nogo}
    }
+
+   block_hone_00: block {
+      location = r00
+      block_when = r00_hone_block
+      message = You got everything to the south.
+   }
+   block_hone_02: block {
+      location = r02
+      block_when = r02_hone_block
+      message = You got everything to the north.
+   }
+   block_hone_10: block {
+      location = r10
+      block_when = r10_hone_block
+      message = You defeated the grey tanks.
+   }
+   block_hone_11: block {
+      location = r11
+      block_when = r11_hone_block
+      message = You got everything to the east.
+   }
+   block_hone_12: block {
+      location = r12
+      block_when = r12_hone_block
+      message = You found the first attic.
+   }
+   block_hone_20: block {
+      location = r20
+      block_when = r20_hone_block
+      message = You defeated the thief lord.
+   }
+   block_hone_21: block {
+      location = r21
+      block_when = r21_hone_block
+      message = You repelled the demon, fit.
+   }
+   block_hone_22: block {
+      location = r22
+      block_when = r22_hone_block
+      message = You got everything below.
+   }
+
    block_from_end : block {
       location = r01
       block_when = at_end
