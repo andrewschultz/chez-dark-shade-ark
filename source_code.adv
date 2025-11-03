@@ -63,15 +63,17 @@ strings {
    puz_fir_static : string "<fir (static)<#f4f>>" ;
    puz_wall : string "<wall, crowned<#f4f>>" ;
    puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
-   i_aid_art : string "<aid art<#f4f>>" ;
-   i_hope_light : string "<ho-plight-hope light<#f4f>>" ;
-   i_me_code : string "<a meek \"owed, me\" code<#f4f>>" ;
 
    # item names, no puzzle
-   bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
-   ddda : string "<Do-Dark-Dude Ark<#ccc>>" ;
-   sosd : string "<sword-or-sore door<#ccc>>" ;
-   pcpa : string "<po' charm-poach arm<#ccc>>" ;
+   i_aid_art : string "<aid art<#f4f>>" ;
+   i_bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
+   i_fsfp : string "<free-speech-freeze peach<#ccc>>" ;
+   i_hope_light : string "<ho-plight-hope light<#ccc>>" ;
+   i_me_code : string "<a meek \"owed, me\" code<#ccc>>" ;
+   i_pcpa : string "<po' charm-poach arm<#ccc>>" ;
+
+   sc_ddda : string "<Do-Dark-Dude Ark<#ccc>>" ;
+   sc_sosd : string "<sword-or-sore door<#ccc>>" ;
 
    # thinky variables
    once_deem_unfit : dynamic_string {( point_first_attic ? "now" : "once" )} ;
@@ -297,14 +299,14 @@ locations {
             : update_graphic "s_hist_3" ;
             : press_any_key ;
             : clear_screen ;
-            : print "\"Wait a minute,\" you say, \"you're being rash again. If you just want to protect yourself against the thief lord, why not just destroy the {sosd} for good?\"" ;
+            : print "\"Wait a minute,\" you say, \"you're being rash again. If you just want to protect yourself against the thief lord, why not just destroy the {sc_sosd} for good?\"" ;
             : print "\"That would make a ton of sense,\" says the strawberry, \"But our weapons didn't work against it. I just figured we needed more lethal ones. What else is there?\"" ;
             : update_graphic "s_hist_4" ;
             : press_any_key ;
             : clear_screen ;
-            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a {sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make the {sosd} shudder and lose its magic power. The {sosd} can no longer bring the Thief Lord back." ;
+            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a {sc_sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make the {sc_sosd} shudder and lose its magic power. The {sc_sosd} can no longer bring the Thief Lord back." ;
             : print "The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more up to it now. That's something." ;
-            : print "But how to get back? A simple globe and glow band lie where the {sosd} used to be. You pick them up ... they hum ... the scenery changes ... and you are back home." ;
+            : print "But how to get back? A simple globe and glow band lie where the {sc_sosd} used to be. You pick them up ... they hum ... the scenery changes ... and you are back home." ;
             : update_graphic "s_hist_5" ;
             : press_any_key ;
             : set_true "showing_room" ;
@@ -437,7 +439,7 @@ locations {
                : print "You already transformed the tanks!" ;
                : done ;
             }
-            : print "Great ankhs rise from the ground. A voice says: \nTake this. You have performed well. It will not make you unhappy, but it will make mean people or entities around you unhappy. It is a ... {bdb_ankh}.\"" ;
+            : print "Great ankhs rise from the ground. A voice says: \nTake this. You have performed well. It will not make you unhappy, but it will make mean people or entities around you unhappy. It is a ... {i_bdb_ankh}.\"" ;
             : set_true "point_great_ankhs" ;
             : destroy "gray_tanks" ;
             : create "great_ankhs" ;
@@ -499,7 +501,7 @@ locations {
                   : print "You already discovered the first attic!" ;
                   : done ;
                }
-               : print "You wonder what a fir (static) could hide. But you look around. You stare at it. Slowly it starts to sway, fist one direction, then another. Off in one very cold attic is a free-speech-freeze peach." ;
+               : print "You wonder what a fir (static) could hide. But you look around. You stare at it. Slowly it starts to sway, fist one direction, then another. Off in one very cold attic is a {i_fsfp}." ;
                : pocket "freeze_peach" ;
                : set_true "point_first_attic" ;
                : gosub "add_point" ;
@@ -517,9 +519,9 @@ locations {
    r20 : location "{r20_loc_desc}" header = "{r20_header}" graphic="r_20_0" {
       on_describe {
          : if (!point_thee_floored) {
-            : print "A {puz_thief_lord} sits here, planning and guarding its treasures next to a {sosd}. They're oblivious to you." ;
+            : print "A {puz_thief_lord} sits here, planning and guarding its treasures next to a {sc_sosd}. They're oblivious to you." ;
          } : else {
-            : print "The {sosd} stands here, still. No immediate danger, of course." ;
+            : print "The {sc_sosd} stands here, still. No immediate danger, of course." ;
          }
       }
       on_command {
@@ -527,7 +529,7 @@ locations {
             : match "_ thief;_ lord" {
                : if (think_thee_floored) {
                   : print "You already figured how to get the thief lord's attention. <THEE FLOORED<#f80>>.";
-                  : print {( point_deem_unfit ? "And with the {pcpa}, you might have a way to disstract them." : "You still don't have any way to distract them." )} ; 
+                  : print {( point_deem_unfit ? "And with the {i_pcpa}, you might have a way to disstract them." : "You still don't have any way to distract them." )} ; 
                }
                : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, <THEE FLOORED<#f80>> will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
                : done ;
@@ -556,11 +558,11 @@ locations {
                : print "But you already got rid of the thief." ;
                : done ;
             }
-            : print "The {pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
-            : print "The thief goes back through the {sosd}, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve!" ;
+            : print "The {i_pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {i_pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
+            : print "The thief goes back through the {sc_sosd}, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve!" ;
             : set_true "point_thee_floored" ;
             : set_false "think_thee_floored" ;
-            : print "The {pcpa} combs through the area with the thief gone. It seems to ignore the treasure, instead settling on a {i_me_code} it flips your way. Then it gives you a thumbs-up and runs off. It's paid its dues for rescuing you." ;
+            : print "The {i_pcpa} combs through the area with the thief gone. It seems to ignore the treasure, instead settling on a {i_me_code} it flips your way. Then it gives you a thumbs-up and runs off. It's paid its dues for rescuing you." ;
             : pocket "me_code" ;
             : destroy "poach_arm" ;
             : gosub "add_point" ;
@@ -580,7 +582,7 @@ locations {
             : print "A {puz_demon_fit} stands here, contemptuous of you, surprised you haven't fled yet." ;
          }
          : if (!progress_ankh_used) {
-            : print "The {bdb_ankh} glows. The demon looks horrified. It becomes less talkative. But it is not defeated yet. You must do the rest." ;
+            : print "The {i_bdb_ankh} glows. The demon looks horrified. It becomes less talkative. But it is not defeated yet. You must do the rest." ;
             : set_true "progress_ankh_used" ;
             : destroy "brood_ankh" ;
          }
@@ -588,7 +590,7 @@ locations {
       on_command {
          : if (point_deem_unfit) {
             : match "_ do;_ dark;_ dude;_ ark;_ arc" {
-               : print "You note a warning on the side of the {ddda}: SUPERNATURAL BEINGS WHO ENTER THE MORTAL PLANE THROUGH THIS RISK DISSOLUTION IF THEY EXPLORE TOO FAR. Whew. This probably isn't highest priority to destroy." ;
+               : print "You note a warning on the side of the {sc_ddda}: SUPERNATURAL BEINGS WHO ENTER THE MORTAL PLANE THROUGH THIS RISK DISSOLUTION IF THEY EXPLORE TOO FAR. Whew. This probably isn't highest priority to destroy." ;
                : done ;
             }
          }
@@ -604,8 +606,8 @@ locations {
                : done ;
             }
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
-            : print "That does it! They summon a very evil looking {ddda}. They wonder aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. Then they vanish through the {ddda}." ;
-            : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a {pcpa}, which doesn't seem to have gotten a lot of use. You take it." ;
+            : print "That does it! They summon a very evil looking {sc_ddda}. They wonder aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. Then they vanish through the {sc_ddda}." ;
+            : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a {i_pcpa}, which doesn't seem to have gotten a lot of use. You take it." ;
             : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
             : set_false "think_deem_unfit" ;
@@ -669,7 +671,7 @@ objects {
    fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" conspicuous="false" ;
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
-   freeze_peach : object "a free-speech-freeze peach" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
+   freeze_peach : object "a {i_fsfp}" msg="You'd think it would exhibit a chilling effect on you, but you feel a bit freer to speak your own mind or realize you have a right to cut in around people who talk too much." ;
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
    brood_ankh : object "a brew-dank-brood ankh" msg="It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
    me_code : object "{i_me_code}" msg="A list of grievances about why the Thief Lord was right to steal. It has {puz_heist} written in it a lot." ;
