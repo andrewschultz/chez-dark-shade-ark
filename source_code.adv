@@ -124,7 +124,7 @@ strings {
    r22_loc_desc : dynamic_string {( "There's a maze to the south, though you can go back up, too." )} ;
    r22_nogo : string "The maze is south, or you can go back up." ;
 
-   r_desc_sasf : dynamic_string {( (is_first_entered () ? "A bunch of anthropomorphic fruits sit around and regard you suspiciously. As if you're the weird one here. They say, are you looking for anybody? Our leader is busy right now. They won't just see anybody. We will tolerate you different types around here. But don't expect to make friends." : "The anthropomorphic fruits wait around. They still regard you warily, but maybe if you ask for their leader, they might give you an audience.") + "\nYou don't feel you fit in here, but there's nothing to do back east. Maybe something you're carrying will help you start negotiations." )} ;
+   r_desc_sasf : dynamic_string {( (is_first_entered () ? "A bunch of anthropomorphic fruits sit around and regard you suspiciously. As if you're the weird one here. They say, are you looking for anybody? Our leader is busy right now. They won't just see anybody. We will tolerate you different types around here. But don't expect to make friends." : "The anthropomorphic fruits wait around. They still regard you warily, but maybe if you ask for their leader, they might give you an audience.") + "\nYou don't feel you fit in here, but there's nothing to do where you came from. Maybe something you're carrying will help you start negotiations." )} ;
 
    custom_unknown_verb_error : dynamic_string {( ( point_weak_link ? "" : "Unsure what to do, you mutter, despondently, \"Cell for self? Or...?\"\n" ) + "Nothing special happens. You can use {v_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
@@ -903,7 +903,7 @@ on_command {
       : clear_screen ;
       : update_graphic "m_blank" ;
       : if (!first_map_note) {
-         : print "You can mouse-click or hit ENTER to return to the game. Arrows indicate one-way paths, and red lines show ones you don't need any more, if HONE AYE is active." ;
+         : print "You can mouse-click or hit {key_enter} to return to the game. Arrows indicate one-way paths, and red lines show ones you don't need any more, if {hone_aye} is active." ;
          : set_true "first_map_note" ;
       }
       : press_any_key ;
