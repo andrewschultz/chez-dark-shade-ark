@@ -281,7 +281,7 @@ locations {
          }
       }
       on_command {
-         : match "hi strawberry" {
+         : match "high strawberry" {
             : print "You wonder what the weird thing in the {i_me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
             : set_true "point_hi_strawberry" ;
             : set_false "think_hi_strawberry" ;
@@ -542,8 +542,8 @@ locations {
                : done ;
             }
          }
-         : match "floored -" {
-            : if (!point_thee_floored) {
+         : if (!point_thee_floored) {
+            : match "floored -" {
                : print "Floored is right, but this is a bit tricky. Adventuron doesn't parse articles, and I didn't want two potential one-word solutions, so you need something similar." ;
                : done ;
             }
@@ -570,7 +570,7 @@ locations {
             : done ;
          }
          : if (!point_thee_floored) {
-            : match "the _;thee _;_ floored" {
+            : match "thee _;_ floored" {
                : gosub "say_half" ;
                : done ;
             }
@@ -807,10 +807,10 @@ subroutines {
          : print {( "Exits are " + (opt_hone_aye ? "already" : "now") + " all available, even ones you don't need to revisited." )} ;
          : set_false "opt_hone_aye" ;
       }
-      : match "hone _" {
+      : match "hone _" { #noobfus
          : print "{hone_stickler} {hone_aye}.";
       }
-      : match "ho _" {
+      : match "ho _" { #noobfus
          : print "{hone_stickler} {ho_nigh}.";
       }
    }
@@ -974,7 +974,7 @@ on_command {
       }
    }
    : if (point_thee_floored) {
-      : match "hi strawberry" {
+      : match "high strawberry" {
          : print "You look around to find someone or something or somefruit to notify of the heist robbery, but they're not here." ;
          : set_true "think_hi_strawberry" ;
          : gosub "note_thinks" ;
@@ -1123,7 +1123,7 @@ on_command {
       }
    }
 
-   : match "weak _;walk _;off _;sly _;dart _;pawn _;gull _;arbor _;first _;great _;deem _;thee _;hi _" {
+   : match "weak _;walk _;off _;sly _;dart _;pawn _;gull _;arbor _;first _;great _;deem _;thee _;high _" { #obfuscation
       : print "{custom_unknown_verb_error}" ;
       : done ;
    }
