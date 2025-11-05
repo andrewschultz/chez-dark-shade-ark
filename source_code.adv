@@ -28,6 +28,7 @@ strings {
    sosc : string "<sunk old sun, cold<#ccc>>" ;
    yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
    ecomp : string "<EctoComp<#f80>>[https://itch.io/jam/ectocomp-2025]" ;
+   hone_stickler : "I'm going to be a stickler and enforce the spirit of the game on you and make you type " ;
 
    # links
    l_ut : string "<Us Too<#0f0>>[http://andrewschultz.itch.io/us-too]" ;
@@ -805,6 +806,12 @@ subroutines {
       : match "ho nigh" {
          : print {( "Exits are " + (opt_hone_aye ? "already" : "now") + " all available, even ones you don't need to revisited." )} ;
          : set_false "opt_hone_aye" ;
+      }
+      : match "hone _" {
+         : print "{hone_stickler} {hone_aye}.";
+      }
+      : match "ho _" {
+         : print "{hone_stickler} {ho_nigh}.";
       }
    }
 
