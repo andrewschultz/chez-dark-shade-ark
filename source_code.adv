@@ -815,6 +815,80 @@ subroutines {
       }
    }
 
+   custom_verb_general_checks : subroutine { # this is so obfus.py can "see" any odd verbs that might be used
+      : if (pawn_is_around) {
+         : match "_ pawn" {
+            : print "The pawn is keeping low until the moment it needs to attack. You don't need to consult with it." ;
+            : done ;
+         }
+      }
+      : if (is_carried "aid_art") {
+         : match "eh _" {
+            : print "You're on the right track. No need for an interjection. It's something simpler. In fact, a word so simple, Adventuron doesn't care if it's there or not." ;
+         }
+         : match "dart -" {
+            : if (point_a_dart) {
+               : print "Already done!" ;
+               : done ;
+            }
+            : destroy "aid_art" ;
+            : pocket "dart" ;
+            : print "The aid art doesn't have explicit instructions, how to create a dart, but you suppose that's for the best. People shouldn't have too-easy access to lethal weapons. It takes a while to figure what to do, but thanks to your earlier wordsmithing, you see methods others might have missed. Enough to create a dart!" ;
+            : set_true "point_a_dart" ;
+            : gosub "add_point" ;
+            : done ;
+         }
+         : if (!point_a_dart) {
+            : match "dart _;_ dart" {
+               : print "You just technically need one word, due to how Adventuron processes certain words." ;
+               : done ;
+            }
+         }
+      }
+      : if (is_carried "key_nigh" && is_carried "sly_maps") {
+         : match "x key; x map;x maps;x sly;x nigh" {
+            : print "You notice the key and the map come together to form a full maze. This could be useful later!" ;
+            : set_false "showing_room" ;
+            : update_graphic "s_maze_full" ;
+            : set_true "showing_room" ;
+            : set_true "progress_full_map" ;
+            : done ;
+         }
+      }
+      : if (is_carried "key_nigh") {
+         : match "x key;x nigh" {
+            : print "You see the bottom half of a maze." ;
+            : set_false "showing_room" ;
+            : update_graphic "s_maze_s" ;
+            : set_true "showing_room" ;
+            : done ;
+         }
+      }
+      : if (is_carried "sly_maps") {
+         : match "x map;x maps;x sly" {
+            : print "You see the top half of a maze." ;
+            : set_false "showing_room" ;
+            : update_graphic "s_maze_n" ;
+            : set_true "showing_room" ;
+            : done ;
+         }
+      }
+      : if (point_thee_floored) {
+         : match "high strawberry" {
+            : print "You look around to find someone or something or somefruit to notify of the heist robbery, but they're not here." ;
+            : set_true "think_hi_strawberry" ;
+            : gosub "note_thinks" ;
+            : done ;
+         }
+         : if (!point_hi_strawberry) {
+            : match "hi _;_ strawberry" {
+               : gosub "say_half" ;
+               : done ;
+            }
+         }
+      }
+   }
+
    note_thinks : subroutine {
       : if (!think_note_yet) {
          : print "{note_once}{v_think} will track any command that will score points at a later time. Also, the status line in the upper left will show +1 or more, for commands you've guessed right but still need prep for." ;
@@ -882,7 +956,8 @@ on_describe {
    }
 }
 
-## Test VERB NOUN that the player types and executes conditional actions
+## this main subroutine tests metaverbs.
+## custom_verb_general_checks has special custom verbs e.g. for an item you can carry around
 
 on_command {
    : match "xyzzy _" {
@@ -919,74 +994,8 @@ on_command {
       : set_false "showing_map" ;
       : redescribe ;
    }
-   : if (pawn_is_around) {
-      : match "_ pawn" {
-         : print "The pawn is keeping low until the moment it needs to attack." ;
-         : done ;
-      }
-   }
-   : if (is_carried "aid_art") {
-      : match "dart -" {
-         : if (point_a_dart) {
-            : print "Already done!" ;
-            : done ;
-         }
-         : destroy "aid_art" ;
-         : pocket "dart" ;
-         : print "The aid art doesn't have explicit instructions, how to create a dart, but you suppose that's for the best. People shouldn't have too-easy access to lethal weapons. It takes a while to figure what to do, but thanks to your earlier wordsmithing, you see methods others might have missed. Enough to create a dart!" ;
-         : set_true "point_a_dart" ;
-         : gosub "add_point" ;
-         : done ;
-      }
-      : if (!point_a_dart) {
-         : match "dart _;_ dart" {
-            : print "You just technically need one word, due to how Adventuron processes certain words." ;
-            : done ;
-         }
-      }
-   }
-   : if (is_carried "key_nigh" && is_carried "sly_maps") {
-      : match "x key; x map;x maps;x sly;x nigh" {
-         : print "You notice the key and the map come together to form a full maze. This could be useful later!" ;
-         : set_false "showing_room" ;
-         : update_graphic "s_maze_full" ;
-         : set_true "showing_room" ;
-         : set_true "progress_full_map" ;
-         : done ;
-      }
-   }
-   : if (is_carried "key_nigh") {
-      : match "x key;x nigh" {
-         : print "You see the bottom half of a maze." ;
-         : set_false "showing_room" ;
-         : update_graphic "s_maze_s" ;
-         : set_true "showing_room" ;
-         : done ;
-      }
-   }
-   : if (is_carried "sly_maps") {
-      : match "x map;x maps;x sly" {
-         : print "You see the top half of a maze." ;
-         : set_false "showing_room" ;
-         : update_graphic "s_maze_n" ;
-         : set_true "showing_room" ;
-         : done ;
-      }
-   }
-   : if (point_thee_floored) {
-      : match "high strawberry" {
-         : print "You look around to find someone or something or somefruit to notify of the heist robbery, but they're not here." ;
-         : set_true "think_hi_strawberry" ;
-         : gosub "note_thinks" ;
-         : done ;
-      }
-      : if (!point_hi_strawberry) {
-         : match "hi _;_ strawberry" {
-            : gosub "say_half" ;
-            : done ;
-         }
-      }
-   }
+
+   : gosub "custom_verb_general_checks" ;
 
    : gosub "check_options" ;
    : match "about _" {
