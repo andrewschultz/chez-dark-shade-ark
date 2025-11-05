@@ -28,7 +28,7 @@ strings {
    sosc : string "<sunk old sun, cold<#ccc>>" ;
    yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
    ecomp : string "<EctoComp<#f80>>[https://itch.io/jam/ectocomp-2025]" ;
-   hone_stickler : "I'm going to be a stickler and enforce the spirit of the game on you and make you type " ;
+   hone_stickler : string "I'm going to be a stickler and enforce the spirit of the game on you and make you type " ;
 
    # links
    l_ut : string "<Us Too<#0f0>>[http://andrewschultz.itch.io/us-too]" ;
@@ -609,6 +609,7 @@ locations {
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
             : print "That does it! They summon a very evil looking {sc_ddda}. They wonder aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. Then they vanish through the {sc_ddda}." ;
             : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a {i_pcpa}, which doesn't seem to have gotten a lot of use. You take it." ;
+            : destroy "freeze_peach" ;
             : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
             : set_false "think_deem_unfit" ;
