@@ -847,7 +847,7 @@ subroutines {
          }
       }
       : if (is_carried "key_nigh" && is_carried "sly_maps") {
-         : match "x key; x map;x maps;x sly;x nigh" {
+         : match "x key;x map;x maps;x sly;x nigh" {
             : print "You notice the key and the map come together to form a full maze. This could be useful later!" ;
             : set_false "showing_room" ;
             : update_graphic "s_maze_full" ;
@@ -882,7 +882,7 @@ subroutines {
             : done ;
          }
          : if (!point_hi_strawberry) {
-            : match "hi _;_ strawberry" {
+            : match "high _;_ strawberry" {
                : gosub "say_half" ;
                : done ;
             }
@@ -1134,6 +1134,11 @@ on_command {
    }
 
    : match "weak _;walk _;off _;sly _;dart _;pawn _;gull _;arbor _;first _;great _;deem _;thee _;high _" { #obfuscation
+      : print "{custom_unknown_verb_error}" ;
+      : done ;
+   }
+
+   : match "floored _;eh _" { #obfuscation of non solutions
       : print "{custom_unknown_verb_error}" ;
       : done ;
    }
