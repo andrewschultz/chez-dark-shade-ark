@@ -158,17 +158,16 @@ integers {
 
    clue_number : dynamic_integer {(
       is_at "wee_clink" ? 44 :
+      is_carried "aid_art" ? 14 :
+      is_carried "me_code" ? 410 :
       is_at "r00" ? (point_sly_maps ? 0 : 34) :
       is_at "r01" ? (point_walk_round ? 0 : 45) :
-      is_at "r02" ? (!point_off_lame ? 34 : (!point_gull_flying && return_off_lame) ? 46 : 0) :
+      is_at "r02" ? (!point_off_lame ? 34 : (!return_off_lame ? -1 : (!point_gull_flying ? 46 : 0)) ) :
       is_at "r10" ? (point_great_ankhs ? 0 : 55) :
       is_at "r11" ? (point_pawn_dicey ? 0 : 45) :
       is_at "r12" ? (point_first_attic ? 0 : point_arbor_dens ? 55 : 54) :
       is_at "r20" ? (point_thee_floored ? 0 : 47) :
-      is_at "r21" ? (point_deem_unfit ? 0 : 45) :
-      is_at "r22" ? (point_walk_round ? 0 : 45) :
-      is_carried "aid_art" ? 14 :
-      is_at "sell_farm" ? 410 :
+      is_at "r21" ? (point_deem_unfit ? 0 : 45) : # r22 has nothing specific to it, so no clues. The Aid Art is accounted for above.
       0
       )} ;
 }
@@ -207,6 +206,14 @@ booleans {
 
    # puzzle readiness dynamic booleans
    ready_great_ankhs : dynamic_boolean {( point_pawn_dicey && point_a_dart )}
+   blurry_num: dynamic_boolean {( !is_carried "aid_art" && (
+      (is_carried "me_code" && !is_at "sell_farm") ||
+      (is_at "r20" && !point_deem_unfit) ||
+      (is_at "r21" && !point_first_attic) ||
+      (is_at "r10" && !ready_great_ankhs)
+      )
+   )} ;
+
    pawn_is_around : dynamic_boolean {( point_pawn_dicey && !point_great_ankhs )} ;
 
    at_end : dynamic_boolean {( is_at "sell_farm" && point_thee_floored )} ;
@@ -1134,16 +1141,23 @@ on_command {
       : if (!ever_x_number) {
          : print "You don't remember getting a tattoo. And the name sure feels artificial, but hey, any help is better than no help. Plus you don't have to use it." ;
          : print "As you inspect it, it swirls around a bit." ;
-         : print "{note_once} the number doesn't distinguish if you have the in-game help needed to solve a puzzle. I was close to 4 hours for {ecomp} Petite Mort when I implemented it. If you wish to understand how it works, type {v_hint}." ;
          : set_true "ever_x_number" ;
       } : else {
          : print "You watch the number swirl around a bit more." ;
       }
+      : if (clue_number == -1) {
+         : print "Weird. Looks like there should be a number, but there isn't. Maybe come back later." ;
+         : done ;
+      }
       : print "The current number is {clue_number}.";
       : if (clue_number == 0) {
          : print "So, nothing to do here." ;
+		 : done ;
       } : else_if (clue_number > 100) {
          : print "Weird it's so big. Twice as big as it should be." ;
+      }
+      : if (blurry_num) {
+         : print "It's a bit blurry, though. Perhaps you can't quite do anything yet." ;
       }
    }
 
