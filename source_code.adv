@@ -78,7 +78,7 @@ strings {
 
    # thinky variables
    once_deem_unfit : dynamic_string {( point_first_attic ? "now" : "once" )} ;
-   once_great_ankhs : dynamic_string {( point_pawn_dicey && point_a_dart ? "now" : "once" )} ;
+   once_great_ankhs : dynamic_string {( ready_great_ankhs ? "now" : "once" )} ;
    once_hi_strawberry : dynamic_string {( is_at "sell_farm" ? "now" : "once" )} ;
    once_thee_floored : dynamic_string {( point_deem_unfit ? "now" : "once" )} ;
    think_tank_detail : dynamic_string {(
@@ -205,6 +205,8 @@ booleans {
 
    got_think : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_thee_floored || think_hi_strawberry )} ;
 
+   # puzzle readiness dynamic booleans
+   ready_great_ankhs : dynamic_boolean {( point_pawn_dicey && point_a_dart )}
    pawn_is_around : dynamic_boolean {( point_pawn_dicey && !point_great_ankhs )} ;
 
    at_end : dynamic_boolean {( is_at "sell_farm" && point_thee_floored )} ;
@@ -470,6 +472,7 @@ locations {
          }
          : if (!point_pawn_dicey) {
             : match "pawn _;_ dicey" {
+               : set_boolean var = "done_already" {( point_pawn_dicey )} ;
                : gosub "say_half" ;
                : done ;
             }
