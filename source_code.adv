@@ -1106,18 +1106,18 @@ on_command {
    : match "think _" {
       : if (is_at "wee_clink") {
          : if (!clink_think) {
-            : print "{one_time}a small make-sure nag before starting. {v_think}ing here will progressively reveal hints as to the first action." ;
+            : print "{note_once}a small make-sure nag before starting. {v_think}ing here will progressively reveal hints as to the first action." ;
             : set_true "clink_think" ;
             : done ;
          }
          : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
-            : print "Standard commands won't help you leave, though WAITing may give an additional clue." ;
+            : print "Standard commands won't help you leave, though <WAIT<#0f0>>ing may give an additional clue." ;
             : print "So does what you say to yourself following a parser error. (It will disappear once you've left the clink.)" ;
             : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
             : print "Also, the titles of similar games if you type {v_about} then {v_history} may provide clues." ;
-            : print "The {cdsa}. The {sosc}. But how do they fit in with the wee clink?" ;
-            : print "You need to break up wee clink into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
-            : print "A <WEAK LINK<#f80>>, if you will. (This is the last hint. They will cycle until you leave here.)" ;
+            : print "In-game, you have the {cdsa} and the {sosc}. But how do they fit in with the wee clink?" ;
+            : print "You need to break up {puz_wee_clink} into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
+            : print "A <WEAK LINK<#f80>>, if you will. (This is the last hint. They will cycle again until you leave here. Then {v_think} will track commands you figured but can't use yet.)" ;
          }
          : done ;
       }
