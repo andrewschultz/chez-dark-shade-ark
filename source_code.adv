@@ -65,6 +65,7 @@ strings {
    puz_thief_lord : string "<thief lord<#f4f>>" ;
    puz_fir_static : string "<fir (static)<#f4f>>" ;
    puz_wall : string "<wall, crowned<#f4f>>" ;
+   puz_wee_clink : string "<wee clink<#f4f>>" ;
    puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
 
    # item names, no puzzle
@@ -97,7 +98,7 @@ strings {
       "Slime apps leave ooze blocking passage every way but back north." )} ;
    r00_nogo : dynamic_string {( "You can only go north" + (return_sly_maps ? " or east." : ".") )} ;
 
-   r01_loc_desc : dynamic_string {( return_thee_floored ? "You've been around and found a lot. You probably want to follow that new path onward and <IN<#0f0>>ward that you just discovered." : (( point_walk_round ? "" : "A {puz_wall}. ") + "You don't want to go back into the wee clink, so you probably want to " + (point_walk_round ? "go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.")) )} ;
+   r01_loc_desc : dynamic_string {( return_thee_floored ? "You've been around and found a lot. You probably want to follow that new path onward and <IN<#0f0>>ward that you just discovered." : (( point_walk_round ? "" : "A {puz_wall}. ") + "There's no way or reason to go back into the wee clink, so you probably want to " + (point_walk_round ? "go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.")) )} ;
    r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The {puz_wall} is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {r01_noback}" )} ;
    r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
 
@@ -272,10 +273,10 @@ locations {
    wee_clink : location "It sure is claustrophobic in here. You're not sure how to get out. The only think you see in the outside is a {sosc}." header="<Wee Clink<#ff0>>" graphic="r_wee_clink" {
       on_command {
          : match "_ sun;_ sunk;_ old;_ cold" {
-            : print "So low in the sky, the {sosc} barely gives out light and sets the mood for, well, pretty much everything here. But perhaps its gloom and doom is a clue." ;
+            : print "So low in the sky, the {sosc} barely gives out light and sets the mood for, well, pretty much everything here. The gloom and doom is lousy, but maybe the sun itself is providing a clue." ;
          }
          : match "weak link" {
-            : print "Of course, anyone who's stuck in a cell can sit around and dream of a way out. A hidden key, a button or lever, or whatever. But you have something specific to look for. With diligence, you find a weak link and fiddle with it until it enlarges. You walk out..." ;
+            : print "Of course, anyone who's stuck in a cell can sit around and dream of a way out. A hidden key, a button or lever, or whatever. But you have something specific to look for. With diligence, you find a weak link and fiddle with it until it enlarges. You hear crumbling above, and you run out before the way in (or out) collapses..." ;
             : set_true "point_weak_link" ;
             : gosub "add_point" ;
             : press_any_key ;
@@ -369,10 +370,11 @@ locations {
          }
          : match "walk round" {
             : if (point_walk_round) {
-               : print "You find nothing new. You must've done a really thorough job the first time!" ;
+               : print "You find nothing new. Gosh, you must've done a really thorough job the first time!" ;
                : done ;
             }
-            : print "Certainly the wall looks intimidating at first. You're still getting your bearings. But after a while, you stop being impressed and blown away, and you realize you can take your time to look around. Nobody is after you. You find one door, then another, then two more. You wonder if there might be a final one, but really, if it is, you can find it later when you're more aware of your goals. You have enough to explore for the moment. There's even one leading down. They all look pretty safe, at least at first." ;
+            : print "Certainly the wall looks intimidating at first. You're still getting your bearings. But after a while, you stop being impressed and blown away, and you realize you can take your time to look around. Nobody has tracked you since your escape. The first door is the trickiest. Another is easier, and the third is almost too easy. You even find a hidden passage leading downward." ;
+            : print "You wonder and even hope there might be one more passage out, but really, you have enough to explore for the moment. They all look pretty safe, at least at first." ;
             : set_true "point_walk_round" ;
             : gosub "add_point" ;
             : press_any_key ;
