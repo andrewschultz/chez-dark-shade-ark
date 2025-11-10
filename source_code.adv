@@ -58,8 +58,10 @@ strings {
    key_enter : string "the <ENTER<#f88>>/<RETURN<#f88>> key" ;
 
    # item names, with puzzle
+   puz_awe_flame : string "<awe flame<#f4f>>" ;
    puz_demon_fit : string "<demon, fit<#f4f>>" ;
    puz_gray_tanks : string "<gray tanks<#f4f>>" ;
+   puz_gulf_lying : string "<gulf, lying<#f4f>>" ;
    puz_thief_lord : string "<thief lord<#f4f>>" ;
    puz_fir_static : string "<fir (static)<#f4f>>" ;
    puz_wall : string "<wall, crowned<#f4f>>" ;
@@ -100,7 +102,7 @@ strings {
    r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
 
    r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : point_off_lame ? "{r_blob}" : "<Awe Flame<#f80>>" )} ;
-   r02_loc_desc : dynamic_string {( (point_gull_flying ? "The gull, flying, showed you a path east." : return_off_lame ? "You're in a gulf, lying. Like you can't really go anywhere further. Right?" : "An awe-flame distracts you from everything.") + "\nOf course, nothing obstructs your path back south." )} ;
+   r02_loc_desc : dynamic_string {( point_gull_flying ? "The gull, flying, showed you a path east." : return_off_lame ? "You're in a {puz_gulf_lying}. Like you can't really go anywhere further. Right? It seems to say you can only go back south, and that's that." : point_off_lame ? "It's barren here now. Maybe when you come back, you'll see more." : "An awe-flame distracts you from any belief you can progress further. Well, technically, it's a bunch of flames that together make a huge one.\nThey're impressive but contained. At least you remember it's still safe back south. But you dare to dream of a way to make the flame look less impressive." )} ;
    r02_nogo : dynamic_string {( return_off_lame ? "You see no passage." : point_off_lame ? "You should come back and look for new exits once the land's healed from the flame." : "The awe-flame distracts you too much from finding new exits." )} ;
 
    r10_header : dynamic_string {( point_great_ankhs ? "<Great Ankhs<#f80>>" : "<Gray Tanks<#888>>" )} ;
@@ -1313,6 +1315,17 @@ on_render {
       }
    }
    : if (is_at "r02") {
+      : if (!point_off_lame) {
+         : overlay "s_22_flame" x="1" y="11" ;
+         : overlay "s_22_flame" x="225" y="11" ;
+         : overlay "s_22_flame" x="29" y="7" ;
+         : overlay "s_22_flame" x="197" y="7" ;
+         : overlay "s_22_flame" x="57" y="4" ;
+         : overlay "s_22_flame" x="169" y="4" ;
+         : overlay "s_22_flame" x="85" y="2" ;
+         : overlay "s_22_flame" x="141" y="2" ;
+         : overlay "s_22_flame" x="113" y="1" ;
+      }
       : if (point_gull_flying) {
          : overlay "o_02_gulls" x="224" y="0" ;
       }
@@ -1351,7 +1364,7 @@ assets {
       r_01_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoBAMAAADj1Dm6AAAAD1BMVEUAAACAgAAAAID/AAD//wAZRjVTAAAArklEQVR4XsyTsQ0EMQgEv4VBNMB1gkT/NX3wCfbGqz+HMwQjbH+e88AF3P4OqLiA1WtAVNRJrF4DiOIkBv/vgDdfQcUD8k5sXgOAbGAzn9eAAmaAnejzGkD+BpoFjV4DpskmhwW9XjeQfRU6/GsDqmc6ZzIW9Hr9hgBs5vYfneBAbv9tp45NAABiIIYFfiTvv9uPcY0O0osUvvl6tTyAm6+2PwDQAQAdANABAB0A+EG4ZUutMkeZAAAAAElFTkSuQmCC" ;
 
       r02 : dynamic_graphic {( return_off_lame ? "r_02_2" : point_off_lame ? "r_mid" : "r_02_0" )} ;
-      r_02_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAADFBMVEXEpIQAAIDggED//wBRHWQIAAABAklEQVR4XsySsQ0DIRAE3SRIXAfgIlwFiXMC7oKP7Y6Me3j59QAbr+zARzQTTLDi4r68vwlkGIJ/FvDZlSUIXgHJLi5BMALFB5mCYQRCkDwUwwjEKEX6MARjxJLOdwqCEajJabEuCMY/eCS/37WegmAEnunapiAYgVvT43qdYASS6mavLjhGwOZGDCOwQRCMgJjaewiOEVAdgmAEvLU2BcMIKATFCBymdkExArYEy5/249gGQBiGguhXSo/ClCkZA1FF35LdU2QWyigsgWAEu6Dhqnt4Eqpe492QIebKETeK07zFjaLstsYNKI+eMZbJM2PIZM0Ywr1mjMItZaAl/H1/N/i03q92ap9JAAAAAElFTkSuQmCC" ;
+      r_02_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAQMAAAArNLbKAAAABlBMVEXEpIQAAIAlOn53AAAAF0lEQVR4XmP4TwCMRAWjCkYVIIFRMAoA0u/9HxddUtUAAAAASUVORK5CYII=" ;
       r_02_2 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAoAgMAAABslMwaAAAADFBMVEXEpIQAAIAA//////9UyLnVAAAAhUlEQVR4XmIIpRAMKwNGDRg1YNSAUQNGDQB0Qsc2AINADEVPYgBGYt9DCn0KBmKEK3CKSAkmlePG3Su+ScPwZ3GfBGT4u/4DwAocOpAQC9B0IBNQhwwUAjxkAJhOFXUAzhF0YFAEuQEDLgNpA04VsMRAlwErBDQdyLECVQfS9L2iacMHuAAxc9ro/jp6oQAAAABJRU5ErkJggg==" ;
 
       r10 : dynamic_graphic {( point_great_ankhs ? "r_10_1" : "r_10_0" )} ;
@@ -1376,6 +1389,7 @@ assets {
       r_blank : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAAYAQMAAAAvTrFnAAAAA1BMVEX//wCKxvRFAAAAD0lEQVR4XmPAAKNgFIwCAAMYAAFrMpCEAAAAAElFTkSuQmCC" ;
 
    # scenery/individual items
+      s_22_flame : base64_png "iVBORw0KGgoAAAANSUhEUgAAAB0AAAAfAgMAAABmNS6XAAAACVBMVEX////ggED//wBvW5PvAAAAAXRSTlMAQObYZgAAAI5JREFUeF41yTEOwyAQRNEhCq5TmCanWd8AS4wlDrDF3iaFfQSK3DLAxn+aJw2AJ7wbK6KjIMgE8ZLsECnoZNiEKEAKHOvYcmRUYNny+yQFy75bGXh82ctAINlMHKoYaA5QaTfIgWT1j3qDXTJhDlLNJq6mdV6tc0KP6xyIehwf9EJlxayyOMjVkQgvysAP5AcsrFIHuBgAAAAASUVORK5CYII=" ;
       s_hist_0 : base64_png "iVBORw0KGgoAAAANSUhEUgAAADwAAAA8AgMAAABHkjHhAAAADFBMVEUAAAAAgAD/AAD///+CqD+SAAABPElEQVR4Xn3RMWqFQBAA0EC6NF5DbNP9Ip5ChDTeIxC2SPdPEYTAMv7gBQKG2Aas5N/BShAbcf9mnNmdrISfwZV57sDM4I3dh3Nvc7FRs0Kbwijyls7PxfYRzcVofDvP6jxnxdkUzqboTabyWTlbTDP8KP168whvKhebJwB4V+IFtqjFA2hIoBIDh/cFEpSGRlwN+AQ+HeLTYWcIvLj62vtIDUoxcISOQ2u6TsSYg/69H4CjuuatGo8YNl2t/zsP7y++AByhhGBfCrEtiUfr/aWRyYv4ju5fvdeErFPvhearvUdu0ETOkyXbzrnFDWKcvmWPEW1QY0KeUue1I9tbmrixn1y/3jt/p2ws4b/Ppol5WjH+39DrA3ykoS3Yve3OIzoKPKG7f9zyEXdcI47QY+CUeopXcsqW0kgcxA8Mw/mCEuR+vQAAAABJRU5ErkJggg==" ;
       s_hist_1 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAA8BAMAAAB7k3k3AAAAElBMVEUAAACAAAAAgAAAAID/AAD///+1IbuqAAABfElEQVR4XuTWQWrEMAyFYUPVi8QXGKwcQJC/+wK9/1lqHAHOekAPmIexlvp4hpDm4rwHGIf70RWA0dfmBbjH6JWAbftmqATk9gVISSkgK5iAmTmXoRgwjvtMyDrlAM/N6fBqQFYAsCQCgI9OZnRXANiiAJwAAQZwCQA8Ug84wcgEXAoAP3/kLQL8fmMxbyUAVACeT0A9INhiAsAzMoCFDhBkwFQNGEBIGjh5huvzAFl/Tk0DifjMJ9B/iAAjEwrACRCEYcj+B4DWQANwDIjW1sDrAS8jboARXwJA25+g1QNeBkCs8UYF/+XWMQoDMQxEUc0N5sNeyOD7nymkUBy2XIKmyDQSLsTDCOPiYcz3S4h4mMeA4tqfLGocIDgA8DTAgqu/ZAusWUAVnCvok0GAdAfYowBK0Gu4ABejAOsOsGYBcJYAAEYBnXoDekQCoDfAOYB17b2sHAD2higAkoDqkgIIAPy3AKtrCtBNClCnyQDUjTMA63QRQP1oSjgv3GJ/MUJvljAAAAAASUVORK5CYII=" ;
       s_hist_2 : base64_png "iVBORw0KGgoAAAANSUhEUgAAAQAAAAA8BAMAAAB7k3k3AAAAElBMVEUAAACAAAAAgAAAAID/AAD///+1IbuqAAABeElEQVR4XuTWQQoDIQwF0ID2IuMFxMwBBNN9gd7/LE35grZ01cIP0M+g4CZvkmFQNDi/AdqhepQIQCvPygBga4UKWNWXgQtAXQBg4ALQAgd4tKEBZEA78DgEDxugs/J0KB2AuuaBhA/QVmymFY0A2JYIwGmebpbNMwIA9hI+4JzvPvswIgB2vRvWKMDtYrn7GgnwBAHQ/LXyAd225ADAa8IAuYcB9hnkEAAKA8IHnPaW8X+A2f65B3UAiL8bQUrp84+o1soFrPsAF1Blu5H1vN3JJFEAWtP6CESwD5xzACoeRfNFMAickQCYw2nWAXDCQPdZAAj2EaA+FaAVM8AEkn4beZRbBykAgzAQRZMbZKAXCvT+Z2oF7HRtCx9wNrqSFxlELef9Emo5HwDH+aQRgAwQAzjml6wZgK9AewJcw94U4BKIA8QABAjIASgOUHm3oCs5wGiBhAIkEhBeAIBHr20BlV4ZwNxAAOODAXjwYgBlQCKA+OkUOBeCT3zNAbKLFgAAAABJRU5ErkJggg==" ;
