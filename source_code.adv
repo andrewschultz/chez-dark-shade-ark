@@ -51,6 +51,7 @@ strings {
    v_score : string "<SCORE<#0f0>>" ;
    v_think : string "<THINK<#0f0>>" ;
    v_verbs : string "<VERBS<#0f0>>" ;
+   v_tstart_stop : string "<TSTART<#0f0>>/<TSTOP<#0f0>>" ;
    xme : string "<X ME<#0f0>>" ;
    xnumhint : dynamic_string {( "will see general hints for " + (ever_x_me ? "{xnum}" : "the item from {xme}") + "." )} ;
    xnum : string "<X NUMBER<#0f0>>" ;
@@ -1142,9 +1143,9 @@ on_command {
       : print "{cdsa} uses a stripped-down parser. <TAKE<#0f0>> or <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. {v_i} still shows them." ;
       : print "{cdsa} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your {v_inv}, which you can also see with <I<#0f0>>." ;
       : print "Meta-verbs include {v_about}, {v_credits}, and {v_verbs}. {v_score} shows the score, which is also in the upper right header." ;
-      : print {( "All point-scoring commands have two words which you need to figure. {v_think} will " + (point_weak_link ? " walk you through this first puzzle, then later " : "" ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
+      : print {( "All point-scoring commands have two words which you need to figure. {v_think} will " + (point_weak_link ? "" : " walk you through this first puzzle, then later " ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
       : print "{v_hint} explains how to use {hint_item}." ;
-      : print "TSTART/TSTOP start and stop a transcript." ;
+      : print "{v_tstart_stop} start and stop a transcript." ;
    }
    : match "x me;x myself" {
       : if (!ever_x_me) {
