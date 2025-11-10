@@ -5,13 +5,13 @@ start_theme = my_theme
 
 game_information {
    game_name                    = Chez Dark Shade Ark
-   game_version                 = 1.0.0
+   game_version                 = 2.0.0
    game_shortname               = cdsa
    written_by                   = Andrew Schultz
    uuid                         = 9a53454f-9f3c-4af9-b93a-4a04c86c6c96
    year_of_release              = 2025
    copyright_message            = Free to distribute, voluntary payments welcome
-   short_synopsis               = EctoComp 2025 Petite Mort entry, in the vein of {l_wp} and {l_ut}
+   short_synopsis               = EctoComp 2025 Petite Mort entry, one of three
 }
 
 
@@ -36,6 +36,7 @@ strings {
    l_cdsa : string "<Chez Dark Shade Ark<#0f0>>[http://andrewschultz.itch.io/chez-dark-shade-ark]" ;
    l_dadc : string "<Dusk, Airy, Does Carry<#0f0>>[http://andrewschultz.itch.io/dusk-airy-does-carry]" ;
    l_gsgr : string "<Go-Strange-Ghost Range<#0f0>>[http://andrewschultz.itch.io/go-strange-ghost-range]" ;
+   l_ifcomp : string "<IFComp<#0f0>>" ;
 
    my_score : string "{score}{conditional_score}/{max_score}" ;
    conditional_score : dynamic_string {( think_any > 0 ? "+{think_any}" : "" )} ;
@@ -1041,7 +1042,7 @@ on_command {
       : print "{cdsa}'s main area is 3x3, with the start and end rooms falling outside. Originally I wanted to make it symmetrical, but unfortunately the clearest way to do so would draw a hate symbol. You know which one. So if you want to map {cdsa} on your own, the left 2x3 are ground level, and the first room is center west." ;
       : print "" ;
       : print "For thanks, {v_credits}." ;
-      : print "For a more detailed history, {v_history}." ;
+      : print {( "For a more detailed history, {v_history}." + (point_weak_link ? "" : " It also contains names of similar games which may be a spoiler or hint for the first point.") )} ;
       : print "For verbs to use, {v_verbs}." ;
       : print "Note {cdsa} uses a color-coding scheme. Stuff to change is <lavender<#f4f>>, while stuff that's just for amusement is <grey<#ccc>>." ;
    }
@@ -1083,12 +1084,14 @@ on_command {
    : match "history _;version _;versions _" {
       : print "{cdsa} came about after {l_gsgr}, when I just said, what would happen if I had an {ecomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
       : print "" ;
-      : print "So {l_gsgr} formed, and I focused on features. During the stretch run for {l_ut} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. One of the transcripts was to blame, so to speak: two testers noticed an unintentional red herring in the Cell, Urban ... which might have been a better puzzle than the cell itself, though the cell had a better \"after\" room name. So that was my starting puzzle. Then soon after I saw something indicating the final puzzle. I had to go through with it!" ;
+      : print "So {l_gsgr} formed, and it was small but feature-focused. Then during the stretch run for {l_ut} and {l_ifcomp} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. Two of the testers were to blame, so to speak: they noticed an unintentional red herring in the <Cell, Urban<#f80>>." ;
+      : print "In retrospect, it was probably a better puzzle than the cell itself. I could've changed the room name, but I said \"I'll save it for later,\"  not seriously believing I'd write another game. Then soon after I saw something that would make a perfect final puzzle. I had to go through with it!" ;
       : print "" ;
-      : print "{cdsa} has more rooms than {l_gsgr} so it doesn't have bells and whistles, but I may add them post-comp. No way was I fitting everything in under four hours." ;
-      : print "Leftovers from {cdsa} are found in {l_dadc}." ;
+      : print "{cdsa} had more rooms than {l_gsgr} so the EctoComp version didn't have bells and whistles, but I added them post-comp." ;
+      : print "Leftovers from {cdsa} are found in {l_dadc}. In fact, each of the three games had unique features for EctoComp that I merged into all of them post-comp." ;
       : print "" ;
-      : print "So, late August 2025, then the second half of September 2025." ;
+      : print "Version 1 was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp." ;
+      : print "Version 2 was published after EctoComp finished, on November 30, 2025." ;
    }
    : match "score _" {
       : print "You've currently scored {score} of {max_score} total points. There are no bonus points." ;
