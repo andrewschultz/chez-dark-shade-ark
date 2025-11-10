@@ -599,10 +599,15 @@ locations {
          : if (!progress_ankh_used) {
             : print "The {i_bdb_ankh} glows. The demon looks horrified. It becomes less talkative. But it is not defeated yet. You must do the rest." ;
             : set_true "progress_ankh_used" ;
-            : destroy "brood_ankh" ;
          }
       }
       on_command {
+         : if (!point_deem_unfit) {
+            : match "_ demon;_ fit" {
+               : print "It sure seems confident in its ability to annoy you." ;
+               : done ;
+            }
+         }
          : if (point_deem_unfit) {
             : match "_ do;_ dark;_ dude;_ ark;_ arc" {
                : print "You note a warning on the side of the {sc_ddda}: SUPERNATURAL BEINGS WHO ENTER THE MORTAL PLANE THROUGH THIS RISK DISSOLUTION IF THEY EXPLORE TOO FAR. Whew. This probably isn't highest priority to destroy." ;
@@ -621,14 +626,17 @@ locations {
                : done ;
             }
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
-            : print "That does it! They summon a very evil looking {sc_ddda}. They wonder aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. Then they vanish through the {sc_ddda}." ;
+            : print "That does it! They summon a very evil looking {sc_ddda}. You feel pulled towards it. But then the {i_bdb_ankh} and {i_fsfp} glow red-hot and fly at the {sc_ddda} first and explode! It creates an odd paranormal barrier." ;
+            : print "The demon, seeing this, wonders aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. They deserve more rewarding challenges. They should have left long ago. And now they do, through the {sc_ddda}." ;
             : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a {i_pcpa}, which doesn't seem to have gotten a lot of use. You take it." ;
+            : destroy "brood_ankh" ;
             : destroy "freeze_peach" ;
             : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
             : set_false "think_deem_unfit" ;
             : gosub "add_point" ;
             : update_graphic ;
+            : press_any_key ;
             : done ;
          }
          : match "deem _;_ unfit" {
@@ -693,7 +701,7 @@ objects {
    me_code : object "{i_me_code}" msg="A list of grievances about why the Thief Lord was right to steal. It has {puz_heist} written in it a lot." ;
 
    # scenery e.g. non-default description may need to go in on_describe block
-   demon_fit : scenery "{puz_demon_fit}" msg="It sure seems confident in its ability to annoy you." at="r21" conspicuous="false" ;
+   demon_fit : scenery "{puz_demon_fit}" msg="(see MATCH code)" at="r21" conspicuous="false" ;
    say_fruits : object "safe-root-say fruits" msg="All sorts of fruits, with some notable exception. They seem leaderless." at="sell_farm" conspicuous="false" ;
    thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." at="r20" conspicuous="false" ;
    gray_tanks : scenery "{puz_gray_tanks}" msg="Very intimidating and warlike." at="r10" conspicuous="false" ;
