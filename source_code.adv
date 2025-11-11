@@ -505,6 +505,12 @@ locations {
    }
    r11 : location "{r11_loc_desc}" header = "{r11_header}" graphic="r_11_0" {
       on_command {
+         : if (!return_off_lame) {
+            : match "d _" {
+               : print "It's too dark down there for now." ;
+               : done ;
+            }
+         }
          : match "pawn dicey" {
             : if (point_pawn_dicey) {
                : print "You already found an ally here." ;
