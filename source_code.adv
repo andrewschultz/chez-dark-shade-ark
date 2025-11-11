@@ -626,6 +626,7 @@ locations {
             : pocket "me_code" ;
             : destroy "poach_arm" ;
             : gosub "add_point" ;
+            : redescribe ;
             : done ;
          }
          : match "thee _;_ floored" {
@@ -681,8 +682,8 @@ locations {
             : set_true "point_deem_unfit" ;
             : set_false "think_deem_unfit" ;
             : gosub "add_point" ;
-            : update_graphic ;
             : press_any_key ;
+            : redescribe ;
             : done ;
          }
          : match "deem _;_ unfit" {
