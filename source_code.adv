@@ -1,7 +1,10 @@
 start_at = "wee_clink"
 start_theme = my_theme
 
-#cch.py makes sure of things
+#to do before release:
+#check spreadsheet of features for each game
+#cch.py checks there are no undefined string references
+#obfus.py checks that special commands are obfuscated
 
 game_information {
    game_name                    = Chez Dark Shade Ark
@@ -972,6 +975,9 @@ themes {
 
 on_startup {
    : print "{cdsa}: {ecomp} 2025 Petite Mort game" ;
+   : if (!won_yet) {
+      : print "{note_once}whenever the blinking yellow cursor appears, push {key_enter} or left-click the mouse. This will usually happen to break up long chunks of narrative text." ;
+   }
    : press_any_key ;
    : print "Halloween. You want to avoid kids trick-or-treating. You cut through a park you've never seen before." ;
    : update_graphic "s_start_1" ;
