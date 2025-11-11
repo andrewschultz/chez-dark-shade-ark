@@ -377,6 +377,16 @@ locations {
    }
    r01 : location "{r01_loc_desc}" header = "<Wall, Crowned<#ff0>>" graphic="r_01_0" {
          on_command {
+         : match "_ wall" {
+            : if (!point_walk_round) {
+               : print "You see no obvious exits. Perhaps a new perspective or two or three would help. How to achieve one?" ;
+            } : else_if (!point_thee_floored) {
+               : print "Maybe there's another exit, but you'd need outside help to find it." ;
+            } : else {
+                : print "You found all five exits. You should really take the fifth and go <IN<#0f0>>ward." ;
+            }
+            : done ;
+         }
          : mask {
             : if (point_off_lame && !return_off_lame) {
                : match "n _" {
@@ -571,11 +581,13 @@ locations {
                : done ;
             }
          }
-         : if (point_thee_floored) {
-            : match "_ door;_ sword;_ sore" {
+         : match "_ door;_ sword;_ sore" {
+            : if (point_thee_floored) {
                : print "Don't mess with the door now. Figure what to do with {i_me_code}." ;
-               : done ;
+            } : else {
+               : print "It looks intimidating, but you won't need to mess with it even with the {puz_thief_lord} gone. " ;
             }
+            : done ;
          }
          : if (!point_thee_floored) {
             : match "floored -" {
@@ -890,8 +902,8 @@ subroutines {
          }
       }
       : if (is_carried "key_nigh" && is_carried "sly_maps") {
-         : match "x key;x map;x maps;x sly;x nigh" {
-            : print "You notice the key and the map come together to form a full maze. This could be useful later!" ;
+         : match "_ key;_ map;_ maps;_ sly;_ nigh;_ keen;_ aye;_ eye" {
+            : print {( "You notice the key and the map come together to form a full maze. This could be useful " + (is_at "r22" ? "to explore the maze to the south!" : "somewhere else!") )} ;
             : set_false "showing_room" ;
             : update_graphic "s_maze_full" ;
             : set_true "showing_room" ;
@@ -900,7 +912,7 @@ subroutines {
          }
       }
       : if (is_carried "key_nigh") {
-         : match "x key;x nigh" {
+         : match "_ key;_ nigh" {
             : print "You see the bottom half of a maze." ;
             : set_false "showing_room" ;
             : update_graphic "s_maze_s" ;
@@ -909,7 +921,7 @@ subroutines {
          }
       }
       : if (is_carried "sly_maps") {
-         : match "x map;x maps;x sly" {
+         : match "_ map;_ maps;_ sly" {
             : print "You see the top half of a maze." ;
             : set_false "showing_room" ;
             : update_graphic "s_maze_n" ;
