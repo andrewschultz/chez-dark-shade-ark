@@ -21,7 +21,7 @@ game_information {
 ## Defines locations in the world
 
 strings {
-   # general strings
+   # general/support strings
    this_g : string "<Chez Dark Shade Arc<#f80>>" ;
    note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
    yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
@@ -34,7 +34,7 @@ strings {
    l_dadc : string "<Dusk, Airy, Does Carry<#0f0>>[http://andrewschultz.itch.io/dusk-airy-does-carry]" ;
    l_gsgr : string "<Go-Strange-Ghost Range<#0f0>>[http://andrewschultz.itch.io/go-strange-ghost-range]" ;
    l_ifcomp : string "<IFComp<#0f0>>[http://ifcomp.org]" ;
-   l_ectocomp : string "<IFComp<#0f0>>[https://itch.io/jam/ectocomp-2025]" ;
+   l_ectocomp : string "<EctoComp<#0f0>>[https://itch.io/jam/ectocomp-2025]" ;
 
    my_score : string "{score}{conditional_score}/{max_score}" ;
    conditional_score : dynamic_string {( think_any > 0 ? "+{think_any}" : "" )} ;
@@ -51,6 +51,7 @@ strings {
    vm_verbs : string "<VERBS<#0f0>>" ;
    vm_tstart_stop : string "<TSTART<#0f0>>/<TSTOP<#0f0>>" ;
 
+   # options
    vo_hone_aye : string "<HONE AYE<#f80>>" ;
    vo_ho_nigh : string "<HO NIGH<#f80>>" ;
 
@@ -64,11 +65,14 @@ strings {
    # item names, with puzzle
    puz_awe_flame : string "<awe flame<#f4f>>" ;
    puz_demon_fit : string "<demon, fit<#f4f>>" ;
+   puz_fir_static : string "<fir (static)<#f4f>>" ;
    puz_gray_tanks : string "<gray tanks<#f4f>>" ;
    puz_gulf_lying : string "<gulf, lying<#f4f>>" ;
+   puz_our_burdens : string "<our burdens<#f4f>>" ;
+   puz_pond_icy : string "<pond, icy<#f4f>>" ;
    puz_thief_lord : string "<thief lord<#f4f>>" ;
-   puz_fir_static : string "<fir (static)<#f4f>>" ;
-   puz_wall : string "<wall, crowned<#f4f>>" ;
+   puz_slime_apps : string "<slime apps<#f4f>>" ;
+   puz_wall_crowned : string "<wall, crowned<#f4f>>" ;
    puz_wee_clink : string "<wee clink<#f4f>>" ;
    puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
 
@@ -81,6 +85,7 @@ strings {
    i_pcpa : string "<po' charm-poach arm<#ccc>>" ;
 
    # scenery, no puzzle, arranged alphabetically
+   sc_acar : string "<A cramp-ache ramp<#ccc>>" ;
    sc_ddda : string "<Do-Dark-Dude Ark<#ccc>>" ;
    sc_sosc : string "<sunk old sun, cold<#ccc>>" ;
    sc_sosd : string "<sword-or-sore door<#ccc>>" ;
@@ -108,41 +113,42 @@ strings {
    r_sasf : string "<Self-Arm-Sell Farm<#ff0>>" ;
 
    # the main strings
-   r00_header : dynamic_string {( return_sly_maps ? "<A Cramp-Ache Ramp<#f80>>" : point_sly_maps ? "{r_blob}" : "<Slime Apps<#f80>>" )} ;
-   r00_loc_desc : dynamic_string {( return_sly_maps ? "A ramp leads up east. Back north, the wall." :
-      point_sly_maps ? "The slime is slowly oozing away. Come back in a bit to see what's there." :
-      "Slime apps leave ooze blocking passage every way but back north." )} ;
+   r00_header : dynamic_string {( return_sly_maps ? "<A Cramp-Ache Ramp<#ff0>>" : point_sly_maps ? "{r_blob}" : "{puz_slime_apps}" )} ;
+   r00_loc_desc : dynamic_string {( return_sly_maps ? "{sc_acar} leads up east. It's a bit steep, so climbing may be painful, but nothing too bad. Back north, there's the wall." :
+      point_sly_maps ? "The slime has oozed away, but its toxicity hasn't. Come back in a bit to see what's there." :
+      "Hidden {puz_slime_apps} occasionally fire out ooze blocking passage every way but back north." )} ;
    r00_nogo : dynamic_string {( "You can only go north" + (return_sly_maps ? " or east." : ".") )} ;
 
-   r01_loc_desc : dynamic_string {( return_thee_floored ? "You've been around and found a lot. You probably want to follow that new path onward and <IN<#0f0>>ward that you just discovered." : (( point_walk_round ? "" : "A {puz_wall}. ") + "There's no way or reason to go back into the wee clink, so you probably want to " + (point_walk_round ? "go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.")) )} ;
-   r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The {puz_wall} is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {r01_noback}" )} ;
-   r01_noback : string "You don't want to go back <IN<#f80>> to the wee clink." ;
+   r01_header : dynamic_string {( point_walk_round ? "<Wall, Crowned<#ff0>>" : "{puz_wall_crowned}" )} ;
+   r01_loc_desc : dynamic_string {( return_thee_floored ? "You've been around and found a lot. You probably want to follow that new path onward and <IN<#0f0>>ward that you just discovered." : (( point_walk_round ? "" : "A {puz_wall_crowned}. ") + "There's no way or reason to go back into the wee clink, so you probably want to " + (point_walk_round ? "go north, east, south or down, where you found exits in the wall." : "find exits in the wall somehow.")) )} ;
+   r01_nogo : dynamic_string {( point_walk_round ? "You can't go that way, but there are exits north, south, east and down." : "The {puz_wall_crowned} is blocking you. You need to find a way through. There must be at least one, if you look enough." + " {r01_noback}" )} ;
+   r01_noback : string "You don't want to go back <IN<#0f0>>ward to the wee clink." ;
 
-   r02_header : dynamic_string {( return_off_lame ? "<Gulf, Lying<#f80>>" : point_off_lame ? "{r_blob}" : "<Awe Flame<#f80>>" )} ;
-   r02_loc_desc : dynamic_string {( point_gull_flying ? "The gull, flying, showed you a path east." : return_off_lame ? "You're in a {puz_gulf_lying}. Like you can't really go anywhere further. Right? It seems to say you can only go back south, and that's that." : point_off_lame ? "It's barren here now. Maybe when you come back, you'll see more." : "An awe-flame distracts you from any belief you can progress further. Well, technically, it's a bunch of flames that together make a huge one.\nThey're impressive but contained. At least you remember it's still safe back south. But you dare to dream of a way to make the flame look less impressive." )} ;
+   r02_header : dynamic_string {( point_gull_flying ? "<Gulf, Lying<#ff0>>" : return_off_lame ? "{puz_gulf_lying}" : point_off_lame ? "{r_blob}" : "{puz_awe_flame}" )} ;
+   r02_loc_desc : dynamic_string {( point_gull_flying ? "The gull, flying, showed you a path east." : return_off_lame ? "You're in a {puz_gulf_lying}. Like you can't really go anywhere further. Right? It seems to say you can only go back south, and that's that." : point_off_lame ? "It's barren here now. Maybe when you come back, you'll see more." : "An {puz_awe_flame} distracts you from any belief you can progress further. Well, technically, it's a bunch of flames that together make a huge one.\nThey're impressive but contained. At least you remember it's still safe back south. But you dare to dream of a way to make the flame look less impressive." )} ;
    r02_nogo : dynamic_string {( return_off_lame ? "You see no passage." : point_off_lame ? "You should come back and look for new exits once the land's healed from the flame." : "The awe-flame distracts you too much from finding new exits." )} ;
 
-   r10_header : dynamic_string {( point_great_ankhs ? "<Great Ankhs<#f80>>" : "<Gray Tanks<#888>>" )} ;
+   r10_header : dynamic_string {( point_great_ankhs ? "<Great Ankhs<#ff0>>" : "{puz_gray_tanks}" )} ;
    r10_loc_desc : dynamic_string {( "This place is covered with " + ( point_great_ankhs ? "great ankhs" : "{puz_gray_tanks}" ) + ". It's too desolate everywhere except back west." )} ;
    r10_nogo : string "You can only go back west." ;
 
-   r11_header : dynamic_string {( "<Pond, Icy<#f80>>" )} ;
-   r11_loc_desc : dynamic_string {( "Back west is the wall. There's also a forbidding passage down past the pond. " + (point_pawn_dicey ? "You've found a secret from the pond." : "Maybe the pond holds a secret." ) )} ;
+   r11_header : dynamic_string {( point_pawn_dicey ? "<Pond, Icy<#ff0>>" : "{puz_pond_icy}" )} ;
+   r11_loc_desc : dynamic_string {( "Back west is the wall. There's also a forbidding passage down past the pond. " + (point_pawn_dicey ? "You've found a secret from the pond." : "Perhaps the {puz_pond_icy} holds a secret." ) )} ;
    r11_nogo : string "You can only go back west or down." ;
 
-   r12_header : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#f80>>" : "<Our Burdens<#f80>>" )} ;
-   r12_loc_desc : dynamic_string {( ( point_first_attic ? "It's real nice and verdant here, but you can't see much adventure now you've figured the mystery of the fir (static)." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out. A {puz_fir_static}." : "It's bare and desolate here. You hear incorporeal whining \"Our burdens ... our burdens ...\"" ) + "\nThe only way back is west." )} ;
+   r12_header : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#ff0>>" : "{puz_our_burdens}" )} ;
+   r12_loc_desc : dynamic_string {( ( point_first_attic ? "It's real nice and verdant here, but you can't see much adventure now you've figured the mystery of the fir (static)." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out. A {puz_fir_static}." : "It's bare and desolate here. You hear incorporeal whining \"Our burdens ... {puz_our_burdens} ...\"" ) + "\nThe only way back is west." )} ;
    r12_nogo : string "You can only go back west." ;
 
    r20_header : dynamic_string {( "<Sword-Or-Sore Door<#ff0>>" )} ;
    r20_loc_desc : dynamic_string {( "Hoo boy it's dark in here. You can only go back up." )} ;
    r20_nogo : string "You can only go back up." ;
 
-   r21_header : dynamic_string {( point_deem_unfit ? "<Tomb Eek-Too-Meek<#f80>>" : "<Tomb End-To-Mend<#f80>>" )} ;
+   r21_header : dynamic_string {( point_deem_unfit ? "<Tomb Eek-Too-Meek<#ff0>>" : "<Tomb End-To-Mend<#ff0>>" )} ;
    r21_loc_desc : dynamic_string {( "This is where the maze ends. You can only go back north." + (point_deem_unfit ? "\nOkay, the {sc_ddda} is here, but yeah. No." : "") )} ;
    r21_nogo : string "You can only go back north." ;
 
-   r22_header : dynamic_string {( "<Maze Which May Switch<#f80>>" )} ;
+   r22_header : dynamic_string {( "<Maze Which May Switch<#ff0>>" )} ;
    r22_loc_desc : dynamic_string {( "There's a maze to the south, though you can go back up, too." )} ;
    r22_nogo : string "The maze is south, or you can go back up." ;
 
@@ -291,7 +297,7 @@ vocabulary {
 }
 
 locations {
-   wee_clink : location "It sure is claustrophobic in here. You're not sure how to get out. The only think you see in the outside is a {sc_sosc}." header="<Wee Clink<#ff0>>" graphic="r_wee_clink" {
+   wee_clink : location "It sure is claustrophobic here in the {wee_clink}. You're not sure how to get out. The only think you see in the outside is a {sc_sosc}." header="{puz_wee_clink}" graphic="r_wee_clink" {
       on_command {
          : match "_ sun;_ sunk;_ old;_ cold" {
             : print "So low in the sky, the {sc_sosc} barely gives out light and sets the mood for, well, pretty much everything here. The gloom and doom is lousy, but maybe the sun itself is providing a clue." ;
@@ -344,7 +350,7 @@ locations {
             : clear_screen ;
             : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a {sc_sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make the {sc_sosd} shudder and lose its magic power. The {sc_sosd} can no longer bring the Thief Lord back." ;
             : print "The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more up to it now. That's something." ;
-            : print "But how to get back? A simple globe and glow band lie where the {sc_sosd} used to be. You pick them up ... they hum ... the scenery changes ... and you are back home." ;
+            : print "But how to get back? A simple <cu<#f00>><be<#f80>> <an<#ff0>><d Q<#0f0>> <ba<#00f>><nd<#f0f>> lie where the {sc_sosd} used to be. You pick them up ... they hum ... the scenery changes ... and you are back home." ;
             : update_graphic "s_hist_5" ;
             : press_any_key ;
             : set_true "showing_room" ;
@@ -375,7 +381,7 @@ locations {
          }
       }
    }
-   r01 : location "{r01_loc_desc}" header = "<Wall, Crowned<#ff0>>" graphic="r_01_0" {
+   r01 : location "{r01_loc_desc}" header = "{r01_header}" graphic="r_01_0" {
          on_command {
          : match "_ wall" {
             : if (!point_walk_round) {
@@ -633,10 +639,10 @@ locations {
    r21 : location "{r21_loc_desc}" header = "{r21_header}" graphic="r_21_0" {
       on_describe {
          : if (!point_deem_unfit) {
-            : print "A {puz_demon_fit} stands here, contemptuous of you, surprised you haven't fled yet." ;
+            : print "A {puz_demon_fit} stands here, surprised you haven't fled yet, but also a bit scared of your {i_bdb_ankh}. Perhaps the right action can defeat the {puz_demon_fit}?" ;
          }
          : if (!progress_ankh_used) {
-            : print "The {i_bdb_ankh} glows. The demon looks horrified. It becomes less talkative. But it is not defeated yet. You must do the rest." ;
+            : print "The {i_bdb_ankh} glows. The demon looks horrified. It becomes less talkative, more reflective. But it is not defeated yet. You must do the rest. Hurt its feelings, or worse." ;
             : set_true "progress_ankh_used" ;
          }
       }
@@ -649,7 +655,8 @@ locations {
          }
          : if (point_deem_unfit) {
             : match "_ do;_ dark;_ dude;_ ark;_ arc" {
-               : print "You note a warning on the side of the {sc_ddda}: SUPERNATURAL BEINGS WHO ENTER THE MORTAL PLANE THROUGH THIS RISK DISSOLUTION IF THEY EXPLORE TOO FAR. Whew. This probably isn't highest priority to destroy." ;
+               : print "You note a warning on the side of the {sc_ddda}: <MORTALS OR SUPERNATURAL BEINGS WHO SWITCH PLANES HERE RISK DISSOLUTION IF THEY EXPLORE TOO FAR<#f80>>." ;
+               : print "Whew. That's as good a reason as any to chicken out, I mean, focus attention elsewhere." ;
                : done ;
             }
          }
@@ -667,7 +674,7 @@ locations {
             : print "You start to deem the demon unfit, which starts a big reductive argument with them over how that's too easy and obvious and silly. You mention that they were the ones calling themselves fit, and if they didn't see this, or prep to defend themselves against accusations, they deserve ... uh, you're not sure. But the demon seems flustered by this, not really used to arguments where they're challenged. They're a demon, cool. \"Not someone to deem uncool, right?\" you say." ;
             : print "That does it! They summon a very evil looking {sc_ddda}. You feel pulled towards it. But then the {i_bdb_ankh} and {i_fsfp} glow red-hot and fly at the {sc_ddda} first and explode! It creates an odd paranormal barrier." ;
             : print "The demon, seeing this, wonders aloud why they were guarding this place anyway. There's no loot left. No adventurers that are fun to beat up. They deserve more rewarding challenges. They should have left long ago. And now they do, through the {sc_ddda}." ;
-            : print "You look around to see if any treasure is left. You don't want to go peeking in tombs, and the only thing you find is a {i_pcpa}, which doesn't seem to have gotten a lot of use. You take it." ;
+            : print "You look around to see if any treasure is left. No peeking in tombs. That could be dangerous. Still you find a {i_pcpa}, which doesn't seem to have gotten a lot of use. You take it." ;
             : destroy "brood_ankh" ;
             : destroy "freeze_peach" ;
             : pocket "poach_arm" ;
@@ -1163,7 +1170,7 @@ on_command {
          : print {( "You've also discovered {think_any} command" + (think_any > 1 ? "s" : "" ) + " you can re-use in the future with stronger preparation." )} ;
       }
       : if (!warn_score_header) {
-         : print "{note_once}This is tracked in the upper left." ;
+         : print "{note_once}score information is tracked in the upper left." ;
          : set_true "warn_score_header" ;
       }
    }
@@ -1181,7 +1188,7 @@ on_command {
             : print "Also, the titles of similar games if you type {vm_about} then {vm_history} may provide clues." ;
             : print "In-game, you have the {this_g} and the {sc_sosc}. But how do they fit in with the wee clink?" ;
             : print "You need to break up {puz_wee_clink} into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
-            : print "A <WEAK LINK<#f80>>, if you will. (This is the last hint. They will cycle again until you leave here. Then {vm_think} will track commands you figured but can't use yet.)" ;
+            : print "A <WEAK LINK<#f4f>>, if you will. (This is the last hint. They will cycle again until you leave here. Then {vm_think} will track commands you figured but can't use yet.)" ;
          }
          : done ;
       }
