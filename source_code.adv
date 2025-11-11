@@ -259,6 +259,7 @@ booleans {
    warn_generic_credit : boolean "false" ;
    warn_hints : boolean "false" ;
    warn_score_header : boolean "false" ;
+   take_drop_warn : boolean "false" ;
 
    intro_shown_yet : boolean "false" ;
    ever_x_me : boolean "false" ;
@@ -1030,6 +1031,15 @@ on_command {
       : match "save -" {
          : print "A ghostly apparition with \"Save? Illun', Say!\" Villain written on its front taunts your very reasonable precaution. But you don't need to listen to such meanies." ;
       }
+   }
+   : match "take _;drop _" {
+      : if (!take_drop_warn) {
+         : print "You never need to take or drop anything in {this_g}. Everything is implicitly taken or destroyed as used." ;
+         : set_true "take_drop_warn" ;
+      } : else {
+         : print "Take and drop aren't used in {this_g}." ;
+      }
+      : done ;
    }
    : match "z _;wait _" {
       : print "\"Loaf, right? Lo, fright!\"" ;
