@@ -273,6 +273,10 @@ booleans {
 
    won_yet : boolean "false" scope="survivor" ;
    think_note_yet : boolean "false" ;
+
+   # inventory emptiness tracking
+   picked_anything_up : dynamic_boolean {( point_sly_maps || point_off_lame )} ;
+   finished_with_items : dynamic_boolean {( score >= max_score - 1 )} ;
 }
 
 vocabulary {
@@ -1030,6 +1034,18 @@ on_command {
       }
       : match "save -" {
          : print "A ghostly apparition with \"Save? Illun', Say!\" Villain written on its front taunts your very reasonable precaution. But you don't need to listen to such meanies." ;
+      }
+   }
+   : match "i _" {
+      : if (carried() == 0) {
+         : if (!picked_anything_up) {
+            : print "You've found nothing yet." ;
+         } : else_if (finished_with_items) {
+            : print "You're carrying nothing, but you need nothing." ;
+         } : else {
+            : print "Everything you've found, you've used." ;
+         }
+         : done ;
       }
    }
    : match "take _;drop _" {
