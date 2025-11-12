@@ -278,6 +278,7 @@ booleans {
    note_half_limitations : boolean "false" ;
 
    won_yet : boolean "false" scope="survivor" ;
+   win_warn : boolean "false" scope="survivor" ;
    think_note_yet : boolean "false" ;
 
    # inventory emptiness tracking
@@ -1017,7 +1018,12 @@ themes {
 
 on_startup {
    : print "{this_g}: {l_ectocomp} 2025 Petite Mort game" ;
-   : if (!won_yet) {
+   : if (won_yet) {
+      : if (!win_warn) {
+         : print "Thanks for replaying, but this is a reminder to look at the other {l_ectocomp} entries, too! Whether or not it's over now!" ;
+         : press_any_key ;
+      }
+   } : else {
       : print "{note_once}whenever the blinking yellow cursor appears, push {key_enter} or left-click the mouse. This will usually happen to break up long chunks of narrative text." ;
    }
    : press_any_key ;
