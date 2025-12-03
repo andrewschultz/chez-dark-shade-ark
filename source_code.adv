@@ -105,6 +105,15 @@ strings {
       point_pawn_dicey ? (point_a_dart ? "the pawn to help you shoot the dart" : "a weapon for the pawn") :
       (point_a_dart ? "someone who can use the dart" : "firepower and ability to take down the tanks") )} ;
 
+   # here / at variables
+   here_r00 : dynamic_string {( is_at "r00" ? "here" : "{r00_header}" )} ;
+   here_r02 : dynamic_string {( is_at "r02" ? "here" : "{r02_header}" )} ;
+   here_r11 : dynamic_string {( is_at "r21" ? "here" : "{r11_header}" )} ;
+   here_r02 : dynamic_string {( is_at "r12" ? "here" : "{r12_header}" )} ;
+   here_r20 : dynamic_string {( is_at "r20" ? "here" : "{r20_header}" )} ;
+   here_r21 : dynamic_string {( is_at "r21" ? "here" : "{r21_header}" )} ;
+   here_end : dynamic_string {( is_at "r21" ? "here, probably" : "somewhere new, you suspect" )} ;
+
    # variable item descriptions
    desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
 
@@ -1221,13 +1230,13 @@ on_command {
          : done ;
       }
       : if (think_deem_unfit) {
-         : print "You can <DEEM UNFIT<#f80>> the demon (fit) {once_deem_unfit} you have ways to slow down its jabber a bit." ;
+         : print "You can <DEEM UNFIT<#f80>> the demon (fit) {here_tombeek} {once_deem_unfit} you have ways to slow down its jabber a bit." ;
       }
       : if (think_high_strawberry) {
          : print "You can say <HI STRAWBERRY<#f80>> {once_hi_strawberry} you've found where such an entity might be." ;
       }
       : if (think_thee_floored) {
-         : print "You can say <THEE FLOORED<#f80>> to the thief lord {once_thee_floored} you have more leverage." ;
+         : print "You can say <THEE FLOORED<#f80>> to the thief lord {here_sosd} {once_thee_floored} you have more leverage." ;
       }
       : if (think_great_ankhs) {
          : print "You can convert the gray tanks to <GREAT ANKHS<#f80>> {once_great_ankhs} you have {think_tank_detail}." ;
