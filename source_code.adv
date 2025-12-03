@@ -37,7 +37,7 @@ strings {
    l_ectocomp : string "<EctoComp<#0f0>>[https://itch.io/jam/ectocomp-2025]" ;
 
    my_score : string "{score}{conditional_score}/{max_score}" ;
-   conditional_score : dynamic_string {( think_any > 0 ? "+{think_any}" : "" )} ;
+   conditional_score : dynamic_string {( thought_right > 0 ? "+{thought_right}" : "" )} ;
 
    # commands
    vm_about : string "<ABOUT<#0f0>>" ;
@@ -189,7 +189,7 @@ strings {
 integers {
    score : integer "0" ;
    max_score : integer "13" ;
-   think_any : dynamic_integer {(
+   thought_right : dynamic_integer {(
       (think_great_ankhs ? 1 : 0) +
       (think_deem_unfit ? 1 : 0) +
       (think_thee_floored ? 1 : 0) +
@@ -1203,8 +1203,8 @@ on_command {
    }
    : match "score _" {
       : print "You've currently scored {score} of {max_score} total points. There are no bonus points." ;
-      : if (think_any > 0) {
-         : print {( "You've also discovered {thought_right_words} command" + (think_any > 1 ? "s" : "" ) + " you can re-use in the future with stronger preparation." )} ;
+      : if (thought_right > 0) {
+         : print {( "You've also discovered {thought_right_words} command" + (thought_right > 1 ? "s" : "" ) + " you can re-use in the future with stronger preparation." )} ;
       }
       : if (!warn_score_header) {
          : print "{note_once}score information is tracked in the upper left." ;
