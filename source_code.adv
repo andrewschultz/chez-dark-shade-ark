@@ -76,8 +76,6 @@ strings {
    puz_wee_clink : string "<wee clink<#f4f>>" ;
    puz_heist : string "<HEIST! ROBBERY!<#f4f>>" ;
 
-   to_think_words : dynamic_string {( collection_get{ collection -> ("num_to_word") index -> ( to_think ) } )} ;
-
    # item names, no puzzle, arranged alphabetically
    i_aid_art : string "<aid art<#f4f>>" ;
    i_bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
@@ -104,6 +102,12 @@ strings {
    think_tank_detail : dynamic_string {(
       point_pawn_dicey ? (point_a_dart ? "the pawn to help you shoot the dart" : "a weapon for the pawn") :
       (point_a_dart ? "someone who can use the dart" : "firepower and ability to take down the tanks") )} ;
+
+   t_deem_unfit : string "<DEEM UNFIT<#f80>>" ;
+   t_hi_strawberry : string "<HI STRAWBERRY<#f80>>" ;
+   t_thee_floored : string "<THEE FLOORED<#f80>>" ;
+   t_great_ankhs : string "<GREAT ANKHS<#f80>>" ;
+   thought_right_words : dynamic_string {( collection_get{ collection -> ("num_to_word") index -> ( thought_right ) } )} ;
 
    # here / at variables
    here_r00 : dynamic_string {( is_at "r00" ? "here" : "{r00_header}" )} ;
@@ -1200,7 +1204,7 @@ on_command {
    : match "score _" {
       : print "You've currently scored {score} of {max_score} total points. There are no bonus points." ;
       : if (think_any > 0) {
-         : print {( "You've also discovered {to_think_words} command" + (think_any > 1 ? "s" : "" ) + " you can re-use in the future with stronger preparation." )} ;
+         : print {( "You've also discovered {thought_right_words} command" + (think_any > 1 ? "s" : "" ) + " you can re-use in the future with stronger preparation." )} ;
       }
       : if (!warn_score_header) {
          : print "{note_once}score information is tracked in the upper left." ;
@@ -1230,16 +1234,16 @@ on_command {
          : done ;
       }
       : if (think_deem_unfit) {
-         : print "You can <DEEM UNFIT<#f80>> the demon (fit) {here_tombeek} {once_deem_unfit} you have ways to slow down its jabber a bit." ;
+         : print "You can {t_deem_unfit} the demon (fit) {here_tombeek} {once_deem_unfit} you have ways to slow down its jabber a bit." ;
       }
       : if (think_high_strawberry) {
-         : print "You can say <HI STRAWBERRY<#f80>> {once_hi_strawberry} you've found where such an entity might be." ;
+         : print "You can say {t_hi_strawberry} {once_hi_strawberry} you've found where such an entity might be." ;
       }
       : if (think_thee_floored) {
-         : print "You can say <THEE FLOORED<#f80>> to the thief lord {here_sosd} {once_thee_floored} you have more leverage." ;
+         : print "You can say {t_thee_floored} to the thief lord {here_sosd} {once_thee_floored} you have more leverage." ;
       }
       : if (think_great_ankhs) {
-         : print "You can convert the gray tanks to <GREAT ANKHS<#f80>> {once_great_ankhs} you have {think_tank_detail}." ;
+         : print "You can convert the gray tanks to {t_great_ankhs} {once_great_ankhs} you have {think_tank_detail}." ;
       }
    }
    : match "verbs _;verb _" {
