@@ -110,12 +110,12 @@ strings {
    thought_right_words : dynamic_string {( collection_get{ collection -> ("num_to_word") index -> ( thought_right ) } )} ;
 
    # here / at variables
-   here_r00 : dynamic_string {( is_at "r00" ? "here" : "{r00_header}" )} ;
-   here_r02 : dynamic_string {( is_at "r02" ? "here" : "{r02_header}" )} ;
-   here_r11 : dynamic_string {( is_at "r21" ? "here" : "{r11_header}" )} ;
-   here_r02 : dynamic_string {( is_at "r12" ? "here" : "{r12_header}" )} ;
-   here_r20 : dynamic_string {( is_at "r20" ? "here" : "{r20_header}" )} ;
-   here_r21 : dynamic_string {( is_at "r21" ? "here" : "{r21_header}" )} ;
+   here_r00 : dynamic_string {( is_at "r00" ? "here" : "in {r00_header}" )} ;
+   here_r02 : dynamic_string {( is_at "r02" ? "here" : "in {r02_header}" )} ;
+   here_r11 : dynamic_string {( is_at "r21" ? "here" : "in {r11_header}" )} ;
+   here_r12 : dynamic_string {( is_at "r12" ? "here" : "in {r12_header}" )} ;
+   here_r20 : dynamic_string {( is_at "r20" ? "here" : "in {r20_header}" )} ;
+   here_r21 : dynamic_string {( is_at "r21" ? "here" : "in {r21_header}" )} ;
    here_end : dynamic_string {( is_at "r21" ? "here, probably" : "somewhere new, you suspect" )} ;
 
    # variable item descriptions
@@ -1234,13 +1234,13 @@ on_command {
          : done ;
       }
       : if (think_deem_unfit) {
-         : print "You can {t_deem_unfit} the demon (fit) {here_tombeek} {once_deem_unfit} you have ways to slow down its jabber a bit." ;
+         : print "You can {t_deem_unfit} the demon (fit) {here_r21} {once_deem_unfit} you have ways to slow down its jabber a bit." ;
       }
       : if (think_high_strawberry) {
          : print "You can say {t_hi_strawberry} {once_hi_strawberry} you've found where such an entity might be." ;
       }
       : if (think_thee_floored) {
-         : print "You can say {t_thee_floored} to the thief lord {here_sosd} {once_thee_floored} you have more leverage." ;
+         : print "You can say {t_thee_floored} to the thief lord {here_r20} {once_thee_floored} you have more leverage." ;
       }
       : if (think_great_ankhs) {
          : print "You can convert the gray tanks to {t_great_ankhs} {once_great_ankhs} you have {think_tank_detail}." ;
