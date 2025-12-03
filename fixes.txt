@@ -1,0 +1,30 @@
+Fixes/development log
+
+Version 2.0.0 published to Itch December 3, 2025
+BUGS
+--the portal should not appear next to the thief, just in the tomb. Now, instead, a door does.
+--bugfix for how you could solve the second puzzle more than once for infinite points in the comp version. This doesn't help or impair your ability to solve future puzzles. It's just, I probably blew past this test case, since the other rooms had more moving parts. Oops.
+--also, bugfix for where you can defeat the tanks with only the item and not the companion. This doesn't stop you from winning, but it's a bit silly. It's unlikely to happen, as the companion is much easier to get, but just so you know.
+
+FEATURES AND IMPLEMENTATION
+--"here"/"at room" dynamic strings added to THINK cues
+--Obfuscated correct first words of puzzle from Adventuron's "correct verb but not here" error
+--VERBS now refers to HINTS
+--number is a bit blurry if you can't solve the relevant puzzle yet
+--HO NIGH/HONE AYE functionality moved from Dusk Airy Does Carry
+--many items and NPCs implemented as nouns where all verbs give the same result e.g. X PAWN / TALK PAW
+--block player from darkness below pond if you haven't found light giving item yet
+--in-game MAP, with red lines if HONE AYE is active
+--rejects for half-right now track if it's something you already figured, whether you scored a point or not
+--"awe flame" now not separate flames
+--blurry -1 now in interlude areas
+--Inventory management
+  --pawn (dicey) now listed as follower, not really an item
+  --more explanation for why items are destroyed by the end
+--status line now shows (for example) 5+1 if you figured one point but didn't have the right prep yet. This info is also added to SCORE.
+  --SCORE writes out # of discovered but unsuccessful point-scoring commands in words
+--Nudge to THINK on first right words/wrong time guess
+--allow for plural or singular form of point-scoring command when appropriate
+--expanded HISTORY with, of course, the second version number
+--added links to EctoComp admins in CREDITS, along with 3rd admin I forgot
+--text colors made more uniform by purpose
