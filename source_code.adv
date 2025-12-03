@@ -659,6 +659,7 @@ locations {
             : pocket "me_code" ;
             : destroy "poach_arm" ;
             : gosub "add_point" ;
+            : press_any_key ;
             : redescribe ;
             : done ;
          }
@@ -1209,7 +1210,7 @@ on_command {
          : print {( "You've also discovered {thought_right_words} command" + (thought_right > 1 ? "s" : "" ) + " you can re-use in the future with stronger preparation." )} ;
       }
       : if (!warn_score_header) {
-         : print "{note_once}score information is tracked in the upper left." ;
+         : print "{note_once}score information is tracked in the upper right." ;
          : set_true "warn_score_header" ;
       }
    }
