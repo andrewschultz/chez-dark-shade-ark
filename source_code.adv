@@ -460,7 +460,7 @@ locations {
             : set_true "return_thee_floored" ;
          }
          : if (point_sly_maps && !is_exists "hope_light" && !return_sly_maps) {
-            : print "As you returned, you uncovered something cool: a {i_hope_light}! That should help with the dreariness to the south." ;
+            : print {( "As you returned, you uncovered something cool: a {i_hope_light}! That should help with " + ( has_visited "r11" ? "the dreary hole to the east." : "any dark cave you find." ) )} ;
             : pocket "hope_light" ;
          }
       }
@@ -553,7 +553,9 @@ locations {
                : print "You already found an ally here." ;
                : done ;
             }
-            : print "Looking around the pond, you look for friends, any sort, and you find it in the guise of a pawn. It looks a little shifty, and this worries you, but it says, well, I have to look shifty around here, it will be suspicious if I don't. I'll tell you what, I know some secrets. I'm a pretty good marksman, and I can take innocuous things and make them into something powerful, maybe not lethal, but they can change the nature of something that is intimidating you. Your soul. You don't seem to have many other friends to help you here, so you'll take what you can get." ;
+            : print "Looking around the pond, you look for friends, any sort, and you find it in the guise of a pawn. It looks a little shifty, and this worries you." ;
+            : print "But it says, \"Well, I have to look shifty around here, it will be suspicious if I don't. I'll tell you what, I know some secrets. I'm a pretty good marksman, and I can take innocuous things and make them into something powerful, maybe not lethal, but they can change the nature of something that is intimidating you. Your soul.\"" ;
+            : print "You don't seem to have many other friends to help you here, so you'll take what you can get." ;
             : set_true "point_pawn_dicey" ;
             : gosub "add_point" ;
             : done ;
@@ -617,10 +619,10 @@ locations {
          : if (!point_thee_floored) {
             : match "_ thief;_ lord" {
                : if (think_thee_floored) {
-                  : print "You already figured how to get the thief lord's attention. <THEE FLOORED<#f80>>.";
+                  : print "You already figured how to get the thief lord's attention. {t_thee_floored}.";
                   : print {( point_deem_unfit ? "And with the {i_pcpa}, you might have a way to disstract them." : "You still don't have any way to distract them." )} ; 
                }
-               : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, <THEE FLOORED<#f80>> will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
+               : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, {t_thee_floored} will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
                : done ;
             }
          }
