@@ -110,13 +110,16 @@ strings {
    thought_right_words : dynamic_string {( collection_get{ collection -> ("num_to_word") index -> ( thought_right ) } )} ;
 
    # here / at variables
+   here_start : dynamic_string {( is_at "wee_clink" ? "here" : "in {r00_header}" )} ;
    here_r00 : dynamic_string {( is_at "r00" ? "here" : "in {r00_header}" )} ;
+   here_r01 : dynamic_string {( is_at "r01" ? "here" : "in {r01_header}" )} ; # this if statement may not ever apply but let's keep the code uniform
    here_r02 : dynamic_string {( is_at "r02" ? "here" : "in {r02_header}" )} ;
-   here_r11 : dynamic_string {( is_at "r21" ? "here" : "in {r11_header}" )} ;
+   here_r10 : dynamic_string {( is_at "r10" ? "here" : "in {r10_header}" )} ;
+   here_r11 : dynamic_string {( is_at "r11" ? "here" : "in {r12_header}" )} ;
    here_r12 : dynamic_string {( is_at "r12" ? "here" : "in {r12_header}" )} ;
    here_r20 : dynamic_string {( is_at "r20" ? "here" : "in {r20_header}" )} ;
    here_r21 : dynamic_string {( is_at "r21" ? "here" : "in {r21_header}" )} ;
-   here_end : dynamic_string {( is_at "r21" ? "here, probably" : "somewhere new, you suspect" )} ;
+   here_end : dynamic_string {( is_at "sell_farm" ? "here, probably" : "somewhere new, you suspect" )} ;
 
    # variable item descriptions
    desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
@@ -184,6 +187,9 @@ strings {
       is_at "sell_farm" ? "Nothing beyond here. You must call the fruits' leader to you." :
       "You can't go that way. I should have a non-default message." )} ;
    nospecial_custom : string "You see no specific item like that. For rooms, <LOOK<#0f0>>. Note that this game may not note adjectives as synonyms, so use nouns." ;
+
+   noguess : string "<(unknown)<#888>>" ;
+   noguess1 : dynamic_string {( counter == 5 ? "<(A)<#888>>" : "<(unknown)<#888>>" )} ;
 }
 
 integers {
@@ -313,6 +319,107 @@ vocabulary {
 }
 
 collections {
+   first_words : list {
+      items = [
+         "<WEAK<#f80>>",
+         "<WALK<#f80>>",
+         "<OFF<#f80>>",
+         "<SLY<#f80>>",
+         "<PAWN<#f80>>",
+         "<(A)<#f80>>",
+         "<GULL<#f80>>",
+         "<ARBOR<#f80>>",
+         "<FIRST<#f80>>",
+         "<GREAT<#f80>>",
+         "<DEEM<#f80>>",
+         "<THEE<#f80>>",
+         "<HI/HIGH<#f80>>",
+      ]
+   };
+   second_words : list {
+      items = [
+         "<LINK<#f80>>",
+         "<ROUND<#f80>>",
+         "<LAME<#f80>>",
+         "<MAPS<#f80>>",
+         "<DICY/DICEY<#f80>>",
+         "<DART<#f80>>",
+         "<FLYING<#f80>>",
+         "<DENS<#f80>>",
+         "<ATTIC<#f80>>",
+         "<ANKHS<#f80>>",
+         "<UNFIT<#f80>>",
+         "<FLOORED<#f80>>",
+         "<STRAWBERRY<#f80>>",
+      ]
+   };
+   situations : list {
+      items = [
+         "{here_intro}.",
+         "{here_r01}.",
+         "{here_r02}.",
+         "{here_r00}.",
+         "{here_r11}.",
+         "whenever you want.",
+         "{here_r02}.",
+         "{here_r12}.",
+         "{here_r12}.",
+         "{here_r10}.",
+         "{here_r21}.",
+         "{here_r20}."
+         "{here_ending}."
+      ]
+   };
+   got_first : list {
+      items = [
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false"
+      ]
+   };
+   got_second : list {
+      items = [
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false"
+      ]
+   };
+   tried_combo : list {
+      items = [
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false",
+         "false"
+      ]
+   };
+
+   # finally, the utility numbers to words list
    num_to_word : list {
       items = [
          "zero",
