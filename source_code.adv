@@ -253,7 +253,7 @@ booleans {
 
    done_already : boolean "false" ;
    think_already : boolean "false" ;
-   got_think : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_thee_floored || think_high_strawberry )} ;
+   thought_any : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_thee_floored || think_high_strawberry )} ;
 
    # puzzle readiness dynamic booleans
    ready_great_ankhs : dynamic_boolean {( point_pawn_dicey && point_a_dart )}
@@ -1385,10 +1385,6 @@ on_command {
          }
          : done ;
       }
-      : if (!got_think) {
-         : print "There are no commands you figured out and will need to re-use in the future with stronger preparation." ;
-         : done ;
-      }
       : if (think_deem_unfit) {
          : print "You can {t_deem_unfit} the demon (fit) {here_r21} {once_deem_unfit} you have ways to slow down its jabber a bit." ;
       }
@@ -1400,6 +1396,30 @@ on_command {
       }
       : if (think_great_ankhs) {
          : print "You can convert the gray tanks to {t_great_ankhs} {once_great_ankhs} you have {think_tank_detail}." ;
+      }
+      : set_integer var="counter" "0" ;
+      : set_false "think_half_yet" ;
+      : if (opt_see_lol) {
+         : while (counter < 12) {
+            : if ((collection_get{ collection -> ("tried_combo") index -> ( counter )} == "false")) {
+               : if (part_word_score > 0) {
+                  : if (!think_half_yet) {
+                     : print {( (thought_any ? "Also, here" : "Here") + " is what you know from partially correct guessing:" )} ;
+                     : set_true "think_half_yet" ;
+                  }
+                  : print {( (part_word_score != 2 ? (collection_get{ collection -> ("first_words") index -> (counter) }) : "{noguess}") + " " + (part_word_score >= 2 ? (collection_get{ collection -> ("second_words") index -> (counter) }) : "{noguess}") + " " + (collection_get{ collection -> ("situations") index -> (counter) }) )} ;
+                  : set_true "solved_both_parts_nag" ;
+                  : if (!solved_both_parts_nag && part_word_score == 3) {
+                     : print "{note_once}You have solved something in parts, but you haven't typed the complete command yet. If it doesn't work once you do,  you'll still see what you need to do first here in {vd_think}." ;
+                     : set_true "solved_both_parts_nag" ;
+                  }
+               }
+            }
+            : increment "counter" ;
+         }
+      }
+      : if (!think_half_yet && !thought_any) {
+         : print "There's nothing you've currently figured out only partially, whether it's the right phrase and the wrong time, or half of a phrase you need." ;
       }
    }
    : match "verbs _;verb _" {
