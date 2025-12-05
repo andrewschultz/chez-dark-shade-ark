@@ -456,7 +456,7 @@ locations {
          }
          : match "weak _;_ link" {
             : set_boolean var = "done_already" {( point_weak_link )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
       }
@@ -520,7 +520,7 @@ locations {
          }
          : match "sly _;_ maps;_ map" {
             : set_boolean var = "done_already" {( point_sly_maps )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
       }
@@ -563,7 +563,7 @@ locations {
          }
          : match "walk _;_ round" {
             : set_boolean var = "done_already" {( point_walk_round )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
       }
@@ -589,7 +589,7 @@ locations {
          }
          : match "off _;_ lame" {
             : set_boolean var = "done_already" {( point_off_lame )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
          : if (return_off_lame) {
@@ -605,7 +605,7 @@ locations {
             }
             : match "gull _;_ flying" {
                : set_boolean var = "done_already" {( point_gull_flying )} ;
-               : gosub "say_half" ;
+               : gosub "reject_half" ;
                : done ;
             }
          }
@@ -648,7 +648,7 @@ locations {
          : match "great _;_ ankhs;_ ankh" {
             : set_boolean var = "done_already" {( point_great_ankhs )} ;
             : set_boolean var = "think_already" {( think_great_ankhs )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
       }
@@ -676,7 +676,7 @@ locations {
          : if (!point_pawn_dicey) {
             : match "pawn _;_ dicey" {
                : set_boolean var = "done_already" {( point_pawn_dicey )} ;
-               : gosub "say_half" ;
+               : gosub "reject_half" ;
                : done ;
             }
          }
@@ -697,7 +697,7 @@ locations {
          }
          : match "arbor _;_ dens" {
             : set_boolean var = "done_already" {( point_arbor_dens )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
          : if (point_arbor_dens) {
@@ -714,7 +714,7 @@ locations {
             }
             : match "first _;_ attic" {
                : set_boolean var = "done_already" {( point_first_attic )} ;
-               : gosub "say_half" ;
+               : gosub "reject_half" ;
                : done ;
             }
          }
@@ -779,7 +779,7 @@ locations {
          : match "thee _;_ floored" {
             : set_boolean var = "done_already" {( point_thee_floored )} ;
             : set_boolean var = "think_already" {( think_thee_floored )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
       }
@@ -836,7 +836,7 @@ locations {
          : match "deem _;_ unfit" {
             : set_boolean var = "done_already" {( point_deem_unfit )} ;
             : set_boolean var = "think_already" {( think_deem_unfit )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
       }
@@ -1124,7 +1124,7 @@ subroutines {
          : match "high _;_ strawberry" {
             : set_boolean var = "done_already" {( point_high_strawberry )} ; #okay, not really a test case
             : set_boolean var = "think_already" {( think_high_strawberry )} ;
-            : gosub "say_half" ;
+            : gosub "reject_half" ;
             : done ;
          }
       }
@@ -1144,16 +1144,21 @@ subroutines {
       }
    }
 
-   say_half : subroutine {
+   reject_half : subroutine {
       : if (done_already) {
          : print "That's half of something you already got to work." ;
       } : else_if (think_already) {
-         : print "That's half of something you already guessed. {vm_think} will recall it." ;
+         : print "That's half of something you already guessed. {vd_think} will recall it." ;
       } : else {
          : print "You feel you must have one word right." ;
+         : if (first_half) {
+            : collection_modify { collection = "got_first" index -> (tempint) content -> ("true") ; }
+         } : else {
+            : collection_modify { collection = "got_second" index -> (tempint) content -> ("true") ; }
+         }
          : if (!note_half_limitations) {
-            : print "{note_once}ideally, I'd keep track of which word you have right, but while Adventuron makes many things easy, its lack of support for complex classes makes the code (as I see it) hard to write and test. Sorry for any inconvenience." ;
-			: set_true "note_half_limitations" ;
+            : print "{note_once}{this_g} spells out half-right guesses with {vd_think} by default. This option can be disabled with {vo_seal_all} or enabled with {vo_see_lol}." ;
+            : set_true "note_half_limitations" ;
          }
       }
       : set_false "done_already" ;
