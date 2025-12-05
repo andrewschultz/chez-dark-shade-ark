@@ -25,7 +25,7 @@ strings {
    this_g : string "<Chez Dark Shade Arc<#f80>>" ;
    note_once : string "<ONE-TIME NOTE:<#f0f>> " ;
    yn_or_12_or_14 : dynamic_string {( (verb_is "save" || verb_is "load") ? "Please choose from 1 to 4." : in_number_choice ? "Please choose 1 or 2." : "Please choose YES/Y or NO/N." )}
-   hone_stickler : string "I'm going to be a stickler and enforce the spirit of the game on you and make you type " ;
+   command_stickler : string "I'm going to be a stickler and enforce the spirit of the game on you and make you type " ;
 
    # links
    l_ut : string "<Us Too<#0f0>>[http://andrewschultz.itch.io/us-too]" ;
@@ -52,8 +52,11 @@ strings {
    vm_tstart_stop : string "<TSTART<#0f0>>/<TSTOP<#0f0>>" ;
 
    # options
-   vo_hone_aye : string "<HONE AYE<#f80>>" ;
-   vo_ho_nigh : string "<HO NIGH<#f80>>" ;
+   vo_seal_all : string "<SEAL ALL<#f0f>>" ;
+   vo_see_lol : string "<SEE LOL<#f0f>>" ;
+   vo_hone_aye : string "<HONE AYE<#ff0>>/<HONE EYE<#ff0>>" ;
+   vo_ho_nigh : string "<HO NIGH<#ff0>>" ;
+   opt_txt_see_seal : string "Remembering half-guessed phrases" ;
 
    xme : string "<X ME<#0f0>>" ;
    xnumhint : dynamic_string {( "will see general hints for " + (ever_x_me ? "{xnum}" : "the item from {xme}") + "." )} ;
@@ -275,8 +278,10 @@ booleans {
    r21_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r22" && point_deem_unfit )} ;
    r22_hone_block : dynamic_boolean {( opt_hone_aye && is_at "r01" && point_deem_unfit )} ;
 
-   # option (s)
+   # option(s)
    opt_hone_aye : boolean "false" ;
+   opt_see_lol : boolean "true" ;
+   see_lol_known : boolean "false" scope="survivor" ;
 
    # map rendering booleans
    showing_map : boolean "false" ;
@@ -1019,11 +1024,35 @@ subroutines {
          : set_false "opt_hone_aye" ;
       }
       : match "hone _" { #noobfus
-         : print "{hone_stickler} {vo_hone_aye}.";
+         : print "{command_stickler} {vo_hone_aye}.";
       }
       : match "ho _" { #noobfus
-         : print "{hone_stickler} {vo_ho_nigh}.";
+         : print "{command_stickler} {vo_ho_nigh}.";
       }
+
+      : match "see lol" {
+         : print {( "{opt_txt_see_seal} is " + (opt_see_lol ? "already" : "now") + " off." + (see_lol_known ? "" : " {vo_seal_all} turns it off.") )} ;
+         : set_true "opt_see_lol" ;
+         : set_true "see_lol_known" ;
+         : done ;
+      }
+      : match "seal all" {
+         : print {( "{opt_txt_see_seal} is " + (opt_see_lol ? "now" : "already") + " off." + (see_lol_known ? "" : " {vo_see_lol} turns it on.") )} ;
+         : set_false "opt_see_lol" ;
+         : set_true "see_lol_known" ;
+         : done ;
+      }
+      : if (see_lol_known) {
+         : match "see _" {
+            : print "{command_stickler} {vo_see_lol}." ;
+            : done ;
+         }
+         : match "seal _" {
+            : print "{command_stickler} {vo_seal_all}." ;
+         : done ;
+         }
+      }
+
    }
 
    custom_verb_general_checks : subroutine { # this is so obfus.py can "see" any odd verbs that might be used
