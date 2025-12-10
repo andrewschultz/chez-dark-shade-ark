@@ -1381,6 +1381,15 @@ on_command {
    }
    : match "think _" {
       : if (is_at "wee_clink") {
+         : set_integer var="counter" "0" ;
+         : if (part_word_score > last_first_puzzle_score) {
+            : print {( "<NOTE<#ff0>>: you have figured out " + (part_word_score == 3 ? "<WEAK LINK<#f80>> with separate commands, so you can just type it in. If you're not sure why, continue to {vm_think} for the explanation." : (part_word_score == 1 ? "<WEAK<#f80>> as the first word." : "<LINK<#f80>> as the second word.") ) )} ;
+			: if (part_word_score < 3) {
+			   : print "So I'll cut off the game mechanics hints this time, though if you type {vm_think} again, they will proceed." ;
+			}
+            : set_integer var="last_first_puzzle_score" {( part_word_score )} ;
+			: done ;
+         }
          : if (!clink_think) {
             : print "{note_once}a small make-sure nag before starting. {vm_think}ing here will progressively reveal hints as to the first action and track if you got it partially right." ;
             : set_true "clink_think" ;
