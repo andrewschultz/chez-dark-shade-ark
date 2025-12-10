@@ -365,7 +365,7 @@ collections {
          "<FLYING<#f80>>",
          "<DENS<#f80>>",
          "<ATTIC<#f80>>",
-         "<ANKHS<#f80>>",
+         "<ANKH(S)<#f80>>",
          "<UNFIT<#f80>>",
          "<FLOORED<#f80>>",
          "<STRAWBERRY<#f80>>",
@@ -401,6 +401,7 @@ collections {
          "false",
          "false",
          "false",
+         "false",
          "false"
       ]
    };
@@ -417,11 +418,13 @@ collections {
          "false",
          "false",
          "false",
+         "false",
          "false"
       ]
    };
    tried_combo : list {
       items = [
+         "false",
          "false",
          "false",
          "false",
@@ -1146,7 +1149,7 @@ subroutines {
       : print "{this_g} has two options." ;
       : print "{vo_hone_aye} and {vo_ho_nigh} toggle blocking passage to rooms you're done with." ;
       : print "{vo_see_lol} and {vo_seal_all} toggle whether {vd_think} will show specific words you've guessed right." ;
-      : set_true "read_options" ;
+      : set_true "read_options_yet" ;
    }
 
    note_thinks : subroutine {
