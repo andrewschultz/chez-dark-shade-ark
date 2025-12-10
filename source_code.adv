@@ -8,7 +8,7 @@ start_theme = my_theme
 
 game_information {
    game_name                    = Chez Dark Shade Ark
-   game_version                 = 2.0.0
+   game_version                 = 3.0.0
    game_shortname               = this_g
    written_by                   = Andrew Schultz
    uuid                         = 9a53454f-9f3c-4af9-b93a-4a04c86c6c96
@@ -198,12 +198,19 @@ strings {
 integers {
    score : integer "0" ;
    max_score : integer "13" ;
+
+   tempint : integer "0" ;
+   counter : integer "0" ;
+
    thought_right : dynamic_integer {(
       (think_great_ankhs ? 1 : 0) +
       (think_deem_unfit ? 1 : 0) +
       (think_thee_floored ? 1 : 0) +
       (think_high_strawberry ? 1 : 0)
   )} ;
+
+   part_word_score : dynamic_integer {( ((collection_get{ collection -> ("got_first") index -> ( counter ) } == "true") ? 1 : 0) + ((collection_get{ collection -> ("got_second") index -> ( counter ) } == "true") ? 2 : 0) )} ; # this is a really bad hack, but I couldn't find a concise way to code things. Maybe I could use a dynamic boolean.
+   last_first_puzzle_score : integer "0" ;
 
    clue_number : dynamic_integer {(
       is_at "wee_clink" ? 44 :
@@ -250,6 +257,12 @@ booleans {
    think_deem_unfit : boolean "false" ;
    think_thee_floored : boolean "false" ;
    think_high_strawberry : boolean "false" ;
+
+   # THINK booleans
+   think_note_yet : boolean "false" ;
+   think_half_yet : boolean "false" ;
+   first_half : boolean "false" ;
+   solved_both_parts_nag : boolean "false" ;
 
    done_already : boolean "false" ;
    think_already : boolean "false" ;
@@ -306,7 +319,6 @@ booleans {
 
    won_yet : boolean "false" scope="survivor" ;
    win_warn : boolean "false" scope="survivor" ;
-   think_note_yet : boolean "false" ;
 
    # inventory emptiness tracking
    picked_anything_up : dynamic_boolean {( point_sly_maps || point_off_lame )} ;
