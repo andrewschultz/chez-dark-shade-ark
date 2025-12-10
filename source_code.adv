@@ -1286,7 +1286,7 @@ on_command {
    : match "z _;wait _" {
       : print "\"Loaf, right? Lo, fright!\"" ;
       : if (!wait_yet) {
-         : print "{note_once}This is just a silly general response. Waiting gives no penalty or benefit." ;
+         : print {( "{note_once}This is just a silly general response" + ( is_at "wee_clink" ? ", though it does provide a clue how to get out of here, in its own way" : "" ) + ". Waiting gives no penalty or benefit." )} ;
          : set_true "wait_yet" ;
       }
    }
@@ -1382,12 +1382,12 @@ on_command {
    : match "think _" {
       : if (is_at "wee_clink") {
          : if (!clink_think) {
-            : print "{note_once}a small make-sure nag before starting. {vm_think}ing here will progressively reveal hints as to the first action." ;
+            : print "{note_once}a small make-sure nag before starting. {vm_think}ing here will progressively reveal hints as to the first action and track if you got it partially right." ;
             : set_true "clink_think" ;
             : done ;
          }
          : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
-            : print "Standard commands won't help you leave, though <WAIT<#0f0>>ing may give an additional clue." ;
+            : print "You'll need a non-standard command to leave. <WAIT<#0f0>>ing may give an additional clue." ;
             : print "So does what you say to yourself following a parser error. (It will disappear once you've left the clink.)" ;
             : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
             : print "Also, the titles of similar games if you type {vm_about} then {vm_history} may provide clues." ;
