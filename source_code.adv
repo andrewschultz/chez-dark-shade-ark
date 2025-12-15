@@ -84,7 +84,7 @@ strings {
    i_bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
    i_fsfp : string "<free-speech-freeze peach<#ccc>>" ;
    i_hope_light : string "<ho-plight-hope light<#ccc>>" ;
-   i_me_code : string "<a meek \"owed, me\" code<#ccc>>" ;
+   i_me_code : string "<meek \"owed, me\" code<#ccc>>" ;
    i_pcpa : string "<po' charm-poach arm<#ccc>>" ;
 
    # scenery, no puzzle, arranged alphabetically
@@ -603,7 +603,7 @@ locations {
       }
       on_describe {
          : if (point_thee_floored && !return_thee_floored) {
-            : print "But wait! You look at {i_me_code}! One of the diagrams actually makes sense! It shows one exit you'd have missed otherwise, and it leads <IN<#0f0>>ward!" ;
+            : print "But wait! You look at the {i_me_code}! One of the diagrams actually makes sense! It shows one exit you'd have missed otherwise, and it leads <IN<#0f0>>ward!" ;
             : set_true "return_thee_floored" ;
          }
          : if (point_sly_maps && !is_exists "hope_light" && !return_sly_maps) {
@@ -812,7 +812,7 @@ locations {
          }
          : match "_ door;_ sword;_ sore" {
             : if (point_thee_floored) {
-               : print "Don't mess with the door now. Figure what to do with {i_me_code}." ;
+               : print "Don't mess with the door now. Figure what to do with the {i_me_code}." ;
             } : else {
                : print "It looks intimidating, but you won't need to mess with it even with the {puz_thief_lord} gone. " ;
             }
@@ -977,7 +977,7 @@ objects {
    freeze_peach : object "a {i_fsfp}" msg="You were worried it would exhibit a chilling effect on you, but when you stare at it a but, you realize you have a right, maybe even a duty, to cut in around people who talk too much and feel a bit freer to speak your own mind." ;
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
    brood_ankh : object "a brew-dank-brood ankh" msg="It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
-   me_code : object "{i_me_code}" msg="A list of grievances, imaginary or otherwise, allegedly justifying why the poor hard-done-by Thief Lord was not just right to steal more and more, but wrong not to. Among the indecipherable diagrams, you see {puz_heist} written on it a lot." ;
+   me_code : object "a {i_me_code}" msg="A list of grievances, imaginary or otherwise, allegedly justifying why the poor hard-done-by Thief Lord was not just right to steal more and more, but wrong not to. Among the indecipherable diagrams, you see {puz_heist} written on it a lot." ;
 
    # scenery e.g. non-default description may need to go in on_describe block
    demon_fit : scenery "{puz_demon_fit}" msg="(see MATCH code)" at="r21" conspicuous="false" ;
