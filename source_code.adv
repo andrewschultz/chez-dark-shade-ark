@@ -1181,6 +1181,25 @@ subroutines {
       }
    }
 
+   meta_credits : subroutine {
+      : print "Game-specific thanks:" ;
+      : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
+      : print "Thanks to <Leon W. Lin<#0f0>> for post-comp testing of the {vm_think} feature."
+      : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
+      : gosub "meta_credits_general" ;
+   }
+
+   meta_credits_general : subroutine {
+      : print "<GENERAL THANKS<#f80>>:" ;
+      : print "Thanks to the administrators <Ruber Eaglenest<#0f0>>[https://rubereaglenest.itch.io], <Alyshkalia<#0f0>>[https://alyshkalia.itch.io] and <Passerine<#0f0>>[https://passerine.itch.io] for holding {l_ectocomp}, as well as former administrators like JJ Guest and Duncan Bowsman." ;
+      : print "Thanks to Chris Ainsley for creating <Adventuron<#0f0>>[https://adventuron.itch.io/]." ;
+      : print "Blanket thanks to Python and its developers for scripts that helped me generate similar code (point scoring, etc.) quickly." ;
+      : if (!warn_generic_credit) {
+         : print "{note_once}you can see generic Adventuron credits with <*CREDITS<#f80>>." ;
+         : set_true "warn_generic_credit" ;
+      }
+   }
+
    meta_options : subroutine {
       : print "{this_g} has two options." ;
       : print "{vo_hone_aye} and {vo_ho_nigh} toggle blocking passage to rooms you're done with." ;
@@ -1356,16 +1375,10 @@ on_command {
       : print "Note {this_g} uses a color-coding scheme. Stuff to change is <lavender<#f4f>>, while stuff that's just for amusement is <grey<#ccc>>." ;
    }
    : match "credits _;credit _" {
-      : print "Thanks to the administrators <Ruber Eaglenest<#0f0>>[https://rubereaglenest.itch.io], <Alyshkalia<#0f0>>[https://alyshkalia.itch.io] and <Passerine<#0f0>>[https://passerine.itch.io] for holding {l_ectocomp}, as well as former administrators like JJ Guest and Duncan Bowsman." ;
-      : print "Thanks to Chris Ainsley for creating <Adventuron<#0f0>>[https://adventuron.itch.io/]." ;
-      : print "I had no time for testers, alas, but if you find a bug, you can get your name here!" ;
-      : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
-      : print "Blanket thanks to Python and its developers for scripts that helped me generate similar code (point scoring, etc.) quickly." ;
-      : if (!warn_generic_credit) {
-         : print "{note_once}you can see generic Adventuron credits with <*CREDITS<#f80>>." ;
-         : set_true "warn_generic_credit" ;
-      }
+      : gosub "meta_credits" ;
+      : done ;
    }
+
    : match "help _;hint _;hints _" {
       : if (!warn_hints) {
          : print "{note_once}there are no explicit in-game hints beyond how to use {hint_item}." ;
