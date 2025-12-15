@@ -646,6 +646,11 @@ locations {
             }
             : match "gull _;_ flying" {
                : set_boolean var = "done_already" {( point_gull_flying )} ;
+            : set_integer var="tempint" "6" ;
+            : set_false "first_half" ;
+            : match "gull _" {
+               : set_true "first_half" ;
+            }
                : gosub "reject_half" ;
                : done ;
             }
@@ -691,6 +696,11 @@ locations {
          : match "great _;_ ankhs;_ ankh" {
             : set_boolean var = "done_already" {( point_great_ankhs )} ;
             : set_boolean var = "think_already" {( think_great_ankhs )} ;
+            : set_integer var="tempint" "9" ;
+            : set_false "first_half" ;
+            : match "great _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -720,6 +730,11 @@ locations {
          : if (!point_pawn_dicey) {
             : match "pawn _;_ dicey" {
                : set_boolean var = "done_already" {( point_pawn_dicey )} ;
+            : set_integer var="tempint" "4" ;
+            : set_false "first_half" ;
+            : match "pawn _" {
+               : set_true "first_half" ;
+            }
                : gosub "reject_half" ;
                : done ;
             }
@@ -742,6 +757,11 @@ locations {
          }
          : match "arbor _;_ dens" {
             : set_boolean var = "done_already" {( point_arbor_dens )} ;
+            : set_integer var="tempint" "7" ;
+            : set_false "first_half" ;
+            : match "arbor _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -760,6 +780,11 @@ locations {
             }
             : match "first _;_ attic" {
                : set_boolean var = "done_already" {( point_first_attic )} ;
+            : set_integer var="tempint" "8" ;
+            : set_false "first_half" ;
+            : match "first _" {
+               : set_true "first_half" ;
+            }
                : gosub "reject_half" ;
                : done ;
             }
@@ -827,6 +852,11 @@ locations {
          : match "thee _;_ floored" {
             : set_boolean var = "done_already" {( point_thee_floored )} ;
             : set_boolean var = "think_already" {( think_thee_floored )} ;
+            : set_integer var="tempint" "11" ;
+            : set_false "first_half" ;
+            : match "thee _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -886,6 +916,11 @@ locations {
          : match "deem _;_ unfit" {
             : set_boolean var = "done_already" {( point_deem_unfit )} ;
             : set_boolean var = "think_already" {( think_deem_unfit )} ;
+            : set_integer var="tempint" "10" ;
+            : set_false "first_half" ;
+            : match "broke _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -1175,6 +1210,10 @@ subroutines {
          : match "high _;_ strawberry" {
             : set_boolean var = "done_already" {( point_high_strawberry )} ; #okay, not really a test case
             : set_boolean var = "think_already" {( think_high_strawberry )} ;
+            : set_integer var="tempint" "12" ;
+            : set_false "first_half" ;
+            : match "high _" {
+               : set_true "first_half" ;
             : gosub "reject_half" ;
             : done ;
          }
