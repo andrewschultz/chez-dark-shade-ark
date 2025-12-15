@@ -464,6 +464,7 @@ locations {
          : match "weak link" {
             : print "Of course, anyone who's stuck in a cell can sit around and dream of a way out. A hidden key, a button or lever, or whatever. But you have something specific to look for. With diligence, you find a weak link and fiddle with it until it enlarges. You hear crumbling above, and you run out before the way in (or out) collapses..." ;
             : set_true "point_weak_link" ;
+            : collection_modify { collection = "tried_combo" index -> (0) content -> ("true") } ;
             : gosub "add_point" ;
             : press_any_key ;
             : goto "r01" ;
@@ -471,6 +472,11 @@ locations {
          }
          : match "weak _;_ link" {
             : set_boolean var = "done_already" {( point_weak_link )} ;
+            : set_integer var="tempint" "0" ;
+            : set_false "first_half" ;
+            : match "weak _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -487,6 +493,7 @@ locations {
             : print "You wonder what the weird thing in the {i_me_code} could be. The thief lord said it was something weird, and that certainly fits the bill. You call out for a giant strawberry, perhaps one of royal lineage, which seems pretty weird, but it can't be as evil as, say, junk food, or liver or whatever. Yuck." ;
             : set_true "point_high_strawberry" ;
             : set_false "think_high_strawberry" ;
+            : collection_modify { collection = "tried_combo" index -> (12) content -> ("true") } ;
             : gosub "add_point" ;
             : print "But it looks really embarrassed when it shows up. You ask what's the matter." ;
             : set_false "showing_room" ;
@@ -529,12 +536,18 @@ locations {
          : match "sly maps;sly map" {
             : print "You were worried about looking through all the slime at first, because you didn't know what to look for, and it would be too messy. But since you decided you might be looking for maps, you were able to focus, and not worry about certain blobs which pretty much could not hold them. And what do you know? You find half of a particularly clever map. Why, you might call it a sly map, with how carefully it was hidden." ;
             : set_true "point_sly_maps" ;
+            : collection_modify { collection = "tried_combo" index -> (3) content -> ("true") } ;
             : gosub "add_point" ;
             : pocket "sly_maps" ;
             : done ;
          }
          : match "sly _;_ maps;_ map" {
             : set_boolean var = "done_already" {( point_sly_maps )} ;
+            : set_integer var="tempint" "3" ;
+            : set_false "first_half" ;
+            : match "sly _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -572,12 +585,18 @@ locations {
             : print "Certainly the wall looks intimidating at first. You're still getting your bearings. But after a while, you stop being impressed and blown away, and you realize you can take your time to look around. Nobody has tracked you since your escape. The first door is the trickiest. Another is easier, and the third is almost too easy. You even find a hidden passage leading downward." ;
             : print "You wonder and even hope there might be one more passage out, but really, you have enough to explore for the moment. They all look pretty safe, at least at first." ;
             : set_true "point_walk_round" ;
+            : collection_modify { collection = "tried_combo" index -> (1) content -> ("true") } ;
             : gosub "add_point" ;
             : press_any_key ;
             : done ;
          }
          : match "walk _;_ round" {
             : set_boolean var = "done_already" {( point_walk_round )} ;
+            : set_integer var="tempint" "1" ;
+            : set_false "first_half" ;
+            : match "walk _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -598,12 +617,18 @@ locations {
          : match "off lame" {
             : print "The flame seems impressive at first, but once you stop staring at it, you realize it's contained, and it's not going to catch and go anywhere else. In fact, instead of being odd by it, you're glad it provides like to look at other places. And that light turns up. However, as you stare at it more, it sort of burns away, and you can't see it anymore. Unfortunately, it burns out enough that you can't find a way forward, for the moment. Maybe you will find a light source later." ;
             : set_true "point_off_lame" ;
+            : collection_modify { collection = "tried_combo" index -> (2) content -> ("true") } ;
             : gosub "add_point" ;
             : pocket "key_nigh" ;
             : done ;
          }
          : match "off _;_ lame" {
             : set_boolean var = "done_already" {( point_off_lame )} ;
+            : set_integer var="tempint" "2" ;
+            : set_false "first_half" ;
+            : match "off _" {
+               : set_true "first_half" ;
+            }
             : gosub "reject_half" ;
             : done ;
          }
@@ -615,6 +640,7 @@ locations {
                }
                : print "No, you think, the light wouldn't have shown the passage to the gulf without being more explicit that there was hope. The gulf seems to say, no, there really is nowhere else, but you also know that by water, there are signs and animals you can look for. You discover a gull and note them flying east. Once you know there's a passage that way, your mind is clearer, and you see the passage now." ;
                : set_true "point_gull_flying" ;
+               : collection_modify { collection = "tried_combo" index -> (6) content -> ("true") } ;
                : gosub "add_point" ;
                : done ;
             }
@@ -632,6 +658,7 @@ locations {
             : if (!point_pawn_dicey && !point_a_dart) {
                : print "These tanks aren't going to be neutralized without a fight. You need a weapon and, probably, someone to use it, or help you use it." ;
                : set_true "think_great_ankhs" ;
+               : collection_modify { collection = "tried_combo" index -> (9) content -> ("true") } ;
                : gosub "note_thinks" ;
                : done ;
             }
@@ -657,6 +684,7 @@ locations {
             : create "great_ankhs" ;
             : set_false "think_great_ankhs" ;
             : pocket "brood_ankh" ;
+            : collection_modify { collection = "tried_combo" index -> (9) content -> ("true") } ;
             : gosub "add_point" ;
             : done ;
          }
@@ -685,6 +713,7 @@ locations {
             : print "But it says, \"Well, I have to look shifty around here, it will be suspicious if I don't. I'll tell you what, I know some secrets. I'm a pretty good marksman, and I can take innocuous things and make them into something powerful, maybe not lethal, but they can change the nature of something that is intimidating you. Your soul.\"" ;
             : print "You don't seem to have many other friends to help you here, so you'll take what you can get." ;
             : set_true "point_pawn_dicey" ;
+            : collection_modify { collection = "tried_combo" index -> (4) content -> ("true") } ;
             : gosub "add_point" ;
             : done ;
          }
@@ -707,6 +736,7 @@ locations {
             : print "You look past all the whining, and there's actually somewhere much nicer to be, better irrigated, and so forth, all sorts of trees all over the place. Most of them seem pretty happy and well kept up, but there is one {puz_fir_static} in the middle of them all." ;
             : set_true "point_arbor_dens" ;
             : create "fir_static" ;
+            : collection_modify { collection = "tried_combo" index -> (7) content -> ("true") } ;
             : gosub "add_point" ;
             : done ;
          }
@@ -724,6 +754,7 @@ locations {
                : print "You wonder what a fir (static) could hide. But you look around. You stare at it. Slowly it starts to sway, fist one direction, then another. Off in one very cold attic is a {i_fsfp}." ;
                : pocket "freeze_peach" ;
                : set_true "point_first_attic" ;
+               : collection_modify { collection = "tried_combo" index -> (8) content -> ("true") } ;
                : gosub "add_point" ;
                : done ;
             }
@@ -772,6 +803,7 @@ locations {
             : if (!point_deem_unfit) {
                : print "The thief lord can't be floored by you alone. You need a distraction." ;
                : set_true "think_thee_floored" ;
+               : collection_modify { collection = "tried_combo" index -> (11) content -> ("true") } ;
                : gosub "note_thinks" ;
                : done ;
             }
@@ -786,6 +818,7 @@ locations {
             : print "The {i_pcpa} combs through the area with the thief gone. It seems to ignore the treasure, instead settling on a {i_me_code} it flips your way. Then it gives you a thumbs-up and runs off. It's paid its dues for rescuing you." ;
             : pocket "me_code" ;
             : destroy "poach_arm" ;
+            : collection_modify { collection = "tried_combo" index -> (11) content -> ("true") } ;
             : gosub "add_point" ;
             : press_any_key ;
             : redescribe ;
@@ -831,6 +864,7 @@ locations {
             : if (!point_first_attic) {
                : print "You thought you had some good points, but the demon (fit) roars back at you with a variety of rhetorical debating techniques, before suggesting you're lucky they didn't use violence. If only you had some way to trip them up." ;
                : set_true "think_deem_unfit" ;
+               : collection_modify { collection = "tried_combo" index -> (10) content -> ("true") } ;
                : gosub "note_thinks" ;
                : done ;
             }
@@ -843,6 +877,7 @@ locations {
             : pocket "poach_arm" ;
             : set_true "point_deem_unfit" ;
             : set_false "think_deem_unfit" ;
+            : collection_modify { collection = "tried_combo" index -> (10) content -> ("true") } ;
             : gosub "add_point" ;
             : press_any_key ;
             : redescribe ;
@@ -1133,6 +1168,7 @@ subroutines {
          : match "high strawberry" {
             : print "You look around to find someone or something or somefruit to notify of the heist robbery, but this isn't the place." ;
             : set_true "think_high_strawberry" ;
+            : collection_modify { collection = "tried_combo" index -> (12) content -> ("true") } ;
             : gosub "note_thinks" ;
             : done ;
          }
