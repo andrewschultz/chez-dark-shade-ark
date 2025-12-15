@@ -164,7 +164,7 @@ strings {
    r11_nogo : string "You can only go back west or down." ;
 
    r12_header : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#ff0>>" : "{puz_our_burdens}" )} ;
-   r12_loc_desc : dynamic_string {( ( point_first_attic ? "It's real nice and verdant here, but you can't see much adventure now you've figured the mystery of the fir (static)." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out. A {puz_fir_static}." : "It's bare and desolate here. You hear incorporeal whining \"Our burdens ... {puz_our_burdens} ...\"" ) + "\nThe only way back is west." )} ;
+   r12_loc_desc : dynamic_string {( ( point_first_attic ? "It's real nice and verdant here, but now you've figured the mystery of the fir (static), there's nothing left to do." : point_arbor_dens ? "There are a bit more trees now, but one particularly stands out. A {puz_fir_static}." : "It's bare and desolate here. You hear incorporeal whining \"Our burdens ... {puz_our_burdens} ...\"" ) + "\nThe only way back is west." )} ;
    r12_nogo : string "You can only go back west." ;
 
    r20_header : dynamic_string {( "<Sword-Or-Sore Door<#ff0>>" )} ;
@@ -621,7 +621,7 @@ locations {
    r02 : location "{r02_loc_desc}" header = "{r02_header}" {
       on_command {
          : match "off lame" {
-            : print "The flame seems impressive at first, but once you stop staring at it, you realize it's contained, and it's not going to catch and go anywhere else. In fact, instead of being odd by it, you're glad it provides like to look at other places. And that light turns up. However, as you stare at it more, it sort of burns away, and you can't see it anymore. Unfortunately, it burns out enough that you can't find a way forward, for the moment. Maybe you will find a light source later." ;
+            : print "The flame seems impressive at first, but once you stop staring at it, you realize it's contained, and it's not going to catch and go anywhere else. In fact, instead of being awed by it, you're glad it provides light to look at other places. However, as you stare at it more, it sort of burns away, until you can't see it anymore. It, or the path or paths it seemed to open up. Maybe you will find a light source later." ;
             : set_true "point_off_lame" ;
             : collection_modify { collection = "tried_combo" index -> (2) content -> ("true") } ;
             : gosub "add_point" ;
@@ -1165,7 +1165,7 @@ subroutines {
             }
             : destroy "aid_art" ;
             : pocket "dart" ;
-            : print "The aid art doesn't have explicit instructions, how to create a dart, but you suppose that's for the best. People shouldn't have too-easy access to lethal weapons. It takes a while to figure what to do, but thanks to your earlier wordsmithing, you see methods others might have missed. Enough to create a dart!" ;
+            : print "The aid art doesn't have explicit instructions on how to create a dart, but you suppose that's for the best. People shouldn't have too-easy access to lethal weapons. It takes a while to figure what to do, but thanks to your earlier wordsmithing, you see methods others might have missed. Enough to create a dart!" ;
             : set_true "point_a_dart" ;
             : gosub "add_point" ;
             : done ;
@@ -1534,10 +1534,11 @@ on_command {
       : print "{this_g} had more rooms than {l_gsgr} so the EctoComp version didn't have bells and whistles, but I added them post-comp." ;
       : print "Leftovers from {this_g} are found in {l_dadc}. In fact, each of the three games had unique features for EctoComp that I merged into all of them post-comp." ;
       : print "" ;
-      : print "Version 1 was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp." ;
+      : print "Version 1 was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp Petite Mort, where it placed {placing} of 32 entries." ;
       : print "Version 2 was published after EctoComp finished, on December 3, 2025." ;
+      : print "Version 3 is due to be published by the end of 2025. It is the last major update planned." ;
       : print "" ;
-      : print "If you've found this elsewhere than Itch.io, the latest version should be at {l_cdsa}." ;
+      : print "If you've found this elsewhere than Itch.io, the original version should be at {l_cdsa}." ;
    }
    : match "opt _;opts _;option _;options _" {
       : gosub "meta_options" ;
