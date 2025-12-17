@@ -1363,6 +1363,30 @@ subroutines {
       : set_false "think_already" ;
    }
 
+   see_seal_ops : subroutine {
+      : match "see lol" {
+         : print {( "{opt_txt_see_seal} is " + (opt_see_lol ? "already" : "now") + " off." + (see_lol_known ? "" : " {vo_seal_all} turns it off.") )} ;
+         : set_true "opt_see_lol" ;
+         : set_true "see_lol_known" ;
+         : done ;
+      }
+      : match "seal all" {
+         : print {( "{opt_txt_see_seal} is " + (opt_see_lol ? "now" : "already") + " off." + (see_lol_known ? "" : " {vo_see_lol} turns it on.") )} ;
+         : set_false "opt_see_lol" ;
+         : set_true "see_lol_known" ;
+         : done ;
+      }
+      : if (see_lol_known) {
+         : match "see _" {
+            : print "{command_stickler} {vo_see_lol}." ;
+            : done ;
+         }
+         : match "seal _" {
+            : print "{command_stickler} {vo_seal_all}." ;
+            : done ;
+         }
+      }
+
 }
 
 themes {
@@ -1491,6 +1515,7 @@ on_command {
 
    : gosub "custom_verb_general_checks" ;
    : gosub "check_options" ;
+   : gosub "opt_see_seal" ;
 
    : match "about _" {
       : gosub "meta_about" ;
