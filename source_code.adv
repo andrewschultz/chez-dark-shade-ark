@@ -1103,6 +1103,24 @@ subroutines {
       : update_graphic ;
    }
 
+   check_odd_verbs : subroutine {
+      : match "xyzzy _" {
+         : print "A hollow voice intones \"Our gaol: argh, ail!\" It's so spooky, you don't dare quibble over details of pronunciation." ;
+         : done ;
+      }
+      : mask {
+         : match "load -" {
+            : print "You hear a low \"Do load, ooh!\"" ;
+         }
+         : match "restore -" {
+            : print "You hear a tune. It could be called a re-load reel/ode, I guess." ;
+         }
+         : match "save -" {
+            : print "A ghostly apparition with \"Save? Illun', Say!\" Villain written on its front taunts your very reasonable precaution. But you don't need to listen to such meanies." ;
+         }
+      }
+   }
+
    check_options : subroutine {
       : match "hone aye;hone eye" {
          : print {( "Available exits are " + (opt_hone_aye ? "already" : "now") + " honed to ones you still need to use to win." )} ;
@@ -1457,21 +1475,6 @@ on_describe {
 ## custom_verb_general_checks has special custom verbs e.g. for an item you can carry around
 
 on_command {
-   : match "xyzzy _" {
-      : print "A hollow voice intones \"Our gaol: argh, ail!\" It's so spooky, you don't dare quibble over details of pronunciation." ;
-      : done ;
-   }
-   : mask {
-      : match "load -" {
-         : print "You hear a low \"Do load, ooh!\"" ;
-      }
-      : match "restore -" {
-         : print "You hear a tune. It could be called a re-load reel/ode, I guess." ;
-      }
-      : match "save -" {
-         : print "A ghostly apparition with \"Save? Illun', Say!\" Villain written on its front taunts your very reasonable precaution. But you don't need to listen to such meanies." ;
-      }
-   }
    : match "i _" {
       : if (carried() == 0) {
          : if (!picked_anything_up) {
