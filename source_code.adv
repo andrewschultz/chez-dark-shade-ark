@@ -1694,9 +1694,18 @@ on_command {
 }
 
 on_tick {
-   : if (pawn_is_around) {
-      : match "i _" {
+   : if (!showed_first_note) {
+      : print "{note_once}{vm_about} will give general game information. {vm_verbs} will describe {this_g}'s stripped-down parser." ;
+      : set_true "showed_first_note" ;
+      : done ;
+   }
+   : match "i _" {
+      : if (pawn_is_around) {
          : print "The pawn (dicey) also skulks behind in the shadows, ready to do your bidding at the right time." ;
+      }
+      : if (!inventory_note) {
+         : print "{note_once}while you never explicitly use any items in your inventory, some are worth examining to reveal the next puzzle." ;
+         : set_true "inventory_note" ;
       }
    }
 }
