@@ -1431,6 +1431,32 @@ subroutines {
       : print {( "{vm_options} shows two option commands that follow {this_g}'s mechanic." + (score == 0 && !read_options_yet ? " They may be spoilers or clues for the first puzzle." : "" ) )}  ;
    }
 
+   meta_versions : subroutine {
+      : print "{this_g} came about after {l_gsgr}, when I just said, what would happen if I had an {l_ectocomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
+      : print "{this_g} came about after {l_gsgr}, when I just said, what would happen if I had an {l_ectocomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
+      : print "" ;
+      : print "So {l_gsgr} formed, and it was small but feature-focused. Then during the stretch run for {l_ut} and {l_ifcomp} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. Two of the testers were to blame, so to speak: they noticed an unintentional red herring in the <Cell, Urban<#f80>>." ;
+      : print "In retrospect, it was probably a better puzzle than the cell itself. I could've changed the room name, but I said \"I'll save it for later,\"  not seriously believing I'd write another game. Then soon after I saw something that would make a perfect final puzzle. I had to go through with it!" ;
+      : print "" ;
+      : print "{this_g} had more rooms than {l_gsgr} so the EctoComp version didn't have bells and whistles, but I added them post-comp." ;
+      : print "Leftovers from {this_g} are found in {l_dadc}. In fact, each of the three games had unique features for EctoComp that I merged into all of them post-comp." ;
+      : print "" ;
+      : print "Version 1 was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp Petite Mort, where it placed {placing} of 32 entries." ;
+      : print "Version 2 was published after EctoComp finished, on December 3, 2025." ;
+      : print "Version 3 is due to be published by the end of 2025. It is the last major update planned." ;
+      : print "" ;
+      : gosub "meta_versions_addendum" ;
+   }
+
+   meta_versions_addendum : subroutine {
+      : print "" ;
+      : print "If you've found this elsewhere than Itch.io, the original version should be at {l_cdsa}." ;
+      : if (!warn_generic_versions) {
+         : print "{note_once}you can see generic Adventuron version information with <*VERSIONS<#f80>>." ;
+         : set_true "warn_generic_versions" ;
+      }
+   }
+
    note_noun_based : subroutine {
       : if (noun_based_noted) {
          : return ;
@@ -1613,19 +1639,7 @@ on_command {
       : done ;
    }
    : match "history _;version _;versions _" {
-      : print "{this_g} came about after {l_gsgr}, when I just said, what would happen if I had an {l_ectocomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
-      : print "" ;
-      : print "So {l_gsgr} formed, and it was small but feature-focused. Then during the stretch run for {l_ut} and {l_ifcomp} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. Two of the testers were to blame, so to speak: they noticed an unintentional red herring in the <Cell, Urban<#f80>>." ;
-      : print "In retrospect, it was probably a better puzzle than the cell itself. I could've changed the room name, but I said \"I'll save it for later,\"  not seriously believing I'd write another game. Then soon after I saw something that would make a perfect final puzzle. I had to go through with it!" ;
-      : print "" ;
-      : print "{this_g} had more rooms than {l_gsgr} so the EctoComp version didn't have bells and whistles, but I added them post-comp." ;
-      : print "Leftovers from {this_g} are found in {l_dadc}. In fact, each of the three games had unique features for EctoComp that I merged into all of them post-comp." ;
-      : print "" ;
-      : print "Version 1 was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp Petite Mort, where it placed {placing} of 32 entries." ;
-      : print "Version 2 was published after EctoComp finished, on December 3, 2025." ;
-      : print "Version 3 is due to be published by the end of 2025. It is the last major update planned." ;
-      : print "" ;
-      : print "If you've found this elsewhere than Itch.io, the original version should be at {l_cdsa}." ;
+      : gosub "meta_versions" ;
    }
 
    : match "opt _;opts _;option _;options _" {
