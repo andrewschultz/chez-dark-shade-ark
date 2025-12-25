@@ -41,7 +41,7 @@ strings {
    about_spoiler_flag : dynamic_string {( first_point ? "" : " It also contains names of similar games which may be a spoiler or hint for the first point." )} ;
    command_stickler : string "I'm going to be a stickler and enforce the spirit of the game on you and make you type " ;
    conditional_score : dynamic_string {( thought_right > 0 ? "+{thought_right}" : "" )} ;
-   custom_unknown_verb_error : dynamic_string {( "Nothing comes of that. {this_g} is largely noun-based, and you can see the reduced verb list with {vm_verbs}." + (score > 0 ? "" : "All point-scoring commands are one-offs and may have a noun or adjective first.") )} ;
+   custom_unknown_verb_error : dynamic_string {( ( point_weak_link ? "" : "Unsure what to do, you mutter, despondently, \"Cell for self? Or...?\"\n" ) + "Nothing special happens. You can use {vm_verbs} for a general overview of standard verbs." )} ; #~
    key_enter : string "the <ENTER<#f88>>/<RETURN<#f88>> key" ;
    my_score : string "{score}{conditional_score}/{max_score}" ;
    noguess_0 : string "<(unknown)<#888>>" ;
@@ -126,7 +126,6 @@ strings {
    t_hi_strawberry : string "<HI STRAWBERRY<#f80>>" ;
    t_thee_floored : string "<THEE FLOORED<#f80>>" ;
    t_great_ankhs : string "<GREAT ANKHS<#f80>>" ;
-   thought_right_words : dynamic_string {( collection_get{ collection -> ("num_to_word") index -> ( thought_right ) } )} ;
 
    # here / at variables
    here_start : dynamic_string {( is_at "wee_clink" ? "here" : "in {r00_header}" )} ;
@@ -189,7 +188,6 @@ strings {
 
    r_desc_sasf : dynamic_string {( (is_first_entered () ? "A bunch of anthropomorphic fruits sit around and regard you suspiciously. As if you're the weird one here. They say, are you looking for anybody? Our leader is busy right now. They won't just see anybody. We will tolerate you different types around here. But don't expect to make friends." : "The anthropomorphic fruits continue to wait around, still regarding you warily. None seems to be the leader. Who or where or what might that be?") + "\nYou don't feel you fit in here, but there's nothing to do where you came from. Maybe something you're carrying will help you start negotiations." )} ;
 
-   custom_unknown_verb_error : dynamic_string {( ( point_weak_link ? "" : "Unsure what to do, you mutter, despondently, \"Cell for self? Or...?\"\n" ) + "Nothing special happens. You can use {vm_verbs} for a general overview of standard verbs." )} ;
    exits_err : dynamic_string {(
       is_at "wee_clink" ? "You need to figure a puzzle to leave, and when you do, you'll automatically go out, no directions needed." :
       is_at "r00" ? "{r00_nogo}" :
@@ -203,7 +201,6 @@ strings {
       is_at "r22" ? "{r22_nogo}" :
       is_at "sell_farm" ? "Nothing beyond here. You must call the fruits' leader to you." :
       "You can't go that way. I should have a non-default message." )} ;
-   nospecial_custom : string "You see no specific item like that. For rooms, <LOOK<#0f0>>. Note that this game may not note adjectives as synonyms, so use nouns." ;
 
    noguess : dynamic_string {( counter == 5 ? "<(A)<#888>>" : "<(unknown)<#888>>" )} ;
 }
@@ -243,7 +240,44 @@ integers {
 }
 
 booleans {
+   # game-state booleans (mostly did the player use a certain command) in all EctoComp games
+   in_number_choice : boolean "true" ;
+   inventory_note : boolean "false" scope="survivor" ;
+   noun_based_noted : boolean "false" scope="survivor" ;
+   score_note : boolean "false" scope="survivor";
+   showed_first_note : boolean "false" scope="survivor" ;
+   take_drop_warn : boolean "false" scope="survivor" ;
+   wait_yet : boolean "false" scope="survivor" ;
+   warn_generic_credit : boolean "false" scope="survivor" ;
+   warn_generic_versions : boolean "false" scope="survivor" ;
+   win_warn : boolean "false" scope="survivor" ;
+   won_yet : boolean "false" scope="survivor" ;
+
+   # option booleans in all EctoComp games
+   opt_see_lol : boolean "true" scope="survivor" ;
+   see_lol_known : boolean "false" scope="survivor" ;
+   read_options_yet : boolean "false" scope="survivor" ;
+
+   # THINK tracking booleans in all EctoComp games
+   note_half_limitations : boolean "false" scope="survivor" ;
+   solved_both_parts_nag : boolean "false" scope="survivor" ;
+   think_note_yet : boolean "false" scope="survivor" ;
+
+   # THINK temporary booleans in all EctoComp games
+   done_already : boolean "false" ;
+   first_half : boolean "false" ;
+   once_now_boolean : boolean "false" ;
+   think_already : boolean "false" ;
+   think_half_yet : boolean "false" ;
+
+   # map booleans in all EctoComp games
+   first_map_note : boolean "false" scope="survivor" ;
+   show_overlay : boolean "true" ;
+   showing_map : boolean "false" ;
+
+   #####################booleans specific to this game
    # points and quasi-points
+   first_point : dynamic_boolean {( point_weak_link )} ;
    point_weak_link : boolean "false" ;
    point_walk_round : boolean "false" ;
    point_off_lame : boolean "false" ;
@@ -272,14 +306,6 @@ booleans {
    think_thee_floored : boolean "false" ;
    think_high_strawberry : boolean "false" ;
 
-   # THINK booleans
-   think_note_yet : boolean "false" ;
-   think_half_yet : boolean "false" ;
-   first_half : boolean "false" ;
-   solved_both_parts_nag : boolean "false" ;
-
-   done_already : boolean "false" ;
-   think_already : boolean "false" ;
    thought_any : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_thee_floored || think_high_strawberry )} ;
 
    # puzzle readiness dynamic booleans
@@ -307,32 +333,17 @@ booleans {
 
    # option(s)
    opt_hone_aye : boolean "false" ;
-   opt_see_lol : boolean "true" ;
-   see_lol_known : boolean "false" scope="survivor" ;
-   read_options_yet : boolean "false" scope="survivor" ;
 
    # map rendering booleans
-   showing_map : boolean "false" ;
    showing_room : boolean "true" ;
 
    # flags for one time notes, etc.
-   warn_generic_credit : boolean "false" ;
    warn_hints : boolean "false" ;
-   warn_score_header : boolean "false" ;
-   take_drop_warn : boolean "false" ;
 
    intro_shown_yet : boolean "false" ;
    ever_x_me : boolean "false" ;
    ever_x_number : boolean "false" ;
-   wait_yet : boolean "false" ;
-   first_map_note : boolean "false" ;
    clink_think : boolean "false" ;
-
-   in_number_choice : boolean "false" ;
-   note_half_limitations : boolean "false" ;
-
-   won_yet : boolean "false" scope="survivor" ;
-   win_warn : boolean "false" scope="survivor" ;
 
    # inventory emptiness tracking
    picked_anything_up : dynamic_boolean {( point_sly_maps || point_off_lame )} ;
@@ -1170,6 +1181,7 @@ subroutines {
          : done ;
          }
       }
+   }
 
    }
 
