@@ -1186,6 +1186,39 @@ subroutines {
       }
    }
 
+   check_standard_verbs : subroutine {
+      : match "sw _;se _;ne _;nw _" {
+         : print "Diagonal directions aren't used in {this_g}." ;
+         : done ;
+      }
+      : match "take _;drop _" {
+         : if (!take_drop_warn) {
+            : print "You never need to take or drop anything in {this_g}. Everything is implicitly taken or destroyed as used." ;
+            : set_true "take_drop_warn" ;
+         } : else {
+            : print "Take and drop aren't used in {this_g}." ;
+         }
+         : done ;
+      }
+      : match "z _;wait _" {
+         : print "\"Loaf, right? Lo, fright!\"" ;
+         : if (!wait_yet) {
+            : print {( "{note_once}This is just a silly general response" + ( score == 0 ? ", though it does provide a clue how to solve the first puzzle, in its own way" : "" ) + ". Waiting gives no penalty or benefit." )} ;
+            : set_true "wait_yet" ;
+         }
+      }
+      : match "map _;m _" {
+         : set_true "showing_map" ;
+         : clear_screen ;
+         : update_graphic "m_blank" ;
+         : if (!first_map_note) {
+            : print "{note_once}You can mouse-click or hit {key_enter} to return to the game. Arrows indicate one-way paths, and red lines show ones you don't need any more, if {vo_hone_aye} is active." ; #~
+            : set_true "first_map_note" ;
+         }
+         : press_any_key ;
+         : set_false "showing_map" ;
+         : redescribe ;
+      }
    }
 
    custom_verb_general_checks : subroutine { # this is so obfus.py can "see" any odd verbs that might be used
@@ -1510,35 +1543,8 @@ on_command {
          : done ;
       }
    }
-   : match "take _;drop _" {
-      : if (!take_drop_warn) {
-         : print "You never need to take or drop anything in {this_g}. Everything is implicitly taken or destroyed as used." ;
-         : set_true "take_drop_warn" ;
-      } : else {
-         : print "Take and drop aren't used in {this_g}." ;
-      }
-      : done ;
-   }
-   : match "z _;wait _" {
-      : print "\"Loaf, right? Lo, fright!\"" ;
-      : if (!wait_yet) {
-         : print {( "{note_once}This is just a silly general response" + ( is_at "wee_clink" ? ", though it does provide a clue how to get out of here, in its own way" : "" ) + ". Waiting gives no penalty or benefit." )} ;
-         : set_true "wait_yet" ;
-      }
-   }
-   : match "map _;m _" {
-      : set_true "showing_map" ;
-      : clear_screen ;
-      : update_graphic "m_blank" ;
-      : if (!first_map_note) {
-         : print "{note_once}You can mouse-click or hit {key_enter} to return to the game. Arrows indicate one-way paths, and red lines show ones you don't need any more, if {vo_hone_aye} is active." ;
-         : set_true "first_map_note" ;
-      }
-      : press_any_key ;
-      : set_false "showing_map" ;
-      : redescribe ;
-   }
 
+   : gosub "check_standard_verbs" ;
    : gosub "custom_verb_general_checks" ;
    : gosub "check_options" ;
    : gosub "opt_see_seal" ;
