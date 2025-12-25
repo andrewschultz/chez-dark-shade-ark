@@ -1352,16 +1352,20 @@ subroutines {
 
    meta_think_conditionals : subroutine {
       : if (think_deem_unfit) {
-         : print "You can {t_deem_unfit} the demon (fit) {here_r21} {once_deem_unfit} you have ways to slow down its jabber a bit." ;
+         : set_boolean var="once_now_boolean" {( point_first_attic )} ;
+         : print "You can {t_deem_unfit} the demon (fit) {here_r21} {once_now} you have ways to slow down its jabber a bit." ;
       }
       : if (think_high_strawberry) {
-         : print "You can say {t_hi_strawberry} {once_hi_strawberry} you've found where such an entity might be." ;
+         : set_boolean var="once_now_boolean" {( is_at "sell_farm" )} ;
+         : print "You can say {t_hi_strawberry} {once_now} you've found where such an entity might be." ;
       }
       : if (think_thee_floored) {
-         : print "You can say {t_thee_floored} to the thief lord {here_r20} {once_thee_floored} you have more leverage." ;
+         : set_boolean var="once_now_boolean" {( point_deem_unfit )} ;
+         : print "You can say {t_thee_floored} to the thief lord {here_r20} {once_now} you have more leverage." ;
       }
       : if (think_great_ankhs) {
-         : print "You can convert the gray tanks to {t_great_ankhs} {once_great_ankhs} you have {think_tank_detail}." ;
+         : set_boolean var="once_now_boolean" {( ready_great_ankhs )} ;
+         : print "You can convert the gray tanks to {t_great_ankhs} {once_now} you have {think_tank_detail}." ;
       }
    }
 
