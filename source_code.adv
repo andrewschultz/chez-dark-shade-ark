@@ -485,6 +485,7 @@ locations {
       on_command {
          : match "_ sun;_ sunk;_ old;_ cold" {
             : print "So low in the sky, the {sc_sosc} barely gives out light and sets the mood for, well, pretty much everything here. The gloom and doom is lousy, but maybe the sun itself is providing a clue." ;
+            : gosub "note_noun_based" ;
          }
          : match "weak link" {
             : print "Of course, anyone who's stuck in a cell can sit around and dream of a way out. A hidden key, a button or lever, or whatever. But you have something specific to look for. With diligence, you find a weak link and fiddle with it until it enlarges. You hear crumbling above, and you run out before the way in (or out) collapses..." ;
@@ -511,6 +512,7 @@ locations {
       on_describe {
          : match "_ fruits" {
             : print "Well, what you really need to do here, is get in touch with their leader. One item must have a clue as to its identity." ;
+            : gosub "note_noun_based" ;
          }
       }
       on_command {
@@ -588,6 +590,7 @@ locations {
             } : else {
                 : print "You found all five exits. You should really take the fifth and go <IN<#0f0>>ward." ;
             }
+            : gosub "note_noun_based" ;
             : done ;
          }
          : mask {
@@ -832,6 +835,7 @@ locations {
                   : print {( point_deem_unfit ? "And with the {i_pcpa}, you might have a way to disstract them." : "You still don't have any way to distract them." )} ; 
                }
                : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, {t_thee_floored} will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
+               : gosub "note_noun_based" ;
                : done ;
             }
          }
@@ -841,6 +845,7 @@ locations {
             } : else {
                : print "It looks intimidating, but you won't need to mess with it even with the {puz_thief_lord} gone. " ;
             }
+            : gosub "note_noun_based" ;
             : done ;
          }
          : if (!point_thee_floored) {
@@ -901,6 +906,7 @@ locations {
          : if (!point_deem_unfit) {
             : match "_ demon;_ fit" {
                : print "It sure seems confident in its ability to annoy you." ;
+               : gosub "note_noun_based" ;
                : done ;
             }
          }
@@ -908,6 +914,7 @@ locations {
             : match "_ do;_ dark;_ dude;_ ark;_ arc" {
                : print "You note a warning on the side of the {sc_ddda}: <MORTALS OR SUPERNATURAL BEINGS WHO SWITCH PLANES HERE RISK DISSOLUTION IF THEY EXPLORE TOO FAR<#f80>>." ;
                : print "Whew. That's as good a reason as any to chicken out, I mean, focus attention elsewhere." ;
+               : gosub "note_noun_based" ;
                : done ;
             }
          }
@@ -1225,6 +1232,7 @@ subroutines {
       : if (pawn_is_around) {
          : match "_ pawn" {
             : print "The pawn is keeping low until the moment it needs to attack. You don't need to consult with it." ;
+            : gosub "note_noun_based" ;
             : done ;
          }
       }
@@ -1258,6 +1266,7 @@ subroutines {
             : update_graphic "s_maze_full" ;
             : set_true "showing_room" ;
             : set_true "progress_full_map" ;
+            : gosub "note_noun_based" ;
             : done ;
          }
       }
@@ -1267,6 +1276,7 @@ subroutines {
             : set_false "showing_room" ;
             : update_graphic "s_maze_s" ;
             : set_true "showing_room" ;
+            : gosub "note_noun_based" ;
             : done ;
          }
       }
@@ -1276,6 +1286,7 @@ subroutines {
             : set_false "showing_room" ;
             : update_graphic "s_maze_n" ;
             : set_true "showing_room" ;
+            : gosub "note_noun_based" ;
             : done ;
          }
       }
@@ -1407,6 +1418,14 @@ subroutines {
       : if (!think_half_yet && !thought_any) {
          : print "There's nothing you've currently figured out only partially, whether it's the right phrase and the wrong time, or half of a phrase you need." ;
       }
+   }
+
+   note_noun_based : subroutine {
+      : if (noun_based_noted) {
+         : return ;
+      }
+      : print "{note_once}{this_g} tends to look at the noun more than the verb, so it will probably funnel most verbs to <X<#f80>>/<EXAMINE<#f80>>. There's enough verb guessing with the actual puzzles." ;
+      : set_true "noun_based_noted" ;
    }
 
    note_thinks : subroutine {
