@@ -1374,30 +1374,30 @@ subroutines {
          : return ;
       }
       : set_integer var="counter" "0" ;
-         : if (part_word_score > last_first_puzzle_score) {
-            : print {( "<NOTE<#ff0>>: you have figured out " + (part_word_score == 3 ? "<WEAK LINK<#f80>> with separate commands, so you can just type it in. If you're not sure why, continue to {vm_think} for the explanation." : (part_word_score == 1 ? "<WEAK<#f80>> as the first word." : "<LINK<#f80>> as the second word.") ) )} ;
-			: if (part_word_score < 3) {
-			   : print "So I'll cut off the game mechanics hints this time, though if you type {vm_think} again, they will proceed." ;
-			}
-            : set_integer var="last_first_puzzle_score" {( part_word_score )} ;
-			: done ;
+      : if (part_word_score > last_first_puzzle_score) {
+         : print {( "<NOTE<#ff0>>: you have figured out " + (part_word_score == 3 ? "<WEAK LINK<#f80>> with separate commands, so you can just type it in. If you're not sure why, continue to {vd_think} for the explanation." : (part_word_score == 1 ? "<WEAK<#f80>> as the first word." : "<LINK<#f80>> as the second word.") ) )} ;
+         : if (part_word_score < 3) {
+            : print "So I'll cut off the game mechanics hints this time, though if you type {vd_think} again, they will proceed." ;
          }
-         : if (!clink_think) {
-            : print "{note_once}a small make-sure nag before starting. {vm_think}ing here will progressively reveal hints as to the first action and track if you got it partially right." ;
-            : set_true "clink_think" ;
-            : done ;
-         }
-         : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
-            : print "You'll need a non-standard command to leave. <WAIT<#0f0>>ing may give an additional clue." ;
-            : print "So does what you say to yourself following a parser error. (It will disappear once you've left the clink.)" ;
-            : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
-            : print "Also, the titles of similar games if you type {vm_about} then {vm_history} may provide clues." ;
-            : print "In-game, you have the {this_g} and the {sc_sosc}. But how do they fit in with the wee clink?" ;
-            : print "You need to break up {puz_wee_clink} into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
-            : print "A <WEAK LINK<#f4f>>, if you will. (This is the last hint. They will cycle again until you leave here. Then {vm_think} will track commands you figured but can't use yet.)" ;
-         }
+         : set_integer var="last_first_puzzle_score" {( part_word_score )} ;
          : done ;
       }
+      : if (!clink_think) {
+         : print "{note_once}a small make-sure nag before starting. {vd_think}ing here will progressively reveal hints as to the first action and track if you got it partially right." ;
+         : set_true "clink_think" ;
+         : done ;
+      }
+      : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
+         : print "You'll need a non-standard command to leave. <WAIT<#0f0>>ing may give an additional clue." ;
+         : print "So does what you say to yourself following a parser error. (It will disappear once you've left the clink.)" ;
+         : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
+         : print "Also, the titles of similar games if you type {vm_about} then {vm_history} may provide clues." ;
+         : print "In-game, you have the {this_g} and the {sc_sosc}. But how do they fit in with the wee clink?" ;
+         : print "You need to break up {puz_wee_clink} into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
+         : print "A <WEAK LINK<#f80>>, if you will. (This is the last hint. They will cycle again until you leave here. Then {vd_think} will track commands you figured but can't use yet.)" ;
+      }
+      : done ;
+   }
 
    meta_think_main : subroutine {
       : set_integer var="counter" "0" ;
@@ -1412,7 +1412,7 @@ subroutines {
                   }
                   : print {( (part_word_score != 2 ? (collection_get{ collection -> ("first_words") index -> (counter) }) : "{noguess}") + " " + (part_word_score >= 2 ? (collection_get{ collection -> ("second_words") index -> (counter) }) : "{noguess}") + " " + (collection_get{ collection -> ("situations") index -> (counter) }) )} ;
                   : if (!solved_both_parts_nag && part_word_score == 3) {
-                     : print "{note_once}You have solved something in parts, but you haven't typed the complete command yet. If it doesn't work once you do, {vd_think} will track it until it does." ;
+                     : print "{note_once}You have figured each half of a point-scoring command, but you haven't typed them both together. That still might not work if you haven't prepared by solving other puzzles, but if that's the case, {vd_think} will remind you with contest until it does." ;
                      : set_true "solved_both_parts_nag" ;
                   }
                }
