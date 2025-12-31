@@ -247,6 +247,7 @@ booleans {
    noun_based_noted : boolean "false" scope="survivor" ;
    score_note : boolean "false" scope="survivor";
    showed_first_note : boolean "false" scope="survivor" ;
+   star_help_noted : boolean "false" scope="survivor" ;
    take_drop_warn : boolean "false" scope="survivor" ;
    wait_yet : boolean "false" scope="survivor" ;
    warn_generic_credit : boolean "false" scope="survivor" ;
@@ -1141,6 +1142,7 @@ subroutines {
          }
          : match "restore -" {
             : print "You hear a tune. It could be called a re-load reel/ode, I guess." ;
+            : set_sentence "load" ;
          }
          : match "save -" {
             : print "A ghostly apparition with \"Save? Illun', Say!\" Villain written on its front taunts your very reasonable precaution. But you don't need to listen to such meanies." ;
@@ -1434,6 +1436,14 @@ subroutines {
       : print "{vd_hint} explains how to use {hint_item}." ;
       : print "{vm_tstart_stop} starts and stops a transcript." ;
       : print {( "{vm_options} shows two option commands that follow {this_g}'s mechanic." + (score == 0 && !read_options_yet ? " They may be spoilers or clues for the first puzzle." : "" ) )}  ;
+      : gosub "meta_verbs_star_help_onetime" ;
+   }
+
+   meta_verbs_star_help_onetime : subroutine {
+      : if (!star_help_noted) {
+         : print "{note_once}<*HELP<#0f0>> gives a list of common Adventuron verbs, but it is only so useful here." ;
+         : set_true "star_help_noted" ;
+      }
    }
 
    meta_versions : subroutine {
