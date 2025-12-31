@@ -62,10 +62,10 @@ strings {
    #vm_tstart_stop : string "<TSTART<#f80>>/<TSTOP<#f80>>" ;
 
    # diagnostic verbs
-   vd_hint : string "<HINT<#88f>>/<HINTS<#88f>>/<HELP<#88f>>" ;
-   vd_i : string "<I<#88f>>" ;
-   vd_inv : string "<INVENTORY<#88f>>" ;
-   vd_think : string "<THINK<#88f>>" ;
+   vd_hint : string "<HINT<#f0f>>/<HINTS<#f0f>>/<HELP<#f0f>>" ; #~
+   vd_i : string "<I<#f0f>>" ;
+   vd_inv : string "<INVENTORY<#f0f>>" ;
+   vd_think : string "<THINK<#f0f>>" ;
 
    # options
    vo_seal_all : string "<SEAL ALL<#f0f>>" ;
@@ -97,17 +97,17 @@ strings {
 
    # item names, no puzzle, arranged alphabetically
    i_aid_art : string "<aid art<#f4f>>" ;
-   i_bdb_ankh : string "<brew-dank-brood ankh<#ccc>>" ;
-   i_fsfp : string "<free-speech-freeze peach<#ccc>>" ;
-   i_hope_light : string "<ho-plight-hope light<#ccc>>" ;
-   i_me_code : string "<meek \"owed, me\" code<#ccc>>" ;
-   i_pcpa : string "<po' charm-poach arm<#ccc>>" ;
+   i_bdb_ankh : string "<brew-dank-brood ankh<#db9>>" ;
+   i_fsfp : string "<free-speech-freeze peach<#db9>>" ;
+   i_hope_light : string "<ho-plight-hope light<#db9>>" ;
+   i_me_code : string "<meek \"owed, me\" code<#db9>>" ;
+   i_pcpa : string "<po' charm-poach arm<#db9>>" ;
 
    # scenery, no puzzle, arranged alphabetically
-   sc_acar : string "<A cramp-ache ramp<#ccc>>" ;
-   sc_ddda : string "<Do-Dark-Dude Ark<#ccc>>" ;
-   sc_sosc : string "<sunk old sun, cold<#ccc>>" ;
-   sc_sosd : string "<sword-or-sore door<#ccc>>" ;
+   sc_acar : string "<A cramp-ache ramp<#db9>>" ;
+   sc_ddda : string "<Do-Dark-Dude Ark<#db9>>" ;
+   sc_sosc : string "<sunk old sun, cold<#db9>>" ;
+   sc_sosd : string "<sword-or-sore door<#db9>>" ;
 
    # hint item(s)
    a_num : string "<an umber, uhh, number<#f80>>" ;
@@ -143,7 +143,7 @@ strings {
    desc_fir_static : dynamic_string {( point_first_attic ? "The {puz_fir_static} holds no more secrets." : "The {puz_fir_static} looks like it can hold more." )} ;
 
    # helper strings
-   r_blob : string "<Blah, Bland Blob Land<#ccc>>" ;
+   r_blob : string "<Blah, Bland Blob Land<#db9>>" ;
    r_sasf : string "<Self-Arm-Sell Farm<#ff0>>" ;
 
    # the main strings
@@ -1003,7 +1003,7 @@ objects {
    cold_sun : scenery "{sc_sosc}" msg="(see match _ sun command)" at="wee_clink" conspicuous="false" ;
    key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
-   hope_light : object "<\"Ho! Plight? Hope!\" light<#ccc>>" msg="The {i_hope_light} provides a reassuring light." ;
+   hope_light : object "<\"Ho! Plight? Hope!\" light<#db9>>" msg="The {i_hope_light} provides a reassuring light." ;
    fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" conspicuous="false" ;
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
@@ -1321,7 +1321,7 @@ subroutines {
       : print "For thanks, {vm_credits}." ;
       : print {( "For a more detailed history, {vm_history}.{about_spoiler_flag}" )} ;
       : print "For verbs to use, {vm_verbs}." ;
-      : print "Note {this_g} uses a color-coding scheme. Stuff to change is <lavender<#f4f>>, while stuff that's just for amusement is <grey<#ccc>>." ;
+      : print "{this_g} uses a color-coding scheme for game text. Diagnostic verbs are <purple<#f0f>>, while physical verbs are <orange<#f80>>. puzzle text is <violet<#88f>>, while text that's just for amusement is <tan<#db9>>. Links in <green<#0f0>> open a new tab." ;
    }
 
    meta_credits : subroutine {
