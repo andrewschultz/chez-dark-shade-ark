@@ -1394,16 +1394,32 @@ subroutines {
       : done ;
    }
 
+   hint_help : subroutine {
+      : if (score == 0) {
+         : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
+            : print "You'll need a non-standard command to leave. <WAIT<#0f0>>ing may give an additional clue." ;
+            : print "So does what you say to yourself following a parser error. (It will disappear once you've left the clink.)" ;
+            : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
+            : print "Also, the titles of similar games if you type {vm_about} then {vm_history} may provide clues." ;
+            : print "In-game, you have the {this_g} and the {sc_sosc}. But how do they fit in with the wee clink?" ;
+            : print "You need to break up {puz_wee_clink} into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
+            : print "For further hints, {xme} gives a number, 44. It clues something about the phrase." ;
+            : print "Each word has four letters. But what are they?" ;
+            : print "You must look for a <WEAK LINK<#f80>>. (This is the last hint. They will cycle again until you leave here. Then {vd_think} will track commands you figured but can't use yet.)" ;
+         }
+		 : done ;
+      }
+      : if (!ever_x_me) {
+         : print "You haven't noticed your hint item. Before using hints beyond the first point, {xme} to see what your hint/help item is." ;
          : done ;
       }
-      : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
-         : print "You'll need a non-standard command to leave. <WAIT<#0f0>>ing may give an additional clue." ;
-         : print "So does what you say to yourself following a parser error. (It will disappear once you've left the clink.)" ;
-         : print "The game title and some things may seem odd. They are a clue of what to do in the wee clink." ;
-         : print "Also, the titles of similar games if you type {vm_about} then {vm_history} may provide clues." ;
-         : print "In-game, you have the {this_g} and the {sc_sosc}. But how do they fit in with the wee clink?" ;
-         : print "You need to break up {puz_wee_clink} into two different words with the same sounds, in order. This will help you find somewhere not secure in your jail." ;
-         : print "A <WEAK LINK<#f80>>, if you will. (This is the last hint. They will cycle again until you leave here. Then {vd_think} will track commands you figured but can't use yet.)" ;
+      : cycle key = "xnumhints" predictable_order = "true" skip_interval = "0" {
+         : print "This help has five parts total and is game state agnostic, e.g. the cycle won't change. {xnum} should give you a number. You may be able to guess what it means, but if not, I will give progressive hints." ;
+         : print "If {xnum}'s number is 0 or -1, you are done here." ;
+         : print "The rest of the time, {xnum} gives a two-digit number." ;
+         : print "{xnum} will give, in order, the number of letters in each word (tens digit = first, ones = second.) In one case, it gives a three-digit number." ;
+         : print "Then the tens digit=first, hundreds digit=second." ;
+         : print "This is necessary because one puzzle has a ten-letter word. But don't worry. It will be clued in other ways." ;
       }
       : done ;
    }
