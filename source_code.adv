@@ -249,9 +249,9 @@ booleans {
    showed_first_note : boolean "false" scope="survivor" ;
    star_help_noted : boolean "false" scope="survivor" ;
    take_drop_warn : boolean "false" scope="survivor" ;
+   think_hint_funnel_note : boolean "false" scope="survivor" ;
    wait_yet : boolean "false" scope="survivor" ;
    warn_generic_credit : boolean "false" scope="survivor" ;
-   warn_generic_versions : boolean "false" scope="survivor" ;
    win_warn : boolean "false" scope="survivor" ;
    won_yet : boolean "false" scope="survivor" ;
 
@@ -1373,21 +1373,27 @@ subroutines {
    }
 
    meta_think_first : subroutine {
-      : if (!is_at "wee_clink") {
+      : if (score != 0) {
          : return ;
       }
       : set_integer var="counter" "0" ;
       : if (part_word_score > last_first_puzzle_score) {
-         : print {( "<NOTE<#ff0>>: you have figured out " + (part_word_score == 3 ? "<WEAK LINK<#f80>> with separate commands, so you can just type it in. If you're not sure why, continue to {vd_think} for the explanation." : (part_word_score == 1 ? "<WEAK<#f80>> as the first word." : "<LINK<#f80>> as the second word.") ) )} ;
-         : if (part_word_score < 3) {
-            : print "So I'll cut off the game mechanics hints this time, though if you type {vd_think} again, they will proceed." ;
+         : print {( "<NOTE<#ff0>>: you have figured out " + (part_word_score == 3 ? (collection_get{ collection -> ("first_words") index -> (0) }) + " " + (collection_get{ collection -> ("second_words") index -> (0) }) + " with separate commands, so you can just type it in. If you're not sure why, {vd_think} will funnel to {vd_hint} for an explanation." : (part_word_score == 1 ? (collection_get{ collection -> ("first_words") index -> (0) }) + " as the first word." : (collection_get{ collection -> ("second_words") index -> (0) }) + " as the second word.") ) )} ;
+         : if (part_word_score < 3 && !think_hint_funnel_note) {
+            : print "If you type {vd_think} again, your command will be funneled to {vd_hint} with potential spoilers for the first puzzle." ;
          }
-         : set_integer var="last_first_puzzle_score" {( part_word_score )} ;
+         : set_true "think_hint_funnel_note" ;
+		 : done ;
+      }
+      : if (!think_hint_funnel_note) {
+         : print "{note_once}small check before I give spoilers. Unless you've scored your first point or made progress towards it since your last {vd_think}, this will funnel into {vd_hint}." ;
+         : set_true "think_hint_funnel_note" ;
          : done ;
       }
-      : if (!clink_think) {
-         : print "{note_once}a small make-sure nag before starting. {vd_think}ing here will progressively reveal hints as to the first action and track if you got it partially right." ;
-         : set_true "clink_think" ;
+      : gosub "hint_help" ;
+      : done ;
+   }
+
          : done ;
       }
       : cycle key = "firsthint" predictable_order = "true" skip_interval = "0" {
