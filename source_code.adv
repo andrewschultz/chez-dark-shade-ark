@@ -59,12 +59,13 @@ strings {
    vm_options : string "<OPTIONS<#f80>>" ;
    vm_verbs : string "<VERBS<#f80>>" ;
 
-   #vm_tstart_stop : string "<TSTART<#f80>>/<TSTOP<#f80>>" ;
+   vm_tstart_stop : string "<TSTART<#f80>>/<TSTOP<#f80>>" ;
 
    # diagnostic verbs
    vd_hint : string "<HINT<#f0f>>/<HINTS<#f0f>>/<HELP<#f0f>>" ; #~
    vd_i : string "<I<#f0f>>" ;
    vd_inv : string "<INVENTORY<#f0f>>" ;
+   vd_score : string "<SCORE<#f0f>>" ;
    vd_think : string "<THINK<#f0f>>" ;
 
    # options
@@ -202,7 +203,7 @@ strings {
       is_at "sell_farm" ? "Nothing beyond here. You must call the fruits' leader to you." :
       "You can't go that way. I should have a non-default message." )} ;
 
-   noguess : dynamic_string {( counter == 5 ? "<(A)<#888>>" : "<(unknown)<#888>>" )} ;
+   noguess : dynamic_string {( counter == 5 ? "<(A)<#888>>" : "{noguess_0}" )} ;
 }
 
 integers {
@@ -400,7 +401,7 @@ collections {
    };
    situations : list {
       items = [
-         "{here_intro}.",
+         "{here_start}.",
          "{here_r01}.",
          "{here_r02}.",
          "{here_r00}.",
@@ -412,7 +413,7 @@ collections {
          "{here_r10}.",
          "{here_r21}.",
          "{here_r20}."
-         "{here_ending}."
+         "{here_end}."
       ]
    };
    got_first : list {
@@ -1318,7 +1319,7 @@ subroutines {
    }
 
    meta_about : subroutine {
-      : print "{this_g} is a simplified-parser game that requires two-word commands to solve puzzles. Some puzzles rely on others. A few have alternate spellings. {this_g} tracks when you've guessed one word right. It placed {placing} of 32 in the 2025 EctoComp Petite Mort division.{about_specific}" ;
+      : print "{this_g} is a simplified-parser game that requires two-word commands to solve puzzles. Some puzzles rely on others. A few have alternate spellings. {this_g} tracks when you've guessed one word right. It placed {placing} of 32 in the 2025 EctoComp Petite Mort division.{about_game_specific}" ;
       : print "" ;
       : print "{about_map_notes}" ;
       : print "" ;
@@ -1385,7 +1386,7 @@ subroutines {
             : print "If you type {vd_think} again, your command will be funneled to {vd_hint} with potential spoilers for the first puzzle." ;
          }
          : set_true "think_hint_funnel_note" ;
-		 : done ;
+         : done ;
       }
       : if (!think_hint_funnel_note) {
          : print "{note_once}small check before I give spoilers. Unless you've scored your first point or made progress towards it since your last {vd_think}, this will funnel into {vd_hint}." ;
@@ -1409,7 +1410,7 @@ subroutines {
             : print "Each word has four letters. But what are they?" ;
             : print "You must look for a <WEAK LINK<#f80>>. (This is the last hint. They will cycle again until you leave here. Then {vd_think} will track commands you figured but can't use yet.)" ;
          }
-		 : done ;
+         : done ;
       }
       : if (!ever_x_me) {
          : print "You haven't noticed your hint item. Before using hints beyond the first point, {xme} to see what your hint/help item is." ;
@@ -1455,7 +1456,7 @@ subroutines {
    meta_verbs : subroutine {
       : print "{this_g} uses a stripped-down parser. <TAKE<#0f0>> and <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. {vd_i} still shows them." ;
       : print "{this_g} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your {vd_inv}, which you can also see with <I<#0f0>>." ;
-      : print "Meta-verbs include {vm_about}, {vm_credits}, and {vm_verbs}. {vm_score} shows the score, which is also in the upper right header." ;
+      : print "Meta-verbs include {vm_about}, {vm_credits}, and {vm_verbs}. {vd_score} shows the score, which is also in the upper right header." ;
       : print {( "All point-scoring commands have two words which you need to figure. {vd_think} will " + (first_point ? "" : " walk you through this first puzzle, then later " ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
       : print "{vd_hint} explains how to use {hint_item}." ;
       : print "{vm_tstart_stop} starts and stops a transcript." ;
@@ -1471,7 +1472,6 @@ subroutines {
    }
 
    meta_versions : subroutine {
-      : print "{this_g} came about after {l_gsgr}, when I just said, what would happen if I had an {l_ectocomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
       : print "{this_g} came about after {l_gsgr}, when I just said, what would happen if I had an {l_ectocomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
       : print "" ;
       : print "So {l_gsgr} formed, and it was small but feature-focused. Then during the stretch run for {l_ut} and {l_ifcomp} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. Two of the testers were to blame, so to speak: they noticed an unintentional red herring in the <Cell, Urban<#f80>>." ;
