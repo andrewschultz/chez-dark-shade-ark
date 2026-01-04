@@ -1453,7 +1453,7 @@ subroutines {
    }
 
    meta_verbs : subroutine {
-      : print "{this_g} uses a stripped-down parser. <TAKE<#0f0>> or <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. {vd_i} still shows them." ;
+      : print "{this_g} uses a stripped-down parser. <TAKE<#0f0>> and <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. {vd_i} still shows them." ;
       : print "{this_g} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your {vd_inv}, which you can also see with <I<#0f0>>." ;
       : print "Meta-verbs include {vm_about}, {vm_credits}, and {vm_verbs}. {vm_score} shows the score, which is also in the upper right header." ;
       : print {( "All point-scoring commands have two words which you need to figure. {vd_think} will " + (first_point ? "" : " walk you through this first puzzle, then later " ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
@@ -1484,16 +1484,7 @@ subroutines {
       : print "Version 2 was published after EctoComp finished, on December 3, 2025." ;
       : print "Version 3 is due to be published by the end of 2025. It is the last major update planned." ;
       : print "" ;
-      : gosub "meta_versions_addendum" ;
-   }
-
-   meta_versions_addendum : subroutine {
-      : print "" ;
       : print "If you've found this elsewhere than Itch.io, the original version should be at {l_cdsa}." ;
-      : if (!warn_generic_versions) {
-         : print "{note_once}you can see generic Adventuron version information with <*VERSIONS<#f80>>." ;
-         : set_true "warn_generic_versions" ;
-      }
    }
 
    note_noun_based : subroutine {
