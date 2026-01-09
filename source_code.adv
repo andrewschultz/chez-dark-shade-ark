@@ -83,6 +83,12 @@ strings {
    xnum : string "<X NUMBER<#0f0>>" ;
 
    # item names, with puzzle
+   here_awe_flame : dynamic_string {( point_off_lame ? "<Gulf, Lying<#f4f>>" : "<Awe Flame<#f4f>>" )} ;
+   here_gray_tanks : string "<Gray Tanks<#f4f>>" ;
+   here_our_burdens : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#ff0>>" : "<Our Burdens<#f4f>>" )} ;
+   here_pond_icy : string "<Pond, Icy<#f4f>>" ;
+   here_slime_apps : string "<Slime Apps<#f4f>>" ;
+   here_wall_crowned : string "<Wall, Crowned<#f4f>>" ;
    puz_awe_flame : string "<awe flame<#f4f>>" ;
    puz_demon_fit : string "<demon, fit<#f4f>>" ;
    puz_fir_static : string "<fir (static)<#f4f>>" ;
@@ -129,13 +135,13 @@ strings {
    t_great_ankhs : string "<GREAT ANKHS<#f80>>" ;
 
    # here / at variables
-   here_start : dynamic_string {( is_at "wee_clink" ? "here" : "in {r00_header}" )} ;
-   here_r00 : dynamic_string {( is_at "r00" ? "here" : "in {r00_header}" )} ;
-   here_r01 : dynamic_string {( is_at "r01" ? "here" : "in {r01_header}" )} ; # this if statement may not ever apply but let's keep the code uniform
-   here_r02 : dynamic_string {( is_at "r02" ? "here" : "in {r02_header}" )} ;
-   here_r10 : dynamic_string {( is_at "r10" ? "here" : "in {r10_header}" )} ;
-   here_r11 : dynamic_string {( is_at "r11" ? "here" : "in {r12_header}" )} ;
-   here_r12 : dynamic_string {( is_at "r12" ? "here" : "in {r12_header}" )} ;
+   here_start : dynamic_string {( is_at "wee_clink" ? "here" : "in <WEE CLINK<#f4f>>" )} ;
+   here_r00 : dynamic_string {( is_at "r00" ? "here" : "in {here_slime_apps}" )} ;
+   here_r01 : dynamic_string {( is_at "r01" ? "here" : "in {here_wall_crowned}" )} ; # this if statement may not ever apply but let's keep the code uniform
+   here_r02 : dynamic_string {( is_at "r02" ? "here" : "in {here_awe_flame}" )} ;
+   here_r10 : dynamic_string {( is_at "r10" ? "here" : "in {here_gray_tanks}" )} ;
+   here_r11 : dynamic_string {( is_at "r11" ? "here" : "in {here_pond_icy}" )} ;
+   here_r12 : dynamic_string {( is_at "r12" ? "here" : "in {here_our_burdens}" )} ;
    here_r20 : dynamic_string {( is_at "r20" ? "here" : "in {r20_header}" )} ;
    here_r21 : dynamic_string {( is_at "r21" ? "here" : "in {r21_header}" )} ;
    here_end : dynamic_string {( is_at "sell_farm" ? "here, probably" : "somewhere new, you suspect" )} ;
