@@ -601,7 +601,7 @@ locations {
    }
    r01 : location "{r01_loc_desc}" header = "{r01_header}" graphic="r_01_0" {
          on_command {
-         : match "_ wall" {
+         : match "_ wall;_ crowned" {
             : if (!point_walk_round) {
                : print "You see no obvious exits. Perhaps a new perspective or two or three would help. How to achieve one?" ;
             } : else_if (!point_thee_floored) {
@@ -741,6 +741,12 @@ locations {
             : gosub "add_point" ;
             : done ;
          }
+         : if (point_great_ankhs) {
+            : match "x ankh;x ankhs" {
+               : print "They radiate peace and stillness." ;
+               : done ;
+            }
+         }
          : match "great _;_ ankhs;_ ankh" {
             : set_boolean var = "done_already" {( point_great_ankhs )} ;
             : set_boolean var = "think_already" {( think_great_ankhs )} ;
@@ -762,7 +768,7 @@ locations {
                : done ;
             }
          }
-         : match "pawn dicey" {
+         : match "pawn dicey;pawn dicy" {
             : if (point_pawn_dicey) {
                : print "You already found an ally here." ;
                : done ;
@@ -776,7 +782,7 @@ locations {
             : done ;
          }
          : if (!point_pawn_dicey) {
-            : match "pawn _;_ dicey" {
+            : match "pawn _;_ dicey;_ dicy" {
                : set_boolean var = "done_already" {( point_pawn_dicey )} ;
             : set_integer var="tempint" "4" ;
             : set_false "first_half" ;
@@ -871,6 +877,9 @@ locations {
          : if (!point_thee_floored) {
             : match "floored -" {
                : print "Floored is right, but this is a bit tricky. Adventuron doesn't parse articles, and I didn't want two potential one-word solutions, so you need something similar." ;
+               : set_integer var="tempint" "11" ;
+               : set_false "first_half" ;
+               : gosub "reject_half" ;
                : done ;
             }
          }
@@ -1264,10 +1273,6 @@ subroutines {
             : print "You're on the right track. No need for an interjection. It's something simpler. In fact, a word so simple, Adventuron doesn't care if it's there or not." ;
          }
          : match "dart -" {
-            : if (point_a_dart) {
-               : print "Already done!" ;
-               : done ;
-            }
             : destroy "aid_art" ;
             : pocket "dart" ;
             : print "The aid art doesn't have explicit instructions on how to create a dart, but you suppose that's for the best. People shouldn't have too-easy access to lethal weapons. It takes a while to figure what to do, but thanks to your earlier wordsmithing, you see methods others might have missed. Enough to create a dart!" ;
