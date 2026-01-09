@@ -1435,11 +1435,11 @@ subroutines {
       }
       : cycle key = "xnumhints" predictable_order = "true" skip_interval = "0" {
          : print "This help has five parts total and is game state agnostic, e.g. the cycle won't change. {xnum} should give you a number. You may be able to guess what it means, but if not, I will give progressive hints." ;
-         : print "If {xnum}'s number is 0 or -1, you are done here." ;
+         : print "If {xnum}'s number is 0, you are done where you are, but if you get no number, you need to come back later." ;
          : print "The rest of the time, {xnum} gives a two-digit number." ;
          : print "{xnum} will give, in order, the number of letters in each word (tens digit = first, ones = second.) In one case, it gives a three-digit number." ;
-         : print "Then the tens digit=first, hundreds digit=second." ;
-         : print "This is necessary because one puzzle has a ten-letter word. But don't worry. It will be clued in other ways." ;
+         : print "Then the hundreds digit = first, tens digit = second." ;
+         : print "This is necessary because one puzzle has a ten-letter word. But don't worry. That long word will be clued in other ways." ;
       }
       : done ;
    }
@@ -1457,7 +1457,7 @@ subroutines {
                   }
                   : print {( (part_word_score != 2 ? (collection_get{ collection -> ("first_words") index -> (counter) }) : "{noguess}") + " " + (part_word_score >= 2 ? (collection_get{ collection -> ("second_words") index -> (counter) }) : "{noguess}") + " " + (collection_get{ collection -> ("situations") index -> (counter) }) )} ;
                   : if (!solved_both_parts_nag && part_word_score == 3) {
-                     : print "{note_once}You have figured each half of a point-scoring command, but you haven't typed them both together. That still might not work if you haven't prepared by solving other puzzles, but if that's the case, {vd_think} will remind you with contest until it does." ;
+                     : print "{note_once}You have figured each half of a point-scoring command, but you haven't typed them both together. That still might not work if you haven't prepared by solving other puzzles, but if that's the case, {vd_think} will remind you with context until it does." ;
                      : set_true "solved_both_parts_nag" ;
                   }
                }
@@ -1471,10 +1471,10 @@ subroutines {
    }
 
    meta_verbs : subroutine {
-      : print "{this_g} uses a stripped-down parser. <TAKE<#0f0>> and <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. {vd_i} still shows them." ;
+      : print "{this_g} uses a stripped-down parser. <TAKE<#0f0>> and <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. Taking {vd_inv} (shortcut: {vd_i}) still shows them." ;
       : print "{this_g} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your {vd_inv}, which you can also see with <I<#0f0>>." ;
       : print "Meta-verbs include {vm_about}, {vm_credits}, and {vm_verbs}. {vd_score} shows the score, which is also in the upper right header." ;
-      : print {( "All point-scoring commands have two words which you need to figure. {vd_think} will " + (first_point ? "" : " walk you through this first puzzle, then later " ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
+      : print {( "All point-scoring commands have two words which you need to figure, though a word in one puzzle is rather common and Adventuron will not miss it if you leave out. {vd_think} will " + (first_point ? "" : " walk you through this first puzzle, then later " ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
       : print "{vd_hint} explains how to use {hint_item}." ;
       : print "{vm_tstart_stop} starts and stops a transcript." ;
       : print {( "{vm_options} shows two option commands that follow {this_g}'s mechanic." + (score == 0 && !read_options_yet ? " They may be spoilers or clues for the first puzzle." : "" ) )}  ;
@@ -1514,7 +1514,7 @@ subroutines {
 
    note_thinks : subroutine {
       : if (!think_note_yet) {
-         : print "{note_once}{vd_think} will track any command that will score points at a later time. Also, the status line in the upper left will show +1 or more, for commands you've guessed right but still need prep for." ;
+         : print "{note_once}{vd_think} will track any command that you need to retry later, after preparation. Also, the status line in the upper left will show +1 or more, for commands you've guessed right but still need prep for." ;
          : set_true "think_note_yet" ;
       }
    }
