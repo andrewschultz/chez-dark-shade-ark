@@ -63,7 +63,7 @@ strings {
 
    # diagnostic verbs
    vd_hint : string "<HINT<#f0f>>/<HINTS<#f0f>>/<HELP<#f0f>>" ; #~
-   vd_i : string "<I<#f0f>>" ;
+   vd_i : string "<I<#f0f>> / <INV<#f0f>>" ;
    vd_inv : string "<INVENTORY<#f0f>>" ;
    vd_score : string "<SCORE<#f0f>>" ;
    vd_think : string "<THINK<#f0f>>" ;
@@ -167,7 +167,7 @@ strings {
    r01_noback : string "You don't want to go back <IN<#0f0>>ward to the wee clink." ;
 
    r02_header : dynamic_string {( point_gull_flying ? "<Gulf, Lying<#ff0>>" : return_off_lame ? "{puz_gulf_lying}" : point_off_lame ? "{r_blob}" : "{puz_awe_flame}" )} ;
-   r02_loc_desc : dynamic_string {( point_gull_flying ? "The gull, flying, showed you a path east." : return_off_lame ? "You're in a {puz_gulf_lying}. Like you can't really go anywhere further. Right? It seems to say you can only go back south, and that's that." : point_off_lame ? "It's barren here now. Maybe when you come back, you'll see more." : "An {puz_awe_flame} distracts you from any belief you can progress further. Well, technically, it's a bunch of flames that together make a huge one.\nThey're impressive but contained. At least you remember it's still safe back south. But you dare to dream of a way to make the flame look less impressive." )} ;
+   r02_loc_desc : dynamic_string {( point_gull_flying ? "The gull, flying, showed you a path east." : return_off_lame ? "You're in a {puz_gulf_lying}. Like you can't really go anywhere further. Right? It seems to say you can only go back south, and that's that." : point_off_lame ? "It's barren here now. Maybe when you come back, you'll see more." : "An {puz_awe_flame} distracts you from any belief you can progress further. Well, technically, it's a bunch of flames that together make a huge one.\nThey're impressive but contained. At least you remember it's still safe back south. But you dare to dream of a way to make the flame(s) look less impressive." )} ;
    r02_nogo : dynamic_string {( return_off_lame ? "You see no passage." : point_off_lame ? "You should come back and look for new exits once the land's healed from the flame." : "The awe-flame distracts you too much from finding new exits." )} ;
 
    r10_header : dynamic_string {( point_great_ankhs ? "<Great Ankhs<#ff0>>" : "{puz_gray_tanks}" )} ;
@@ -492,7 +492,7 @@ collections {
 }
 
 locations {
-   wee_clink : location "It sure is claustrophobic here in the {wee_clink}. You're not sure how to get out. The only think you see in the outside is a {sc_sosc}." header="{puz_wee_clink}" graphic="r_wee_clink" {
+   wee_clink : location "It sure is claustrophobic here in the {wee_clink}. You're not sure how to get out. The only thing you see in the outside is a {sc_sosc}." header="{puz_wee_clink}" graphic="r_wee_clink" {
       on_command {
          : match "_ sun;_ sunk;_ old;_ cold" {
             : print "So low in the sky, the {sc_sosc} barely gives out light and sets the mood for, well, pretty much everything here. The gloom and doom is lousy, but maybe the sun itself is providing a clue." ;
@@ -686,7 +686,7 @@ locations {
                   : print "Already done!" ;
                   : done ;
                }
-               : print "No, you think, the light wouldn't have shown the passage to the gulf without being more explicit that there was hope. The gulf seems to say, no, there really is nowhere else, but you also know that by water, there are signs and animals you can look for. You discover a gull and note them flying east. Once you know there's a passage that way, your mind is clearer, and you see the passage now." ;
+               : print "No, you think, the light wouldn't have shown the passage to the gulf without being more explicit that there was hope. The gulf seems to say, no, there really is nowhere else, but you also know that by water, there are signs and animals you can look for. But then you spy a gull flying east. Once you know there's a passage that way, your mind is clearer, and you see the passage now." ;
                : set_true "point_gull_flying" ;
                : collection_modify { collection = "tried_combo" index -> (6) content -> ("true") } ;
                : gosub "add_point" ;
@@ -716,13 +716,13 @@ locations {
                : done ;
             }
             : if (!point_a_dart) {
-               : print "The pawn shrugs. It can't do much without a weapon." ;
+               : print "The pawn shrugs. Those tanks aren't going to be changed without a fight, and it can't do much without a weapon." ;
                : set_true "think_great_ankhs" ;
                : gosub "note_thinks" ;
                : done ;
             }
             : if (!point_pawn_dicey) {
-               : print "Perhaps you could find someone or something to shoot the dart at the tanks just right, but there's no chance you can." ;
+               : print "Perhaps you could find someone or something to shoot the dart at the tanks just right, to reveal what's behind them, but there's no chance you can." ;
                : set_true "think_great_ankhs" ;
                : gosub "note_thinks" ;
                : done ;
@@ -858,9 +858,11 @@ locations {
             : match "_ thief;_ lord" {
                : if (think_thee_floored) {
                   : print "You already figured how to get the thief lord's attention. {t_thee_floored}.";
-                  : print {( point_deem_unfit ? "And with the {i_pcpa}, you might have a way to disstract them." : "You still don't have any way to distract them." )} ; 
+                  : print {( point_deem_unfit ? "And with the {i_pcpa}, you might have a way to distract them." : "You still don't have any way to distract them." )} ;
                }
-               : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, {t_thee_floored} will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
+               : if (!is_carried "poach_arm" ) {
+                  : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, {t_thee_floored} will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
+               }
                : gosub "note_noun_based" ;
                : done ;
             }
@@ -869,7 +871,7 @@ locations {
             : if (point_thee_floored) {
                : print "Don't mess with the door now. Figure what to do with the {i_me_code}." ;
             } : else {
-               : print "It looks intimidating, but you won't need to mess with it even with the {puz_thief_lord} gone. " ;
+               : print "It looks intimidating, but you won't need to mess with it even if you manage to chase the {puz_thief_lord}." ;
             }
             : gosub "note_noun_based" ;
             : done ;
@@ -895,8 +897,9 @@ locations {
                : print "But you already got rid of the thief." ;
                : done ;
             }
+            : print "\"THEE, FLOORED!\" you boom, enraging the thief lord enough that they charge at you. But then the {i_pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {i_pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
             : print "The {i_pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {i_pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
-            : print "The thief goes back through the {sc_sosd}, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve!" ;
+            : print "The thief goes back through the {sc_sosd}, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve! Yo and that weird whatever-it-is trying to stop it!" ;
             : set_true "point_thee_floored" ;
             : set_false "think_thee_floored" ;
             : print "The {i_pcpa} combs through the area with the thief gone. It seems to ignore the treasure, instead settling on a {i_me_code} it flips your way. Then it gives you a thumbs-up and runs off. It's paid its dues for rescuing you." ;
