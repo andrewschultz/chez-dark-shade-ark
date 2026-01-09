@@ -318,6 +318,8 @@ booleans {
 
    thought_any : dynamic_boolean {( think_great_ankhs || think_deem_unfit || think_thee_floored || think_high_strawberry )} ;
 
+   main_cmd : boolean "false" ;
+
    # puzzle readiness dynamic booleans
    ready_great_ankhs : dynamic_boolean {( point_pawn_dicey && point_a_dart )}
    blurry_num: dynamic_boolean {( !is_carried "aid_art" && (
@@ -579,14 +581,22 @@ locations {
             : done ;
          }
          : match "sly _;_ maps;_ map" {
-            : set_boolean var = "done_already" {( point_sly_maps )} ;
-            : set_integer var="tempint" "3" ;
-            : set_false "first_half" ;
-            : match "sly _" {
-               : set_true "first_half" ;
+            : mask {
+               : set_false "main_cmd" ;
+               : match "x maps;x map" {
+                  : set_true "main_cmd" ;
+               }
             }
-            : gosub "reject_half" ;
-            : done ;
+            : if (!main_cmd) {
+               : set_boolean var = "done_already" {( point_sly_maps )} ;
+               : set_integer var="tempint" "3" ;
+               : set_false "first_half" ;
+               : match "sly _" {
+                  : set_true "first_half" ;
+               }
+               : gosub "reject_half" ;
+               : done ;
+            }
          }
       }
    }
