@@ -89,6 +89,7 @@ strings {
    here_pond_icy : string "<Pond, Icy<#f4f>>" ;
    here_slime_apps : string "<Slime Apps<#f4f>>" ;
    here_wall_crowned : string "<Wall, Crowned<#f4f>>" ;
+
    puz_awe_flame : string "<awe flame<#f4f>>" ;
    puz_demon_fit : string "<demon, fit<#f4f>>" ;
    puz_fir_static : string "<fir (static)<#f4f>>" ;
@@ -492,7 +493,7 @@ collections {
 }
 
 locations {
-   wee_clink : location "It sure is claustrophobic here in the {wee_clink}. You're not sure how to get out. The only thing you see in the outside is a {sc_sosc}." header="{puz_wee_clink}" graphic="r_wee_clink" {
+   wee_clink : location "It sure is claustrophobic here in the {puz_wee_clink}. You're not sure how to get out. The only thing you see in the outside is a {sc_sosc}." header="{puz_wee_clink}" graphic="r_wee_clink" {
       on_command {
          : match "_ sun;_ sunk;_ old;_ cold" {
             : print "So low in the sky, the {sc_sosc} barely gives out light and sets the mood for, well, pretty much everything here. The gloom and doom is lousy, but maybe the sun itself is providing a clue." ;
@@ -733,6 +734,7 @@ locations {
             }
             : print "Great ankhs rise from the ground. A voice says: \nTake this. You have performed well. It will not make you unhappy, but it will make mean people or entities around you unhappy. It is a ... {i_bdb_ankh}.\"" ;
             : set_true "point_great_ankhs" ;
+            : destroy "dart" ;
             : destroy "gray_tanks" ;
             : create "great_ankhs" ;
             : set_false "think_great_ankhs" ;
@@ -1190,7 +1192,7 @@ subroutines {
          : done ;
       }
       : match "ho nigh" {
-         : print {( "Exits are " + (opt_hone_aye ? "already" : "now") + " all available, even ones you don't need to revisit." )} ;
+         : print {( "Exits are " + (opt_hone_aye ? "now" : "already") + " all available, even ones you don't need to revisit." )} ;
          : set_false "opt_hone_aye" ;
          : done ;
       }
@@ -1762,7 +1764,7 @@ on_tick {
       : if (pawn_is_around) {
          : print "The pawn (dicey) also skulks behind in the shadows, ready to do your bidding at the right time." ;
       }
-      : if (is_carried "sly_maps" and progress_full_map) {
+      : if (is_carried "sly_maps" && progress_full_map) {
          : print "You've also combined the maps and key to see a path through a maze. Where would they be useful?" ;
       }
       : if (!inventory_note) {
