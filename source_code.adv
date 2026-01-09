@@ -107,6 +107,7 @@ strings {
    i_bdb_ankh : string "<brew-dank-brood ankh<#db9>>" ;
    i_fsfp : string "<free-speech-freeze peach<#db9>>" ;
    i_hope_light : string "<ho-plight-hope light<#db9>>" ;
+   i_kakn : string "<keen (aye!) key nigh<#db9>>" ;
    i_me_code : string "<meek \"owed, me\" code<#db9>>" ;
    i_pcpa : string "<po' charm-poach arm<#db9>>" ;
 
@@ -653,6 +654,7 @@ locations {
       on_command {
          : match "off lame" {
             : print "The flame seems impressive at first, but once you stop staring at it, you realize it's contained, and it's not going to catch and go anywhere else. In fact, instead of being awed by it, you're glad it provides light to look at other places. However, as you stare at it more, it sort of burns away, until you can't see it anymore. It, or the path or paths it seemed to open up. Maybe you will find a light source later." ;
+            : print "You do, however, find a {i_kakn}. Not something that unlocks a door but half of a map, with some trivial annotation." ;
             : set_true "point_off_lame" ;
             : collection_modify { collection = "tried_combo" index -> (2) content -> ("true") } ;
             : gosub "add_point" ;
@@ -1009,7 +1011,7 @@ locations {
 
 objects {
    cold_sun : scenery "{sc_sosc}" msg="(see match _ sun command)" at="wee_clink" conspicuous="false" ;
-   key_nigh : object "keen (aye!) key nigh" msg="You revisit the key to see one-half of a maze." ;
+   key_nigh : object "{i_kakn}" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
    hope_light : object "<\"Ho! Plight? Hope!\" light<#db9>>" msg="The {i_hope_light} provides a reassuring light." ;
    fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" conspicuous="false" ;
