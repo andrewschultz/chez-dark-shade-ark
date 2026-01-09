@@ -183,7 +183,7 @@ strings {
    r12_nogo : string "You can only go back west." ;
 
    r20_header : dynamic_string {( "<Sword-Or-Sore Door<#ff0>>" )} ;
-   r20_loc_desc : dynamic_string {( "Hoo boy it's dark in here. You can only go back up." )} ;
+   r20_loc_desc : dynamic_string {( "Hoo boy it's dark in here. Even with your {i_hope_light}. You can only go back up." )} ;
    r20_nogo : string "You can only go back up." ;
 
    r21_header : dynamic_string {( point_deem_unfit ? "<Tomb Eek-Too-Meek<#ff0>>" : "<Tomb End-To-Mend<#ff0>>" )} ;
@@ -762,7 +762,7 @@ locations {
    }
    r11 : location "{r11_loc_desc}" header = "{r11_header}" graphic="r_11_0" {
       on_command {
-         : if (!return_off_lame) {
+         : if (!is_carried "hope_light") {
             : match "d _" {
                : print "It's too dark down there for now." ;
                : done ;
@@ -1031,13 +1031,13 @@ objects {
    cold_sun : scenery "{sc_sosc}" msg="(see match _ sun command)" at="wee_clink" conspicuous="false" ;
    key_nigh : object "{i_kakn}" msg="You revisit the key to see one-half of a maze." ;
    sly_maps : object "sly maps" msg="One-half of a maze." ;
-   hope_light : object "<\"Ho! Plight? Hope!\" light<#db9>>" msg="The {i_hope_light} provides a reassuring light." ;
+   hope_light : object "a {i_hope_light}" msg="The {i_hope_light} provides a reassuring light." ;
    fir_static : scenery "{puz_fir_static}" msg="{desc_fir_static}" conspicuous="false" ;
    aid_art : object "{i_aid_art}" msg="It's about as helpful as art can be. Maybe you can make it into something more useful." ;
    dart : object "a dart" msg="It's the dart you got from the aid art." ;
-   freeze_peach : object "a {i_fsfp}" msg="You were worried it would exhibit a chilling effect on you, but when you stare at it a but, you realize you have a right, maybe even a duty, to cut in around people who talk too much and feel a bit freer to speak your own mind." ;
+   freeze_peach : object "a {i_fsfp}" msg="You were worried it would exhibit a chilling effect on you, but when you stare at it a bit, you realize you have a right, maybe even a duty, to cut in around people who talk too much and feel a bit freer to speak your own mind." ;
    poach_arm : object "a po'-charm-poach arm" msg="It doesn't seem to be after big treasure. It seems like it could be a real nuisance, though." ;
-   brood_ankh : object "a brew-dank-brood ankh" msg="It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
+   brood_ankh : object "a {i_bdb_ankh}" msg="It doesn't seem to affect you, but apparently it can help you take meanies or worse down a peg or five." ;
    me_code : object "a {i_me_code}" msg="A list of grievances, imaginary or otherwise, allegedly justifying why the poor hard-done-by Thief Lord was not just right to steal more and more, but wrong not to. Among the indecipherable diagrams, you see {puz_heist} written on it a lot." ;
 
    # scenery e.g. non-default description may need to go in on_describe block
