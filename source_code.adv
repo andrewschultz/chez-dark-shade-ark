@@ -1644,7 +1644,9 @@ on_command {
       }
    }
 
+   : gosub "check_odd_verbs" ;
    : gosub "check_standard_verbs" ;
+
    : gosub "custom_verb_general_checks" ;
    : gosub "check_options" ;
 
@@ -1751,6 +1753,9 @@ on_tick {
    : match "i _" {
       : if (pawn_is_around) {
          : print "The pawn (dicey) also skulks behind in the shadows, ready to do your bidding at the right time." ;
+      }
+      : if (is_carried "sly_maps" and progress_full_map) {
+         : print "You've also combined the maps and key to see a path through a maze. Where would they be useful?" ;
       }
       : if (!inventory_note) {
          : print "{note_once}while you never explicitly use any items in your inventory, some are worth examining to reveal the next puzzle." ;
