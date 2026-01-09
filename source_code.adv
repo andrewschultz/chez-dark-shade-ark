@@ -352,7 +352,6 @@ booleans {
    # flags for one time notes, etc.
    warn_hints : boolean "false" ;
 
-   intro_shown_yet : boolean "false" ;
    ever_x_me : boolean "false" ;
    ever_x_number : boolean "false" ;
    clink_think : boolean "false" ;
@@ -1626,10 +1625,6 @@ on_startup {
 ## Execute this every time a player moves or redescribes a location
 
 on_describe {
-   : if (!intro_shown_yet) {
-      : print "{note_once}{this_g} uses a reduced parser. {vm_verbs} details them, though standard starting commands like {vm_about} and {xme} may help you get started." ;
-      : set_true "intro_shown_yet" ;
-   }
 }
 
 ## this main subroutine tests metaverbs.
