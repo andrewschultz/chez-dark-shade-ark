@@ -901,7 +901,7 @@ locations {
             }
             : print "\"THEE, FLOORED!\" you boom, enraging the thief lord enough that they charge at you. But then the {i_pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {i_pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
             : print "The {i_pcpa} distracts the thief enough, poking through silly trinkets, that they are floored by your accusations and so forth, and your threats, and all that sort of thing. The thief recognizes the {i_pcpa} as the sort of relic you don't find unless you hang with, or dispel, demons." ;
-            : print "The thief goes back through the {sc_sosd}, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve! Yo and that weird whatever-it-is trying to stop it!" ;
+            : print "The thief goes back through the {sc_sosd}, ostensibly to Show You soon enough. As they do, they mutter they could of course Show You now, but once they get their friends together, they'll really Show You like you deserve! You and that weird whatever-it-is trying to stop it!" ;
             : set_true "point_thee_floored" ;
             : set_false "think_thee_floored" ;
             : print "The {i_pcpa} combs through the area with the thief gone. It seems to ignore the treasure, instead settling on a {i_me_code} it flips your way. Then it gives you a thumbs-up and runs off. It's paid its dues for rescuing you." ;
@@ -1359,7 +1359,7 @@ subroutines {
    meta_credits : subroutine {
       : print "Game-specific thanks:" ;
       : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
-      : print "Thanks to <Leon W. Lin<#0f0>> for post-comp testing of the {vd_think} feature." ;
+      : print "Thanks to <Leon Lin<#0f0>> for post-comp testing of the {vd_think} feature." ;
       : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
       : gosub "meta_credits_general" ;
    }
@@ -1702,7 +1702,7 @@ on_command {
       : gosub "meta_verbs" ;
    }
 
-   : match "x me;x myself" {
+   : match "x me;x myself;x -" {
       : if (!ever_x_me) {
          : print "Weird! You see {a_num} on your arm." ;
          : set_true "ever_x_me" ;
