@@ -540,21 +540,22 @@ locations {
             : press_any_key ;
             : clear_screen ;
             : print "It says, well, I feel really embarrassed, because I was the one who threw you in jail in the first place. In the weak link." ;
-            : print "\"Oh, man. What are you even talking about?\" You ask. It says, \"Well, somebody told me that it was the person that I least expected that would do something to me. And I figured that the thief Lord was pretty suspicious, but on the other hand, they were someone I expected, so I knew better. So I look for someone played, someone who maybe had a lot to high, and you certainly fit the bill, like someone they wouldn't expect to be a robber. So I threw you in the click. I feel kind of dumb now, but I guess it worked out okay?\"" ;
+            : print "\"Oh, man. What are you even talking about?\" You ask. It says, \"Well, somebody told me that it was the person that I least expected that would do something to me. And I figured that the thief lord was really suspicious, but on the other hand, they knew I was onto them, and I knew they had other immediate plans. So I looked for someone who didn't seem up to trouble, and you certainly fit the bill. I feel kind of dumb now for throwing you in the clink. I mean, I feel really dumb. But I, uh, guess it worked out okay?\"" ;
             : update_graphic "s_hist_2" ;
             : press_any_key ;
             : clear_screen ;
-            : print "This is all very awkward, and you can't help cursing under your breath, until you nod and say, okay, well, I guess I was the right choice with what I was able to do. The strawberry nods. \"Let's take care of those folks. War!!!!!\"" ;
+            : print "This is all very awkward, and you can't help cursing under your breath, until you nod and say, okay, well, I guess I was the right choice, given how thing turned out. The strawberry nods. \"Let's take care of those folks. War!!!!!\"" ;
             : update_graphic "s_hist_3" ;
             : press_any_key ;
             : clear_screen ;
-            : print "\"Wait a minute,\" you say, \"you're being rash again. If you just want to protect yourself against the thief lord, why not just destroy the {sc_sosd} for good?\"" ;
+            : print "\"Wait a minute,\" you say. \"You're being rash again. If you just want to protect yourself against the thief lord, why not just destroy the {sc_sosd} for good?\"" ;
             : print "\"That would make a ton of sense,\" says the strawberry, \"But our weapons didn't work against it. I just figured we needed more lethal ones. What else is there?\"" ;
             : update_graphic "s_hist_4" ;
             : press_any_key ;
             : clear_screen ;
-            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue. You, however, do. It's a {sc_sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make the {sc_sosd} shudder and lose its magic power. The {sc_sosd} can no longer bring the Thief Lord back." ;
-            : print "The strawberry apologizes for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more up to it now. That's something." ;
+            : print "Obviously, if it could be done without weapons, that would be best, but they have no clue how. You, however, do. It's a {sc_sosd}, right? So you say, soar, door, and you say \"'S ORDER.\" It's a bit convoluted, so you hope it works, and it turns out it does! All the slight mispronunciations, or alternate pronunciations, have given you strength along the way to make the {sc_sosd} shudder and lose its magic power. You open it to, not a new world, but a rock wall behind. The {sc_sosd} can no longer bring the thief lord back." ;
+            : print "All the fruits gasp in amazement. And if you get talking fruits to do so, why, you've really done something!" ;
+            : print "The strawberry apologizes yet again for inconveniencing you. Then you remember all those places you meant to visit, books you meant to read, etc. that you just didn't. Your time in jail helped you focus on that, and getting stuff done here made you feel more like you could do that semi-impossible thing. And you know nobody's going to pull you into doing these things, back in your own world, like the strawberry did here. So, lesson learned there. At least, in the abstract." ;
             : print "But how to get back? A simple <cu<#f00>><be<#f80>> <an<#ff0>><d Q<#0f0>> <ba<#00f>><nd<#f0f>> lie where the {sc_sosd} used to be. You pick them up ... they hum ... the scenery changes ... and you are back home." ;
             : update_graphic "s_hist_5" ;
             : press_any_key ;
@@ -850,7 +851,7 @@ locations {
    r20 : location "{r20_loc_desc}" header = "{r20_header}" graphic="r_20_0" {
       on_describe {
          : if (!point_thee_floored) {
-            : print "A {puz_thief_lord} sits here, planning and guarding its treasures next to a {sc_sosd}. They're oblivious to you." ;
+            : print "A {puz_thief_lord} sits here, oblivious to you, planning while guarding treasures next to a {sc_sosd}." ;
          } : else {
             : print "The {sc_sosd} stands here, still. No immediate danger, of course." ;
          }
