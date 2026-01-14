@@ -55,11 +55,10 @@ strings {
    # meta-verbs
    vm_about : string "<ABOUT<#f80>>" ;
    vm_credits : string "<CREDITS<#f80>>" ;
-   vm_history : string "<HISTORY<#f80>> / <VERSION(S)<#f80>>" ;
+   vm_history : string "<HISTORY<#f80>>" ;
    vm_options : string "<OPTIONS<#f80>>" ;
    vm_verbs : string "<VERBS<#f80>>" ;
-
-   vm_tstart_stop : string "<TSTART<#f80>>/<TSTOP<#f80>>" ;
+   vm_versions : string "<VERSION(S)<#f80>>" ;
 
    # diagnostic verbs
    vd_hint : string "<HINT<#f0f>>/<HINTS<#f0f>>/<HELP<#f0f>>" ; #~
@@ -1499,7 +1498,7 @@ subroutines {
       }
    }
 
-   meta_versions : subroutine {
+   meta_history : subroutine {
       : print "{this_g} came about after {l_gsgr}, when I just said, what would happen if I had an {l_ectocomp} entry with the leftovers from brainstorming {l_ut} and {l_wp}? Obviously some ideas were more amusingly spooky than others, and some words suggested themselves." ;
       : print "" ;
       : print "So {l_gsgr} formed, and it was small but feature-focused. Then during the stretch run for {l_ut} and {l_ifcomp} in late August, I had a flurry of ideas while procrastinating bug fixes and transcript reading. Two of the testers were to blame, so to speak: they noticed an unintentional red herring in the <Cell, Urban<#f80>>." ;
@@ -1507,10 +1506,13 @@ subroutines {
       : print "" ;
       : print "{this_g} had more rooms than {l_gsgr} so the EctoComp version didn't have bells and whistles, but I added them post-comp." ;
       : print "Leftovers from {this_g} are found in {l_dadc}. In fact, each of the three games had unique features for EctoComp that I merged into all of them post-comp." ;
-      : print "" ;
-      : print "Version 1 was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp Petite Mort, where it placed {placing} of 32 entries." ;
-      : print "Version 2 was published after EctoComp finished, on December 3, 2025." ;
-      : print "Version 3 is due to be published by the end of 2025. It is the last major update planned." ;
+      : print "{vm_versions} gives information about release dates." ;
+   }
+
+   meta_versions : subroutine {
+      : print "<Version 1<#ff0>> was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp Petite Mort, where it placed {placing} of 32 entries." ;
+      : print "<Version 2<#ff0>> was published after EctoComp finished, on December 3, 2025." ;
+      : print "<Version 3<#ff0>> was published January 11, 2026. Its main feature is to track half-right guesses, but it also has general improvements thanks to testers' feedback."
       : print "" ;
       : print "If you've found this elsewhere than Itch.io, the original version should be at {l_cdsa}." ;
    }
