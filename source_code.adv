@@ -36,9 +36,10 @@ strings {
    l_gsgr : string "<Go-Strange-Ghost Range<#0f0>>[http://andrewschultz.itch.io/go-strange-ghost-range]" ;
    l_ectocomp : string "<EctoComp<#0f0>>[http://itch.io/jam/ectocomp-2025]" ;
    l_ifcomp : string "<IFComp<#0f0>>[http://ifcomp.org]" ;
+   l_talp : string "<Text Adventure Literacy Jam 2025<#0f0>>[https://itch.io/jam/talp2025]" ;
 
    # EctoComp general strings
-   about_spoiler_flag : dynamic_string {( first_point ? "" : " It also contains names of similar games which may be a spoiler or hint for the first point." )} ;
+   about_spoiler_flag : dynamic_string {( first_point ? "" : " The history also contains names of similar games which may be a spoiler or hint for the first point." )} ;
    command_stickler : string "I'm going to be a stickler and enforce the spirit of the game on you and make you type " ;
    conditional_score : dynamic_string {( thought_right > 0 ? "+{thought_right}" : "" )} ;
    custom_unknown_verb_error : dynamic_string {( ( point_weak_link ? "" : "Unsure what to do, you mutter, despondently, \"Cell for self? Or...?\"\n" ) + "Nothing special happens. You can use {vm_verbs} for a general overview of standard verbs." )} ; #~
@@ -1378,7 +1379,7 @@ subroutines {
    meta_options : subroutine {
       : print "{this_g} has two options." ;
       : print "{vo_hone_aye} and {vo_ho_nigh} toggle blocking passage to rooms you're done with." ; #~
-      : print "{vo_see_lol} and {vo_seal_all} toggle whether {vd_think} will show specific words you've guessed right." ;
+      : print {( "{vo_see_lol} and {vo_seal_all} toggle whether {vd_think} will show specific words you've guessed right." + (read_options_yet ? "" : " The default is {vo_see_lol}, which records those guesses." ) )} ;
       : set_true "read_options_yet" ;
    }
 
@@ -1478,17 +1479,16 @@ subroutines {
          }
       }
       : if (!think_half_yet && !thought_any) {
-         : print "There's nothing you've currently figured out only partially, whether it's the right phrase and the wrong time, or half of a phrase you need." ;
+         : print "There are no point-scoring commands you've only figured partially. That includes both full phrases you figured before solving other puzzles they depended on and half-phrases you figured with the {vo_see_lol} option active." ;
       }
    }
 
    meta_verbs : subroutine {
       : print "{this_g} uses a stripped-down parser. <TAKE<#0f0>> and <DROP<#0f0>> are disabled, as the game picks up and removes items for you as needed. Taking {vd_inv} (shortcut: {vd_i}) still shows them." ;
-      : print "{this_g} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>> and <OUT<#0f0>>. You need to <X<#0f0>>/<EXAMINE<#0f0>> some items you find. They're in your {vd_inv}, which you can also see with <I<#0f0>>." ;
+      : print "{this_g} uses the four compass directions, along with <UP<#0f0>> and <DOWN<#0f0>> and <IN<#0f0>>. and <OUT<#0f0>>. <X<#0f0>>/<EXAMINE<#0f0>>ing items you find may reveal clues or push the plot forward. Items are in your {vd_inv}, which you can also see with {vd_i}." ;
       : print "Meta-verbs include {vm_about}, {vm_credits}, and {vm_verbs}. {vd_score} shows the score, which is also in the upper right header." ;
       : print {( "All point-scoring commands have two words which you need to figure, though a word in one puzzle is rather common and Adventuron will not miss it if you leave out. {vd_think} will " + (first_point ? "" : " walk you through this first puzzle, then later " ) + "show any commands you figured but didn't have in-game prep for yet." )} ;
       : print "{vd_hint} explains how to use {hint_item}." ;
-      : print "{vm_tstart_stop} starts and stops a transcript." ;
       : print {( "{vm_options} shows two option commands that follow {this_g}'s mechanic." + (score == 0 && !read_options_yet ? " They may be spoilers or clues for the first puzzle." : "" ) )}  ;
       : gosub "meta_verbs_star_help_onetime" ;
    }
