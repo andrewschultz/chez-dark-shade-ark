@@ -1565,7 +1565,7 @@ subroutines {
    meta_versions : subroutine {
       : print "<Version 1<#ff0>> was written late August 2025, then the second half of September 2025, then published October 30, 2025 for EctoComp Petite Mort, where it placed {placing} of 32 entries." ;
       : print "<Version 2<#ff0>> was published after EctoComp finished, on December 3, 2025." ;
-      : print "<Version 3<#ff0>> was published January 11, 2026. Its main feature is to track half-right guesses, but it also has general improvements thanks to testers' feedback."
+      : print "<Version 3<#ff0>> was published January 16, 2026. Its main feature is to track half-right guesses, but it also has general improvements thanks to testers' feedback." ;
       : print "" ;
       : print "If you've found this elsewhere than Itch.io, the original version should be at {l_cdsa}." ;
    }
@@ -1574,7 +1574,7 @@ subroutines {
       : if (noun_based_noted) {
          : return ;
       }
-      : print "{note_once}{this_g} tends to look at the noun more than the verb, so it will probably funnel most verbs to <X<#f80>>/<EXAMINE<#f80>>. There's enough verb guessing with the actual puzzles." ;
+      : print "{note_once}{this_g} tends to look at the noun or adjective more than the verb, so it will probably funnel most verbs to <X<#f80>>/<EXAMINE<#f80>>. There's enough verb guessing with the actual puzzles." ;
       : set_true "noun_based_noted" ;
    }
 
@@ -1820,8 +1820,8 @@ on_tick {
       : if (pawn_is_around) {
          : print "The pawn (dicey) also skulks behind in the shadows, ready to do your bidding at the right time." ;
       }
-      : if (is_carried "sly_maps" && progress_full_map) {
-         : print "You've also combined the maps and key to see a path through a maze. Where would they be useful?" ;
+      : if (progress_full_map) {
+         : print {( "You've also combined the maps and key to see a path through a maze. " + (progress_got_dart ? "And you've been through, but you're keeping them in case you need to go back." : "But you haven't found where to use this information yet." ) )} ;
       }
       : if (!inventory_note) {
          : print "{note_once}while you never explicitly use any items in your inventory, some are worth examining to reveal the next puzzle." ;
