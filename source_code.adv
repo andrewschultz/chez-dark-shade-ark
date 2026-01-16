@@ -762,7 +762,6 @@ locations {
             : print "Great ankhs rise from the ground. A voice says: \nTake this. You have performed well. It will not make you unhappy, but it will make mean people or entities around you unhappy. It is a ... {i_bdb_ankh}.\"" ;
             : set_true "point_great_ankhs" ;
             : destroy "dart" ;
-            : destroy "gray_tanks" ;
             : create "great_ankhs" ;
             : set_false "think_great_ankhs" ;
             : pocket "brood_ankh" ;
@@ -771,9 +770,15 @@ locations {
             : done ;
          }
          : if (point_great_ankhs) {
-            : match "x ankh;x ankhs" {
-               : print "They radiate peace and stillness." ;
+            : match "_ ankh;_ ankhs" {
+               : print "The anks, all more or less identical, radiate peace and stillness." ;
+               : gosub "note_noun_based" ;
                : done ;
+            }
+         } : else {
+            : match "_ tanks;_ tank;_ grey;_ gray" {
+               : print "Very intimidating and warlike. Perhaps they have a weak spot, but finding and exploiting it is beyond you." ;
+               : gosub "note_noun_based" ;
             }
          }
          : match "great _;_ ankhs;_ ankh" {
@@ -1092,7 +1097,6 @@ objects {
    demon_fit : scenery "{puz_demon_fit}" msg="(see MATCH code)" at="r21" conspicuous="false" ;
    say_fruits : object "safe-root-say fruits" msg="All sorts of fruits, with some notable exception. They seem leaderless." at="sell_farm" conspicuous="false" ;
    thief_lord : scenery "{puz_thief_lord}" msg="Keeping a close eye on you." at="r20" conspicuous="false" ;
-   gray_tanks : scenery "{puz_gray_tanks}" msg="Very intimidating and warlike." at="r10" conspicuous="false" ;
    great_ankhs : scenery "great ankhs" msg="They radiate peace and stillness." conspicuous="false" ;
 }
 
