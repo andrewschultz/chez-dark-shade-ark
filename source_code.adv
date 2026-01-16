@@ -176,7 +176,7 @@ strings {
    r10_nogo : string "You can only go back west." ;
 
    r11_header : dynamic_string {( point_pawn_dicey ? "<Pond, Icy<#ff0>>" : "{puz_pond_icy}" )} ;
-   r11_loc_desc : dynamic_string {( "Back west is the wall. There's also a forbidding passage down past the pond. " + (point_pawn_dicey ? "You've found a secret from the pond." : "Perhaps the {puz_pond_icy} holds a secret." ) )} ;
+   r11_loc_desc : dynamic_string {( "Back west is the wall. " + (point_pawn_dicey ? "You've found a secret from the pond." : "Perhaps the {puz_pond_icy} holds a secret." ) + "\nAlso, a forbidding darkened passage past the pond leads <DOWN<#0f0>>." )} ;
    r11_nogo : string "You can only go back west or down." ;
 
    r12_header : dynamic_string {( point_arbor_dens ? "<Arbor Dens<#ff0>>" : "{puz_our_burdens}" )} ;
@@ -663,7 +663,7 @@ locations {
             : set_true "return_thee_floored" ;
          }
          : if (point_sly_maps && !is_exists "hope_light" && !return_sly_maps) {
-            : print {( "As you returned, you uncovered something cool: a {i_hope_light}! That should help with " + ( has_visited "r11" ? "the dreary hole to the east." : "any dark cave you find." ) )} ;
+            : print {( "<Wait, what's this?<#f88>> As you returned, you uncovered something cool: a {i_hope_light}! That should help with " + ( has_visited "r11" ? "the dreary hole to the east." : "any dark cave you find. You haven't looked everywhere yet." ) )} ;
             : pocket "hope_light" ;
          }
       }
@@ -890,9 +890,10 @@ locations {
                : if (think_thee_floored) {
                   : print "You already figured how to get the thief lord's attention. {t_thee_floored}.";
                   : print {( point_deem_unfit ? "And with the {i_pcpa}, you might have a way to distract them." : "You still don't have any way to distract them." )} ;
-               }
-               : if (!is_carried "poach_arm" ) {
-                  : print {( "You really don't want to get the thief lord's attention until you're assured of victory. " + (think_thee_floored ? "Then, {t_thee_floored} will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
+               } : else_if (is_carried "poach_arm" ) {
+                  : print {( "The {arm} seems to reach out to the thief. " + (think_thee_floored ? "Maybe now you can {vm_think} to recall that distraction you tried earlier." : "But you need to figure how to make a distraction." ) )} ;
+               } : else {
+                  : print {( "You really don't want to get the {puz_thief_lord}'s attention until you have some sort of sneaky help. " + (think_thee_floored ? "Then, {t_thee_floored} will work." : "Even then, you probably need an extremely bold and confident greeting, I mean, war cry." ) )} ;
                }
                : gosub "note_noun_based" ;
                : done ;
@@ -968,7 +969,7 @@ locations {
       on_command {
          : if (!point_deem_unfit) {
             : match "_ demon;_ fit" {
-               : print "It sure seems confident in its ability to annoy you." ;
+               : print "It's bigger and stronger than you and sure seems confident in its ability to annoy you. Looks like you'll have to psyche it out, somehow." ;
                : gosub "note_noun_based" ;
                : done ;
             }
