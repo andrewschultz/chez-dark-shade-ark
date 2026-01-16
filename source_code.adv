@@ -672,6 +672,13 @@ locations {
             : pocket "key_nigh" ;
             : done ;
          }
+         : if (!point_off_lame) {
+            : match "_ awe;_ flame;_ flames" {
+               : print "Intimidating and (superficially) impressive, but the flame(s) can't burn forever. How to make them less imposing?" ;
+               : gosub "note_noun_based" ;
+               : done ;
+            }
+         }
          : match "off _;_ lame" {
             : set_boolean var = "done_already" {( point_off_lame )} ;
             : set_integer var="tempint" "2" ;
