@@ -673,6 +673,10 @@ locations {
             : done ;
          }
          : if (!point_off_lame) {
+            : match "aw _;aww _;_ aw;_ aww" {
+               : print "Finding the flames cute won't work. But perhaps you can characterize them another way." ;
+               : done ;
+            }
             : match "_ awe;_ flame;_ flames" {
                : print "Intimidating and (superficially) impressive, but the flame(s) can't burn forever. How to make them less imposing?" ;
                : gosub "note_noun_based" ;
@@ -1752,7 +1756,7 @@ on_command {
       : done ;
    }
 
-   : match "floored _;eh _" { #obfuscation of non solutions
+   : match "aww _;aw _;floored _;eh _" { #obfuscation of non solutions
       : print "{custom_unknown_verb_error}" ;
       : done ;
    }
