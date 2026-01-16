@@ -1323,6 +1323,11 @@ subroutines {
       : if (is_carried "aid_art") {
          : match "eh _" {
             : print "You're on the right track. No need for an interjection. It's something simpler. In fact, a word so simple, Adventuron doesn't care if it's there or not." ;
+            : match "eh dart" {
+               : print "In fact, yes, <DART<#f80>> must be right." ;
+               : collection_modify { collection = "got_second" index -> (5) content -> ("true") } ;
+            }
+            : done ;
          }
          : match "dart -" {
             : destroy "aid_art" ;
