@@ -581,6 +581,13 @@ locations {
             : pocket "sly_maps" ;
             : done ;
          }
+         : if (!point_sly_maps) {
+            : match "_ slime;_ apps;_ app" {
+               : print "It's kind of hard NOT to see the {puz_slime_apps}, really. What could they become?" ;
+               : gosub "note_noun_based" ;
+               : done ;
+            }
+         }
          : match "sly _;_ maps;_ map" {
             : mask {
                : set_false "main_cmd" ;
