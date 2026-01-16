@@ -859,6 +859,11 @@ locations {
             : done ;
          }
          : if (point_arbor_dens) {
+            : match "_ fir;_ static" {
+               : print {( point_first_attic ? "It's an impressive tree, but it hides nothing else for, or from, you." : "Such an impressive tree! What else does it hold?" )} ;
+               : gosub "note_noun_based" ;
+               : done ;
+            }
             : match "first attic" {
                : if (point_first_attic) {
                   : print "You already discovered the first attic!" ;
