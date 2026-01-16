@@ -782,6 +782,16 @@ locations {
                : done ;
             }
          }
+         : match "_ passage" {
+            : print {( point_thee_floored ? "You look back down the passage. You probably don't have anything left to do there." : has_visited "r20" ? "You've been down there. It wasn't expansive, and your {i_hope_light} lit the way pretty clearly." : is_carried "hope_light" ? "It's not exactly welcoming, but your {i_hope_light} will help you work your way through." : "You can't see anything inside the passage. You'll need a light source." )} ;
+            : gosub "note_noun_based" ;
+            : done ;
+         }
+         : match "_ pond;_ icy" {
+            : print {( "It's very cold and icy. It " + ( point_pawn_dicey ? "already revealed the pawn, so it seems unlikely to be hiding anything else beneath, though." : "might hide something beneath, if you know what to ask or look for." ) )} ;
+            : gosub "note_noun_based" ;
+            : done ;
+         }
          : match "pawn dicey;pawn dicy" {
             : if (point_pawn_dicey) {
                : print "You already found an ally here." ;
