@@ -499,6 +499,14 @@ locations {
             : print "So low in the sky, the {sc_sosc} barely gives out light and sets the mood for, well, pretty much everything here. The gloom and doom is lousy, but maybe the sun itself is providing a clue." ;
             : gosub "note_noun_based" ;
          }
+         : match "_ clink;_ wee;wee _;clink _" {
+            : print "Yes, you need to do something with (or to) the wee clink, but nothing that direct. Also, in general, the shorter <LOOK<#0f0>> or <L<#0f0>> is used in place of <X ROOM NAME<#0f0>>." ;
+            : done ;
+         }
+         : match "whee _;_ whee" {
+            : print "Pretending captivity is fun may help you cope, but it won't help you get out. You need a different way to look at, or modify, the {puz_wee_clink}." ;
+            : done ;
+         }
          : match "weak link" {
             : print "Of course, anyone who's stuck in a cell can sit around and dream of a way out. A hidden key, a button or lever, or whatever. But you have something specific to look for. With diligence, you find a weak link and fiddle with it until it enlarges. You hear crumbling above, and you run out before the way in (or out) collapses..." ;
             : set_true "point_weak_link" ;
@@ -1774,7 +1782,7 @@ on_command {
       : done ;
    }
 
-   : match "aww _;aw _;floored _;eh _" { #obfuscation of non solutions
+   : match "whee _;aww _;aw _;floored _;eh _;wee _;clink _" { #obfuscation of non solutions
       : print "{custom_unknown_verb_error}" ;
       : done ;
    }
