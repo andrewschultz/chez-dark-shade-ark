@@ -1410,7 +1410,7 @@ subroutines {
 
    meta_credits : subroutine {
       : print "Game-specific thanks: (credits are in no specific order)" ;
-      : print "Thanks to <Leon Lin<#0f0>> for post-comp testing of the {vd_think} feature." ;
+      : print "Thanks to <Leon Lin<#0f0>> for post-comp testing of the {vd_think} feature and general implementation." ;
       : print "Thanks to <mazegenerator.net<#0f0>>[http://www.mazegenerator.net] for generating the maze seen in some graphics." ;
       : gosub "meta_credits_general" ;
    }
@@ -1574,7 +1574,7 @@ subroutines {
       : if (noun_based_noted) {
          : return ;
       }
-      : print "{note_once}{this_g} tends to look at the noun or adjective more than the verb, so it will probably funnel most verbs to <X<#f80>>/<EXAMINE<#f80>>. There's enough verb guessing with the actual puzzles." ;
+      : print "{note_once}{this_g} tends to look at the noun or adjective more than the verb, so it will probably funnel most verbs to <X<#f80>>/<EXAMINE<#f80>>. There's enough verb guessing with the actual puzzles. Also, adjectives generally act as synonyms for nouns." ;
       : set_true "noun_based_noted" ;
    }
 
