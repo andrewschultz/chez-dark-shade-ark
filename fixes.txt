@@ -1,5 +1,17 @@
 Fixes/development log
 
+Version 3.0.0 published to Itch January 16, 2026
+--features synced with my other two EctoComp 2025 games, with lots of code reorganization
+  --this includes responses to standard verbs like Z, TAKE, DROP, LOAD, SAVE, RESTORE, RESTART as well as in-game MAPs
+--THINK now tracks half-right guesses until typed in fully
+--THINK funnels to HINT (for first puzzle) before first point unless you've made progress on first point
+--many background items implemented
+--better cluing, including deflections of sensible non-solutions
+--INVENTORY refined to note companion and if 2 items were combined
+--HISTORY and VERSIONS split off, OPTIONS as well
+--X - now maps to X ME, with a note
+--*HELP/*CREDITS standard Adventuron commands noted
+
 Version 2.0.0 published to Itch December 3, 2025
 BUGS
 --the portal should not appear next to the thief, just in the tomb. Now, instead, a door does.
