@@ -596,6 +596,13 @@ locations {
                : done ;
             }
          }
+         : if (point_sly_maps) {
+            : match "_ cramp;_ ache;_ ramp" {
+               : print {( "It " + (has_visited "r10" ? "was not even" : "looks like it won't even be") + " fun to run back down once you've climbed up it. But it's not, like, super steep. Just the sort of workout you always tend to put off." )} ;
+               : gosub "note_noun_based" ;
+               : done ;
+            }
+         }
          : match "sly _;_ maps;_ map" {
             : mask {
                : set_false "main_cmd" ;
